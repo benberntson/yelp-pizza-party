@@ -5,7 +5,7 @@ export let businessMock: Business = new Business(
   'Giorgio\'s Pizza',
   'http://www.giorgiospizza.com/',
   '415-668-1266',
-  'http://www.giorgiospizza.com/wp-content/uploads/2016/07/giorgios-pizza-san-francisco-home1.png',
+  'https://s3-media3.fl.yelpcdn.com/bphoto/aHGOnOo21VrX9k-Z0vUR_A/ms.jpg', 
   new Address(
     'Sanfrancisco',
     [

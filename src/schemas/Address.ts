@@ -11,7 +11,7 @@ export class Address{
     public country_code: string,
     public address: string[],   
     public state_code: string,
-     public coordinate?: {
+    public coordinate?: {
       "latitude": number,
       "longitude" : number
     }
