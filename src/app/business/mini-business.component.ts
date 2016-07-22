@@ -2,11 +2,9 @@ import {Component, Input} from '@angular/core';
 
 import {Business} from '../../schemas/Business';
 import {Address} from '../../schemas/Address';
-import {FavoritesService} from '../favorites/favorites.service';
-import {businessMock} from '../../mocks/business-mock';
 
 @Component({
-  selector: 'business',
+  selector: 'mini-business',
   template: `
   <div class='panel panel-default'>
     <div class='panel panel-heading'>
@@ -22,26 +20,12 @@ import {businessMock} from '../../mocks/business-mock';
     <a [href]="businessData.url" target="_blank">Yelp! link</a>
     </div>
     <img [src]="businessData.image_url ? businessData.image_url : 'images/no-image.png'" height="100" width="100">
-    <div *ngIf="businessData.rating" class="ratings-reviews">
-    <span class='ratings'>
-    Rating: <span class="badge">{{businessData.rating}}</span>
-    </span>
-      <br>
-     <i class="reviews">
-      *Based on {{businessData.review_count}} reviews
-      </i>
-      <br>
-      <br>
-      <div class="example-review">
-      Example Review: <i>"{{businessData.snippet_text}}"</i> &#8212; Yelp User
-      </div>
-      </div>           
-    </div>
   </div>
   `,
   styles: [`
     div.panel.panel-default{
-      width:370px;
+      width:290px;
+      margin-top: 5px;
     }
     .address{
       display:inline-block;
@@ -50,9 +34,10 @@ import {businessMock} from '../../mocks/business-mock';
     img{
       position:relative;
       display:inline-block;
-      width: 100px;
-      height: 100px;
-      margin-left:60px;
+      width: 75px;
+      height: 75px;
+      margin-left:10px;
+      vertical-align:top;
     }   
     .panel{
       color: white;
@@ -69,32 +54,17 @@ import {businessMock} from '../../mocks/business-mock';
       border: 1px;
       border-color:rgba(0,0,0,0.5);
       margin-bottom:0px;
+      font-size:90%;
     }
     .panel-body{    
       background: rgba(9,9,9,0.75);
     }
-    .ratings{
-      display: inline-block;
-      font-size: 100%;
-      margin-left:30px;
-    }
-    .reviews{
-      display: inline-block;
-      position:relative;
-      width: 100px;
-      left:110px;
-      font-size: 80%;
-    }
-    .ratings-reviews{
-      font-size: 100%;
-    }
   `]
 })
 
-export class BusinessComponent {
-  @Input('business-data') businessData:Business = businessMock;
-
-  constructor() { }
+export class MiniBusinessComponent{
+  @Input('business-data') businessData:Business;
+  constructor(){}
 
   getAddress() {
     if (!this.businessData.location.address) { return "" };
@@ -103,11 +73,11 @@ export class BusinessComponent {
 
   phoneNum(phoneNumber: string): string {
     if (phoneNumber) {
-      //phone number regex
       const PN_REGEX = /^(\d{3})(\d{3})(\d{4})$/;
       return phoneNumber.replace(PN_REGEX, '($1) $2-$3');
     } else {
       return '';
     }
   }
+
 }

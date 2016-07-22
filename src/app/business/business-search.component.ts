@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-
 import {BusinessService} from './business.service';
 import {Business,toBusiness} from '../../schemas/Business';
 
@@ -32,7 +31,6 @@ export class BusinessSearchComponent{
   executeSearch(){
     this._businessService.getBusinesses(this.searchTerm).subscribe(
       data => {
-        console.log(data.businesses.map(toBusiness));
         this._businessService.businesses = data.businesses.map(toBusiness);
         this._businessService.emitListChange();      
       },

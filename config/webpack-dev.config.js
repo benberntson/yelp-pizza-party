@@ -7,6 +7,7 @@ module.exports = {
     path: './public/javascripts',
     filename: 'app.js'
   },
+  devtool: 'source-map',
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
   },

@@ -320,7 +320,7 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
 }
-/* BEGIN BEN's CUSTOM CSS */
+/* BEGIN BEN's (my) CUSTOM CSS */
 .well {
   background-color:#212b31;
 }
@@ -328,3 +328,44 @@ body {
   background-color: 'gray';
   background-color: rgba(0, 0, 0,0.5);
 }
+.btn-primary{
+  background-color: darkred;
+  border-color: black;
+  transition: background-color 0.5s;
+}
+.btn-primary:hover{
+  background-color:red;
+  box-shadow: 0px 0px 5px white;
+}
+.btn-primary:active{
+  background-color: darkred;
+  border-color: black;
+  transition: background-color 0.5s;
+}
+.btn-primary:visited{
+  background-color: darkred;
+  border-color: black;
+  transition: background-color 0.5s;
+}
+.panel{
+  color: white;
+  border-radius: 0px;
+  border-color:rgba(0,0,0,0.5);
+  border-bottom: 1px;
+  font-size: 100%;     
+}
+.panel-body{    
+  background: rgba(9,9,9,0.75);
+}
+.panel-default{
+   background: rgba(9,9,9,0.75);
+}
+.panel-heading{
+   background: #333435;
+   border: 1px;
+   border-color:rgba(0,0,0,0.5);
+   margin-bottom:0px;
+}
+
+
+

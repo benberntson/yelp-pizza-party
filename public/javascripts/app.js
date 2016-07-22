@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -48,11 +48,17 @@
 	__webpack_require__(1);
 	var platform_browser_dynamic_1 = __webpack_require__(275);
 	var http_1 = __webpack_require__(603);
+	var app_routes_1 = __webpack_require__(954);
+	var common_1 = __webpack_require__(276);
 	var app_component_ts_1 = __webpack_require__(624);
 	var business_service_1 = __webpack_require__(630);
+	var favorites_service_1 = __webpack_require__(951);
 	platform_browser_dynamic_1.bootstrap(app_component_ts_1.AppComponent, [
+	    business_service_1.BusinessService,
+	    favorites_service_1.FavoritesService,
+	    app_routes_1.appRouterProviders,
+	    { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy },
 	    http_1.HTTP_PROVIDERS,
-	    business_service_1.BusinessService
 	]);
 
 
@@ -106,7 +112,7 @@
 	  , anObject                  = __webpack_require__(8)
 	  , toMetaKey                 = metadata.key
 	  , ordinaryDefineOwnMetadata = metadata.set;
-
+	
 	metadata.exp({defineMetadata: function defineMetadata(metadataKey, metadataValue, target, targetKey){
 	  ordinaryDefineOwnMetadata(metadataKey, metadataValue, anObject(target), toMetaKey(targetKey));
 	}});
@@ -119,7 +125,7 @@
 	  , $export = __webpack_require__(51)
 	  , shared  = __webpack_require__(30)('metadata')
 	  , store   = shared.store || (shared.store = new (__webpack_require__(65)));
-
+	
 	var getOrCreateMetadataMap = function(target, targetKey, create){
 	  var targetMetadata = store.get(target);
 	  if(!targetMetadata){
@@ -155,7 +161,7 @@
 	var exp = function(O){
 	  $export($export.S, 'Reflect', O);
 	};
-
+	
 	module.exports = {
 	  store: store,
 	  map: getOrCreateMetadataMap,
@@ -173,7 +179,7 @@
 
 	'use strict';
 	var strong = __webpack_require__(6);
-
+	
 	// 23.1 Map Objects
 	module.exports = __webpack_require__(59)('Map', function(get){
 	  return function Map(){ return get(this, arguments.length > 0 ? arguments[0] : undefined); };
@@ -207,7 +213,7 @@
 	  , DESCRIPTORS = __webpack_require__(11)
 	  , fastKey     = __webpack_require__(58).fastKey
 	  , SIZE        = DESCRIPTORS ? '_s' : 'size';
-
+	
 	var getEntry = function(that, key){
 	  // fast case
 	  var index = fastKey(key), entry;
@@ -217,7 +223,7 @@
 	    if(entry.k == key)return entry;
 	  }
 	};
-
+	
 	module.exports = {
 	  getConstructor: function(wrapper, NAME, IS_MAP, ADDER){
 	    var C = wrapper(function(that, iterable){
@@ -330,7 +336,7 @@
 	      if(kind == 'values')return step(0, entry.v);
 	      return step(0, [entry.k, entry.v]);
 	    }, IS_MAP ? 'entries' : 'values' , !IS_MAP, true);
-
+	
 	    // add [@@species], 23.1.2.2, 23.2.2.2
 	    setSpecies(NAME);
 	  }
@@ -344,7 +350,7 @@
 	  , IE8_DOM_DEFINE = __webpack_require__(10)
 	  , toPrimitive    = __webpack_require__(15)
 	  , dP             = Object.defineProperty;
-
+	
 	exports.f = __webpack_require__(11) ? Object.defineProperty : function defineProperty(O, P, Attributes){
 	  anObject(O);
 	  P = toPrimitive(P, true);
@@ -453,7 +459,7 @@
 	  , IE_PROTO    = __webpack_require__(29)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
-
+	
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
 	var createDict = function(){
 	  // Thrash, waste and sodomy: IE GC bug
@@ -475,7 +481,7 @@
 	  while(i--)delete createDict[PROTOTYPE][enumBugKeys[i]];
 	  return createDict();
 	};
-
+	
 	module.exports = Object.create || function create(O, Properties){
 	  var result;
 	  if(O !== null){
@@ -496,7 +502,7 @@
 	var dP       = __webpack_require__(7)
 	  , anObject = __webpack_require__(8)
 	  , getKeys  = __webpack_require__(18);
-
+	
 	module.exports = __webpack_require__(11) ? Object.defineProperties : function defineProperties(O, Properties){
 	  anObject(O);
 	  var keys   = getKeys(Properties)
@@ -514,7 +520,7 @@
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
 	var $keys       = __webpack_require__(19)
 	  , enumBugKeys = __webpack_require__(32);
-
+	
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
 	};
@@ -527,7 +533,7 @@
 	  , toIObject    = __webpack_require__(21)
 	  , arrayIndexOf = __webpack_require__(25)(false)
 	  , IE_PROTO     = __webpack_require__(29)('IE_PROTO');
-
+	
 	module.exports = function(object, names){
 	  var O      = toIObject(object)
 	    , i      = 0
@@ -576,7 +582,7 @@
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
-
+	
 	module.exports = function(it){
 	  return toString.call(it).slice(8, -1);
 	};
@@ -718,11 +724,11 @@
 	  , TO_STRING = 'toString'
 	  , $toString = Function[TO_STRING]
 	  , TPL       = ('' + $toString).split(TO_STRING);
-
+	
 	__webpack_require__(38).inspectSource = function(it){
 	  return $toString.call(it);
 	};
-
+	
 	(module.exports = function(O, key, val, safe){
 	  var isFunction = typeof val == 'function';
 	  if(isFunction)has(val, 'name') || hide(val, 'name', key);
@@ -876,7 +882,7 @@
 	var Iterators  = __webpack_require__(45)
 	  , ITERATOR   = __webpack_require__(46)('iterator')
 	  , ArrayProto = Array.prototype;
-
+	
 	module.exports = function(it){
 	  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 	};
@@ -895,12 +901,12 @@
 	  , uid        = __webpack_require__(31)
 	  , Symbol     = __webpack_require__(14).Symbol
 	  , USE_SYMBOL = typeof Symbol == 'function';
-
+	
 	var $exports = module.exports = function(name){
 	  return store[name] || (store[name] =
 	    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
 	};
-
+	
 	$exports.store = store;
 
 /***/ },
@@ -925,14 +931,14 @@
 	  , TAG = __webpack_require__(46)('toStringTag')
 	  // ES3 wrong here
 	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
-
+	
 	// fallback for IE11 Script Access Denied error
 	var tryGet = function(it, key){
 	  try {
 	    return it[key];
 	  } catch(e){ /* empty */ }
 	};
-
+	
 	module.exports = function(it){
 	  var O, T, B;
 	  return it === undefined ? 'Undefined' : it === null ? 'Null'
@@ -963,9 +969,9 @@
 	  , FF_ITERATOR    = '@@iterator'
 	  , KEYS           = 'keys'
 	  , VALUES         = 'values';
-
+	
 	var returnThis = function(){ return this; };
-
+	
 	module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
 	  $iterCreate(Constructor, NAME, next);
 	  var getMethod = function(kind){
@@ -1035,7 +1041,7 @@
 	  , redefine  = __webpack_require__(35)
 	  , ctx       = __webpack_require__(39)
 	  , PROTOTYPE = 'prototype';
-
+	
 	var $export = function(type, name, source){
 	  var IS_FORCED = type & $export.F
 	    , IS_GLOBAL = type & $export.G
@@ -1082,10 +1088,10 @@
 	  , descriptor     = __webpack_require__(37)
 	  , setToStringTag = __webpack_require__(53)
 	  , IteratorPrototype = {};
-
+	
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 	__webpack_require__(36)(IteratorPrototype, __webpack_require__(46)('iterator'), function(){ return this; });
-
+	
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
 	  setToStringTag(Constructor, NAME + ' Iterator');
@@ -1098,7 +1104,7 @@
 	var def = __webpack_require__(7).f
 	  , has = __webpack_require__(20)
 	  , TAG = __webpack_require__(46)('toStringTag');
-
+	
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
@@ -1112,7 +1118,7 @@
 	  , toObject    = __webpack_require__(55)
 	  , IE_PROTO    = __webpack_require__(29)('IE_PROTO')
 	  , ObjectProto = Object.prototype;
-
+	
 	module.exports = Object.getPrototypeOf || function(O){
 	  O = toObject(O);
 	  if(has(O, IE_PROTO))return O[IE_PROTO];
@@ -1148,7 +1154,7 @@
 	  , dP          = __webpack_require__(7)
 	  , DESCRIPTORS = __webpack_require__(11)
 	  , SPECIES     = __webpack_require__(46)('species');
-
+	
 	module.exports = function(KEY){
 	  var C = global[KEY];
 	  if(DESCRIPTORS && C && !C[SPECIES])dP.f(C, SPECIES, {
@@ -1232,7 +1238,7 @@
 	  , $iterDetect       = __webpack_require__(60)
 	  , setToStringTag    = __webpack_require__(53)
 	  , inheritIfRequired = __webpack_require__(61);
-
+	
 	module.exports = function(NAME, wrapper, methods, common, IS_MAP, IS_WEAK){
 	  var Base  = global[NAME]
 	    , C     = Base
@@ -1294,14 +1300,14 @@
 	    // weak collections should not contains .clear method
 	    if(IS_WEAK && proto.clear)delete proto.clear;
 	  }
-
+	
 	  setToStringTag(C, NAME);
-
+	
 	  O[NAME] = C;
 	  $export($export.G + $export.W + $export.F * (C != Base), O);
-
+	
 	  if(!IS_WEAK)common.setStrong(C, NAME, IS_MAP);
-
+	
 	  return C;
 	};
 
@@ -1311,13 +1317,13 @@
 
 	var ITERATOR     = __webpack_require__(46)('iterator')
 	  , SAFE_CLOSING = false;
-
+	
 	try {
 	  var riter = [7][ITERATOR]();
 	  riter['return'] = function(){ SAFE_CLOSING = true; };
 	  Array.from(riter, function(){ throw 2; });
 	} catch(e){ /* empty */ }
-
+	
 	module.exports = function(exec, skipClosing){
 	  if(!skipClosing && !SAFE_CLOSING)return false;
 	  var safe = false;
@@ -1385,7 +1391,7 @@
 	  , has            = __webpack_require__(20)
 	  , IE8_DOM_DEFINE = __webpack_require__(10)
 	  , gOPD           = Object.getOwnPropertyDescriptor;
-
+	
 	exports.f = __webpack_require__(11) ? gOPD : function getOwnPropertyDescriptor(O, P){
 	  O = toIObject(O);
 	  P = toPrimitive(P, true);
@@ -1417,13 +1423,13 @@
 	  , uncaughtFrozenStore = weak.ufstore
 	  , tmp          = {}
 	  , InternalMap;
-
+	
 	var wrapper = function(get){
 	  return function WeakMap(){
 	    return get(this, arguments.length > 0 ? arguments[0] : undefined);
 	  };
 	};
-
+	
 	var methods = {
 	  // 23.3.3.3 WeakMap.prototype.get(key)
 	  get: function get(key){
@@ -1438,10 +1444,10 @@
 	    return weak.def(this, key, value);
 	  }
 	};
-
+	
 	// 23.3 WeakMap Objects
 	var $WeakMap = module.exports = __webpack_require__(59)('WeakMap', wrapper, methods, weak, true, true);
-
+	
 	// IE11 WeakMap frozen keys fix
 	if(new $WeakMap().set((Object.freeze || Object)(tmp), 7).get(tmp) != 7){
 	  InternalMap = weak.getConstructor(wrapper);
@@ -1517,7 +1523,7 @@
 
 	// 9.4.2.3 ArraySpeciesCreate(originalArray, length)
 	var speciesConstructor = __webpack_require__(68);
-
+	
 	module.exports = function(original, length){
 	  return new (speciesConstructor(original))(length);
 	};
@@ -1529,7 +1535,7 @@
 	var isObject = __webpack_require__(9)
 	  , isArray  = __webpack_require__(69)
 	  , SPECIES  = __webpack_require__(46)('species');
-
+	
 	module.exports = function(original){
 	  var C;
 	  if(isArray(original)){
@@ -1565,7 +1571,7 @@
 	  , toObject = __webpack_require__(55)
 	  , IObject  = __webpack_require__(22)
 	  , $assign  = Object.assign;
-
+	
 	// should work with symbols and should have deterministic property order (V8 bug)
 	module.exports = !$assign || __webpack_require__(12)(function(){
 	  var A = {}
@@ -1613,7 +1619,7 @@
 	  , arrayFind         = createArrayMethod(5)
 	  , arrayFindIndex    = createArrayMethod(6)
 	  , id                = 0;
-
+	
 	// fallback for uncaught frozen keys
 	var uncaughtFrozenStore = function(that){
 	  return that._l || (that._l = new UncaughtFrozenStore);
@@ -1647,7 +1653,7 @@
 	    return !!~index;
 	  }
 	};
-
+	
 	module.exports = {
 	  getConstructor: function(wrapper, NAME, IS_MAP, ADDER){
 	    var C = wrapper(function(that, iterable){
@@ -1694,7 +1700,7 @@
 	  , toMetaKey              = metadata.key
 	  , getOrCreateMetadataMap = metadata.map
 	  , store                  = metadata.store;
-
+	
 	metadata.exp({deleteMetadata: function deleteMetadata(metadataKey, target /*, targetKey */){
 	  var targetKey   = arguments.length < 3 ? undefined : toMetaKey(arguments[2])
 	    , metadataMap = getOrCreateMetadataMap(anObject(target), targetKey, false);
@@ -1715,14 +1721,14 @@
 	  , ordinaryHasOwnMetadata = metadata.has
 	  , ordinaryGetOwnMetadata = metadata.get
 	  , toMetaKey              = metadata.key;
-
+	
 	var ordinaryGetMetadata = function(MetadataKey, O, P){
 	  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
 	  if(hasOwn)return ordinaryGetOwnMetadata(MetadataKey, O, P);
 	  var parent = getPrototypeOf(O);
 	  return parent !== null ? ordinaryGetMetadata(MetadataKey, parent, P) : undefined;
 	};
-
+	
 	metadata.exp({getMetadata: function getMetadata(metadataKey, target /*, targetKey */){
 	  return ordinaryGetMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 	}});
@@ -1738,7 +1744,7 @@
 	  , getPrototypeOf          = __webpack_require__(54)
 	  , ordinaryOwnMetadataKeys = metadata.keys
 	  , toMetaKey               = metadata.key;
-
+	
 	var ordinaryMetadataKeys = function(O, P){
 	  var oKeys  = ordinaryOwnMetadataKeys(O, P)
 	    , parent = getPrototypeOf(O);
@@ -1746,7 +1752,7 @@
 	  var pKeys  = ordinaryMetadataKeys(parent, P);
 	  return pKeys.length ? oKeys.length ? from(new Set(oKeys.concat(pKeys))) : pKeys : oKeys;
 	};
-
+	
 	metadata.exp({getMetadataKeys: function getMetadataKeys(target /*, targetKey */){
 	  return ordinaryMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
 	}});
@@ -1757,7 +1763,7 @@
 
 	'use strict';
 	var strong = __webpack_require__(6);
-
+	
 	// 23.2 Set Objects
 	module.exports = __webpack_require__(59)('Set', function(get){
 	  return function Set(){ return get(this, arguments.length > 0 ? arguments[0] : undefined); };
@@ -1773,7 +1779,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var forOf = __webpack_require__(42);
-
+	
 	module.exports = function(iter, ITERATOR){
 	  var result = [];
 	  forOf(iter, false, result.push, result, ITERATOR);
@@ -1789,7 +1795,7 @@
 	  , anObject               = __webpack_require__(8)
 	  , ordinaryGetOwnMetadata = metadata.get
 	  , toMetaKey              = metadata.key;
-
+	
 	metadata.exp({getOwnMetadata: function getOwnMetadata(metadataKey, target /*, targetKey */){
 	  return ordinaryGetOwnMetadata(metadataKey, anObject(target)
 	    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
@@ -1803,7 +1809,7 @@
 	  , anObject                = __webpack_require__(8)
 	  , ordinaryOwnMetadataKeys = metadata.keys
 	  , toMetaKey               = metadata.key;
-
+	
 	metadata.exp({getOwnMetadataKeys: function getOwnMetadataKeys(target /*, targetKey */){
 	  return ordinaryOwnMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
 	}});
@@ -1817,14 +1823,14 @@
 	  , getPrototypeOf         = __webpack_require__(54)
 	  , ordinaryHasOwnMetadata = metadata.has
 	  , toMetaKey              = metadata.key;
-
+	
 	var ordinaryHasMetadata = function(MetadataKey, O, P){
 	  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
 	  if(hasOwn)return true;
 	  var parent = getPrototypeOf(O);
 	  return parent !== null ? ordinaryHasMetadata(MetadataKey, parent, P) : false;
 	};
-
+	
 	metadata.exp({hasMetadata: function hasMetadata(metadataKey, target /*, targetKey */){
 	  return ordinaryHasMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
 	}});
@@ -1837,7 +1843,7 @@
 	  , anObject               = __webpack_require__(8)
 	  , ordinaryHasOwnMetadata = metadata.has
 	  , toMetaKey              = metadata.key;
-
+	
 	metadata.exp({hasOwnMetadata: function hasOwnMetadata(metadataKey, target /*, targetKey */){
 	  return ordinaryHasOwnMetadata(metadataKey, anObject(target)
 	    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
@@ -1852,7 +1858,7 @@
 	  , aFunction                 = __webpack_require__(40)
 	  , toMetaKey                 = metadata.key
 	  , ordinaryDefineOwnMetadata = metadata.set;
-
+	
 	metadata.exp({metadata: function metadata(metadataKey, metadataValue){
 	  return function decorator(target, targetKey){
 	    ordinaryDefineOwnMetadata(
@@ -1870,41 +1876,41 @@
 	/* WEBPACK VAR INJECTION */(function(process) {/******/ (function(modules) { // webpackBootstrap
 	/******/ 	// The module cache
 	/******/ 	var installedModules = {};
-
+	
 	/******/ 	// The require function
 	/******/ 	function __webpack_require__(moduleId) {
-
+	
 	/******/ 		// Check if module is in cache
 	/******/ 		if(installedModules[moduleId])
 	/******/ 			return installedModules[moduleId].exports;
-
+	
 	/******/ 		// Create a new module (and put it into the cache)
 	/******/ 		var module = installedModules[moduleId] = {
 	/******/ 			exports: {},
 	/******/ 			id: moduleId,
 	/******/ 			loaded: false
 	/******/ 		};
-
+	
 	/******/ 		// Execute the module function
 	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+	
 	/******/ 		// Flag the module as loaded
 	/******/ 		module.loaded = true;
-
+	
 	/******/ 		// Return the exports of the module
 	/******/ 		return module.exports;
 	/******/ 	}
-
-
+	
+	
 	/******/ 	// expose the modules object (__webpack_modules__)
 	/******/ 	__webpack_require__.m = modules;
-
+	
 	/******/ 	// expose the module cache
 	/******/ 	__webpack_require__.c = installedModules;
-
+	
 	/******/ 	// __webpack_public_path__
 	/******/ 	__webpack_require__.p = "";
-
+	
 	/******/ 	// Load entry module and return exports
 	/******/ 	return __webpack_require__(0);
 	/******/ })
@@ -1912,7 +1918,7 @@
 	/******/ ([
 	/* 0 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		/* WEBPACK VAR INJECTION */(function(global) {"use strict";
 		__webpack_require__(1);
 		var event_target_1 = __webpack_require__(2);
@@ -2009,13 +2015,13 @@
 		        'watchPosition'
 		    ]);
 		}
-
+	
 		/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
+	
 	/***/ },
 	/* 1 */
 	/***/ function(module, exports) {
-
+	
 		/* WEBPACK VAR INJECTION */(function(global) {;
 		;
 		var Zone = (function (global) {
@@ -2534,13 +2540,13 @@
 		    }
 		    return global.Zone = Zone;
 		})(typeof window === 'undefined' ? global : window);
-
+	
 		/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
+	
 	/***/ },
 	/* 2 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var utils_1 = __webpack_require__(3);
 		var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
@@ -2567,12 +2573,12 @@
 		    }
 		}
 		exports.eventTargetPatch = eventTargetPatch;
-
-
+	
+	
 	/***/ },
 	/* 3 */
 	/***/ function(module, exports) {
-
+	
 		/* WEBPACK VAR INJECTION */(function(global) {/**
 		 * Suppress closure compiler errors about unknown 'process' variable
 		 * @fileoverview
@@ -2876,13 +2882,13 @@
 		    return delegate;
 		}
 		exports.patchMethod = patchMethod;
-
+	
 		/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
+	
 	/***/ },
 	/* 4 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var utils_1 = __webpack_require__(3);
 		/*
@@ -2946,12 +2952,12 @@
 		    }
 		    return desc;
 		}
-
-
+	
+	
 	/***/ },
 	/* 5 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var define_property_1 = __webpack_require__(4);
 		var utils_1 = __webpack_require__(3);
@@ -2989,12 +2995,12 @@
 		    };
 		}
 		exports.registerElementPatch = registerElementPatch;
-
-
+	
+	
 	/***/ },
 	/* 6 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var webSocketPatch = __webpack_require__(7);
 		var utils_1 = __webpack_require__(3);
@@ -3084,12 +3090,12 @@
 		    ;
 		}
 		;
-
-
+	
+	
 	/***/ },
 	/* 7 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var utils_1 = __webpack_require__(3);
 		// we have to patch the instance since the proto is non-configurable
@@ -3125,12 +3131,12 @@
 		    }
 		}
 		exports.apply = apply;
-
-
+	
+	
 	/***/ },
 	/* 8 */
 	/***/ function(module, exports, __webpack_require__) {
-
+	
 		"use strict";
 		var utils_1 = __webpack_require__(3);
 		function patchTimer(window, setName, cancelName, nameSuffix) {
@@ -3178,8 +3184,8 @@
 		    }; });
 		}
 		exports.patchTimer = patchTimer;
-
-
+	
+	
 	/***/ }
 	/******/ ]);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(84)))
@@ -3189,17 +3195,17 @@
 /***/ function(module, exports) {
 
 	// shim for using process in browser
-
+	
 	var process = module.exports = {};
-
+	
 	// cached from whatever global is present so that test runners that stub it
 	// don't break things.  But we need to wrap it in a try catch in case it is
 	// wrapped in strict mode code which doesn't define any globals.  It's inside a
 	// function because try/catches deoptimize in certain engines.
-
+	
 	var cachedSetTimeout;
 	var cachedClearTimeout;
-
+	
 	(function () {
 	  try {
 	    cachedSetTimeout = setTimeout;
@@ -3220,7 +3226,7 @@
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
-
+	
 	function cleanUpNextTick() {
 	    if (!draining || !currentQueue) {
 	        return;
@@ -3235,14 +3241,14 @@
 	        drainQueue();
 	    }
 	}
-
+	
 	function drainQueue() {
 	    if (draining) {
 	        return;
 	    }
 	    var timeout = cachedSetTimeout(cleanUpNextTick);
 	    draining = true;
-
+	
 	    var len = queue.length;
 	    while(len) {
 	        currentQueue = queue;
@@ -3259,7 +3265,7 @@
 	    draining = false;
 	    cachedClearTimeout(timeout);
 	}
-
+	
 	process.nextTick = function (fun) {
 	    var args = new Array(arguments.length - 1);
 	    if (arguments.length > 1) {
@@ -3272,7 +3278,7 @@
 	        cachedSetTimeout(drainQueue, 0);
 	    }
 	};
-
+	
 	// v8 likes predictible objects
 	function Item(fun, array) {
 	    this.fun = fun;
@@ -3287,9 +3293,9 @@
 	process.argv = [];
 	process.version = ''; // empty string to avoid regexp issues
 	process.versions = {};
-
+	
 	function noop() {}
-
+	
 	process.on = noop;
 	process.addListener = noop;
 	process.once = noop;
@@ -3297,11 +3303,11 @@
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
-
+	
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
 	};
-
+	
 	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
@@ -3366,7 +3372,7 @@
 	  , QObject        = global.QObject;
 	// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
 	var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
+	
 	// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
 	var setSymbolDesc = DESCRIPTORS && $fails(function(){
 	  return _create(dP({}, 'a', {
@@ -3378,19 +3384,19 @@
 	  dP(it, key, D);
 	  if(protoDesc && it !== ObjectProto)dP(ObjectProto, key, protoDesc);
 	} : dP;
-
+	
 	var wrap = function(tag){
 	  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
 	  sym._k = tag;
 	  return sym;
 	};
-
+	
 	var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function(it){
 	  return typeof it == 'symbol';
 	} : function(it){
 	  return it instanceof $Symbol;
 	};
-
+	
 	var $defineProperty = function defineProperty(it, key, D){
 	  if(it === ObjectProto)$defineProperty(OPSymbols, key, D);
 	  anObject(it);
@@ -3450,7 +3456,7 @@
 	    if(has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true))result.push(AllSymbols[key]);
 	  } return result;
 	};
-
+	
 	// 19.4.1.1 Symbol([description])
 	if(!USE_NATIVE){
 	  $Symbol = function Symbol(){
@@ -3467,31 +3473,31 @@
 	  redefine($Symbol[PROTOTYPE], 'toString', function toString(){
 	    return this._k;
 	  });
-
+	
 	  $GOPD.f = $getOwnPropertyDescriptor;
 	  $DP.f   = $defineProperty;
 	  __webpack_require__(92).f = gOPNExt.f = $getOwnPropertyNames;
 	  __webpack_require__(64).f  = $propertyIsEnumerable;
 	  __webpack_require__(71).f = $getOwnPropertySymbols;
-
+	
 	  if(DESCRIPTORS && !__webpack_require__(50)){
 	    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
 	  }
-
+	
 	  wksExt.f = function(name){
 	    return wrap(wks(name));
 	  }
 	}
-
+	
 	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Symbol: $Symbol});
-
+	
 	for(var symbols = (
 	  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
 	  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
 	).split(','), i = 0; symbols.length > i; )wks(symbols[i++]);
-
+	
 	for(var symbols = $keys(wks.store), i = 0; symbols.length > i; )wksDefine(symbols[i++]);
-
+	
 	$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
 	  // 19.4.2.1 Symbol.for(key)
 	  'for': function(key){
@@ -3507,7 +3513,7 @@
 	  useSetter: function(){ setter = true; },
 	  useSimple: function(){ setter = false; }
 	});
-
+	
 	$export($export.S + $export.F * !USE_NATIVE, 'Object', {
 	  // 19.1.2.2 Object.create(O [, Properties])
 	  create: $create,
@@ -3522,7 +3528,7 @@
 	  // 19.1.2.8 Object.getOwnPropertySymbols(O)
 	  getOwnPropertySymbols: $getOwnPropertySymbols
 	});
-
+	
 	// 24.3.2 JSON.stringify(value [, replacer [, space]])
 	$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function(){
 	  var S = $Symbol();
@@ -3547,7 +3553,7 @@
 	    return _stringify.apply($JSON, args);
 	  }
 	});
-
+	
 	// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
 	$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(36)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 	// 19.4.3.5 Symbol.prototype[@@toStringTag]
@@ -3620,10 +3626,10 @@
 	var toIObject = __webpack_require__(21)
 	  , gOPN      = __webpack_require__(92).f
 	  , toString  = {}.toString;
-
+	
 	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
 	  ? Object.getOwnPropertyNames(window) : [];
-
+	
 	var getWindowNames = function(it){
 	  try {
 	    return gOPN(it);
@@ -3631,7 +3637,7 @@
 	    return windowNames.slice();
 	  }
 	};
-
+	
 	module.exports.f = function getOwnPropertyNames(it){
 	  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
 	};
@@ -3644,7 +3650,7 @@
 	// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 	var $keys      = __webpack_require__(19)
 	  , hiddenKeys = __webpack_require__(32).concat('length', 'prototype');
-
+	
 	exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
 	  return $keys(O, hiddenKeys);
 	};
@@ -3686,7 +3692,7 @@
 	__webpack_require__(110);
 	__webpack_require__(112);
 	__webpack_require__(93);
-
+	
 	module.exports = __webpack_require__(38).Object;
 
 /***/ },
@@ -3720,7 +3726,7 @@
 	// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 	var toIObject                 = __webpack_require__(21)
 	  , $getOwnPropertyDescriptor = __webpack_require__(63).f;
-
+	
 	__webpack_require__(99)('getOwnPropertyDescriptor', function(){
 	  return function getOwnPropertyDescriptor(it, key){
 	    return $getOwnPropertyDescriptor(toIObject(it), key);
@@ -3749,7 +3755,7 @@
 	// 19.1.2.9 Object.getPrototypeOf(O)
 	var toObject        = __webpack_require__(55)
 	  , $getPrototypeOf = __webpack_require__(54);
-
+	
 	__webpack_require__(99)('getPrototypeOf', function(){
 	  return function getPrototypeOf(it){
 	    return $getPrototypeOf(toObject(it));
@@ -3763,7 +3769,7 @@
 	// 19.1.2.14 Object.keys(O)
 	var toObject = __webpack_require__(55)
 	  , $keys    = __webpack_require__(18);
-
+	
 	__webpack_require__(99)('keys', function(){
 	  return function keys(it){
 	    return $keys(toObject(it));
@@ -3786,7 +3792,7 @@
 	// 19.1.2.5 Object.freeze(O)
 	var isObject = __webpack_require__(9)
 	  , meta     = __webpack_require__(58).onFreeze;
-
+	
 	__webpack_require__(99)('freeze', function($freeze){
 	  return function freeze(it){
 	    return $freeze && isObject(it) ? $freeze(meta(it)) : it;
@@ -3800,7 +3806,7 @@
 	// 19.1.2.17 Object.seal(O)
 	var isObject = __webpack_require__(9)
 	  , meta     = __webpack_require__(58).onFreeze;
-
+	
 	__webpack_require__(99)('seal', function($seal){
 	  return function seal(it){
 	    return $seal && isObject(it) ? $seal(meta(it)) : it;
@@ -3814,7 +3820,7 @@
 	// 19.1.2.15 Object.preventExtensions(O)
 	var isObject = __webpack_require__(9)
 	  , meta     = __webpack_require__(58).onFreeze;
-
+	
 	__webpack_require__(99)('preventExtensions', function($preventExtensions){
 	  return function preventExtensions(it){
 	    return $preventExtensions && isObject(it) ? $preventExtensions(meta(it)) : it;
@@ -3827,7 +3833,7 @@
 
 	// 19.1.2.12 Object.isFrozen(O)
 	var isObject = __webpack_require__(9);
-
+	
 	__webpack_require__(99)('isFrozen', function($isFrozen){
 	  return function isFrozen(it){
 	    return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
@@ -3840,7 +3846,7 @@
 
 	// 19.1.2.13 Object.isSealed(O)
 	var isObject = __webpack_require__(9);
-
+	
 	__webpack_require__(99)('isSealed', function($isSealed){
 	  return function isSealed(it){
 	    return isObject(it) ? $isSealed ? $isSealed(it) : false : true;
@@ -3853,7 +3859,7 @@
 
 	// 19.1.2.11 Object.isExtensible(O)
 	var isObject = __webpack_require__(9);
-
+	
 	__webpack_require__(99)('isExtensible', function($isExtensible){
 	  return function isExtensible(it){
 	    return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
@@ -3866,7 +3872,7 @@
 
 	// 19.1.3.1 Object.assign(target, source)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(70)});
 
 /***/ },
@@ -3909,7 +3915,7 @@
 
 	// 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.P, 'Function', {bind: __webpack_require__(115)});
 
 /***/ },
@@ -3922,14 +3928,14 @@
 	  , invoke     = __webpack_require__(116)
 	  , arraySlice = [].slice
 	  , factories  = {};
-
+	
 	var construct = function(F, len, args){
 	  if(!(len in factories)){
 	    for(var n = [], i = 0; i < len; i++)n[i] = 'a[' + i + ']';
 	    factories[len] = Function('F,a', 'return new F(' + n.join(',') + ')');
 	  } return factories[len](F, args);
 	};
-
+	
 	module.exports = Function.bind || function bind(that /*, args... */){
 	  var fn       = aFunction(this)
 	    , partArgs = arraySlice.call(arguments, 1);
@@ -3972,11 +3978,11 @@
 	  , FProto     = Function.prototype
 	  , nameRE     = /^\s*function ([^ (]*)/
 	  , NAME       = 'name';
-
+	
 	var isExtensible = Object.isExtensible || function(){
 	  return true;
 	};
-
+	
 	// 19.2.4.2 name
 	NAME in FProto || __webpack_require__(11) && dP(FProto, NAME, {
 	  configurable: true,
@@ -4034,7 +4040,7 @@
 	  , $trim     = __webpack_require__(122).trim
 	  , ws        = __webpack_require__(123)
 	  , hex       = /^[\-+]?0[xX]/;
-
+	
 	module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix){
 	  var string = $trim(String(str), 3);
 	  return $parseInt(string, (radix >>> 0) || (hex.test(string) ? 16 : 10));
@@ -4052,7 +4058,7 @@
 	  , non     = '\u200b\u0085'
 	  , ltrim   = RegExp('^' + space + space + '*')
 	  , rtrim   = RegExp(space + space + '*$');
-
+	
 	var exporter = function(KEY, exec, ALIAS){
 	  var exp   = {};
 	  var FORCE = fails(function(){
@@ -4062,7 +4068,7 @@
 	  if(ALIAS)exp[ALIAS] = fn;
 	  $export($export.P + $export.F * FORCE, 'String', exp);
 	};
-
+	
 	// 1 -> String#trimLeft
 	// 2 -> String#trimRight
 	// 3 -> String#trim
@@ -4072,7 +4078,7 @@
 	  if(TYPE & 2)string = string.replace(rtrim, '');
 	  return string;
 	};
-
+	
 	module.exports = exporter;
 
 /***/ },
@@ -4104,7 +4110,7 @@
 
 	var $parseFloat = __webpack_require__(14).parseFloat
 	  , $trim       = __webpack_require__(122).trim;
-
+	
 	module.exports = 1 / $parseFloat(__webpack_require__(123) + '-0') !== -Infinity ? function parseFloat(str){
 	  var string = $trim(String(str), 3)
 	    , result = $parseFloat(string);
@@ -4151,7 +4157,7 @@
 	  // Opera ~12 has broken Object#toString
 	  , BROKEN_COF        = cof(__webpack_require__(16)(proto)) == NUMBER
 	  , TRIM              = 'trim' in String.prototype;
-
+	
 	// 7.1.3 ToNumber(argument)
 	var toNumber = function(argument){
 	  var it = toPrimitive(argument, false);
@@ -4177,7 +4183,7 @@
 	    }
 	  } return +it;
 	};
-
+	
 	if(!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')){
 	  $Number = function Number(value){
 	    var it = arguments.length < 1 ? 0 : value
@@ -4217,7 +4223,7 @@
 	  , data         = [0, 0, 0, 0, 0, 0]
 	  , ERROR        = 'Number.toFixed: incorrect invocation!'
 	  , ZERO         = '0';
-
+	
 	var multiply = function(n, c){
 	  var i  = -1
 	    , c2 = c;
@@ -4261,7 +4267,7 @@
 	    x2 /= 2;
 	  } return n;
 	};
-
+	
 	$export($export.P + $export.F * (!!$toFixed && (
 	  0.00008.toFixed(3) !== '0.000' ||
 	  0.9.toFixed(0) !== '1' ||
@@ -4338,7 +4344,7 @@
 	'use strict';
 	var toInteger = __webpack_require__(27)
 	  , defined   = __webpack_require__(24);
-
+	
 	module.exports = function repeat(count){
 	  var str = String(defined(this))
 	    , res = ''
@@ -4357,7 +4363,7 @@
 	  , $fails       = __webpack_require__(12)
 	  , aNumberValue = __webpack_require__(130)
 	  , $toPrecision = 1..toPrecision;
-
+	
 	$export($export.P + $export.F * ($fails(function(){
 	  // IE7-
 	  return $toPrecision.call(1, undefined) !== '1';
@@ -4377,7 +4383,7 @@
 
 	// 20.1.2.1 Number.EPSILON
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Number', {EPSILON: Math.pow(2, -52)});
 
 /***/ },
@@ -4387,7 +4393,7 @@
 	// 20.1.2.2 Number.isFinite(number)
 	var $export   = __webpack_require__(51)
 	  , _isFinite = __webpack_require__(14).isFinite;
-
+	
 	$export($export.S, 'Number', {
 	  isFinite: function isFinite(it){
 	    return typeof it == 'number' && _isFinite(it);
@@ -4400,7 +4406,7 @@
 
 	// 20.1.2.3 Number.isInteger(number)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Number', {isInteger: __webpack_require__(136)});
 
 /***/ },
@@ -4420,7 +4426,7 @@
 
 	// 20.1.2.4 Number.isNaN(number)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Number', {
 	  isNaN: function isNaN(number){
 	    return number != number;
@@ -4435,7 +4441,7 @@
 	var $export   = __webpack_require__(51)
 	  , isInteger = __webpack_require__(136)
 	  , abs       = Math.abs;
-
+	
 	$export($export.S, 'Number', {
 	  isSafeInteger: function isSafeInteger(number){
 	    return isInteger(number) && abs(number) <= 0x1fffffffffffff;
@@ -4448,7 +4454,7 @@
 
 	// 20.1.2.6 Number.MAX_SAFE_INTEGER
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Number', {MAX_SAFE_INTEGER: 0x1fffffffffffff});
 
 /***/ },
@@ -4457,7 +4463,7 @@
 
 	// 20.1.2.10 Number.MIN_SAFE_INTEGER
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Number', {MIN_SAFE_INTEGER: -0x1fffffffffffff});
 
 /***/ },
@@ -4510,7 +4516,7 @@
 	  , log1p   = __webpack_require__(145)
 	  , sqrt    = Math.sqrt
 	  , $acosh  = Math.acosh;
-
+	
 	$export($export.S + $export.F * !($acosh
 	  // V8 bug: https://code.google.com/p/v8/issues/detail?id=3509
 	  && Math.floor($acosh(Number.MAX_VALUE)) == 710
@@ -4540,11 +4546,11 @@
 	// 20.2.2.5 Math.asinh(x)
 	var $export = __webpack_require__(51)
 	  , $asinh  = Math.asinh;
-
+	
 	function asinh(x){
 	  return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : Math.log(x + Math.sqrt(x * x + 1));
 	}
-
+	
 	// Tor Browser bug: Math.asinh(0) -> -0 
 	$export($export.S + $export.F * !($asinh && 1 / $asinh(0) > 0), 'Math', {asinh: asinh});
 
@@ -4555,7 +4561,7 @@
 	// 20.2.2.7 Math.atanh(x)
 	var $export = __webpack_require__(51)
 	  , $atanh  = Math.atanh;
-
+	
 	// Tor Browser bug: Math.atanh(-0) -> 0 
 	$export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
 	  atanh: function atanh(x){
@@ -4570,7 +4576,7 @@
 	// 20.2.2.9 Math.cbrt(x)
 	var $export = __webpack_require__(51)
 	  , sign    = __webpack_require__(149);
-
+	
 	$export($export.S, 'Math', {
 	  cbrt: function cbrt(x){
 	    return sign(x = +x) * Math.pow(Math.abs(x), 1 / 3);
@@ -4592,7 +4598,7 @@
 
 	// 20.2.2.11 Math.clz32(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {
 	  clz32: function clz32(x){
 	    return (x >>>= 0) ? 31 - Math.floor(Math.log(x + 0.5) * Math.LOG2E) : 32;
@@ -4606,7 +4612,7 @@
 	// 20.2.2.12 Math.cosh(x)
 	var $export = __webpack_require__(51)
 	  , exp     = Math.exp;
-
+	
 	$export($export.S, 'Math', {
 	  cosh: function cosh(x){
 	    return (exp(x = +x) + exp(-x)) / 2;
@@ -4620,7 +4626,7 @@
 	// 20.2.2.14 Math.expm1(x)
 	var $export = __webpack_require__(51)
 	  , $expm1  = __webpack_require__(153);
-
+	
 	$export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', {expm1: $expm1});
 
 /***/ },
@@ -4650,12 +4656,12 @@
 	  , EPSILON32 = pow(2, -23)
 	  , MAX32     = pow(2, 127) * (2 - EPSILON32)
 	  , MIN32     = pow(2, -126);
-
+	
 	var roundTiesToEven = function(n){
 	  return n + 1 / EPSILON - 1 / EPSILON;
 	};
-
-
+	
+	
 	$export($export.S, 'Math', {
 	  fround: function fround(x){
 	    var $abs  = Math.abs(x)
@@ -4676,7 +4682,7 @@
 	// 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
 	var $export = __webpack_require__(51)
 	  , abs     = Math.abs;
-
+	
 	$export($export.S, 'Math', {
 	  hypot: function hypot(value1, value2){ // eslint-disable-line no-unused-vars
 	    var sum  = 0
@@ -4706,7 +4712,7 @@
 	// 20.2.2.18 Math.imul(x, y)
 	var $export = __webpack_require__(51)
 	  , $imul   = Math.imul;
-
+	
 	// some WebKit versions fails with big numbers, some has wrong arity
 	$export($export.S + $export.F * __webpack_require__(12)(function(){
 	  return $imul(0xffffffff, 5) != -5 || $imul.length != 2;
@@ -4727,7 +4733,7 @@
 
 	// 20.2.2.21 Math.log10(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {
 	  log10: function log10(x){
 	    return Math.log(x) / Math.LN10;
@@ -4740,7 +4746,7 @@
 
 	// 20.2.2.20 Math.log1p(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {log1p: __webpack_require__(145)});
 
 /***/ },
@@ -4749,7 +4755,7 @@
 
 	// 20.2.2.22 Math.log2(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {
 	  log2: function log2(x){
 	    return Math.log(x) / Math.LN2;
@@ -4762,7 +4768,7 @@
 
 	// 20.2.2.28 Math.sign(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {sign: __webpack_require__(149)});
 
 /***/ },
@@ -4773,7 +4779,7 @@
 	var $export = __webpack_require__(51)
 	  , expm1   = __webpack_require__(153)
 	  , exp     = Math.exp;
-
+	
 	// V8 near Chromium 38 has a problem with very small numbers
 	$export($export.S + $export.F * __webpack_require__(12)(function(){
 	  return !Math.sinh(-2e-17) != -2e-17;
@@ -4793,7 +4799,7 @@
 	var $export = __webpack_require__(51)
 	  , expm1   = __webpack_require__(153)
 	  , exp     = Math.exp;
-
+	
 	$export($export.S, 'Math', {
 	  tanh: function tanh(x){
 	    var a = expm1(x = +x)
@@ -4808,7 +4814,7 @@
 
 	// 20.2.2.34 Math.trunc(x)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Math', {
 	  trunc: function trunc(it){
 	    return (it > 0 ? Math.floor : Math.ceil)(it);
@@ -4855,7 +4861,7 @@
 	  , toIndex        = __webpack_require__(28)
 	  , fromCharCode   = String.fromCharCode
 	  , $fromCodePoint = String.fromCodePoint;
-
+	
 	// length should be 1, old FF problem
 	$export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1), 'String', {
 	  // 21.1.2.2 String.fromCodePoint(...codePoints)
@@ -4882,7 +4888,7 @@
 	var $export   = __webpack_require__(51)
 	  , toIObject = __webpack_require__(21)
 	  , toLength  = __webpack_require__(26);
-
+	
 	$export($export.S, 'String', {
 	  // 21.1.2.4 String.raw(callSite, ...substitutions)
 	  raw: function raw(callSite){
@@ -4916,7 +4922,7 @@
 
 	'use strict';
 	var $at  = __webpack_require__(169)(true);
-
+	
 	// 21.1.3.27 String.prototype[@@iterator]()
 	__webpack_require__(49)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
@@ -4979,7 +4985,7 @@
 	  , context   = __webpack_require__(172)
 	  , ENDS_WITH = 'endsWith'
 	  , $endsWith = ''[ENDS_WITH];
-
+	
 	$export($export.P + $export.F * __webpack_require__(174)(ENDS_WITH), 'String', {
 	  endsWith: function endsWith(searchString /*, endPosition = @length */){
 	    var that = context(this, searchString, ENDS_WITH)
@@ -5000,7 +5006,7 @@
 	// helper for String#{startsWith, endsWith, includes}
 	var isRegExp = __webpack_require__(173)
 	  , defined  = __webpack_require__(24);
-
+	
 	module.exports = function(that, searchString, NAME){
 	  if(isRegExp(searchString))throw TypeError('String#' + NAME + " doesn't accept regex!");
 	  return String(defined(that));
@@ -5045,7 +5051,7 @@
 	var $export  = __webpack_require__(51)
 	  , context  = __webpack_require__(172)
 	  , INCLUDES = 'includes';
-
+	
 	$export($export.P + $export.F * __webpack_require__(174)(INCLUDES), 'String', {
 	  includes: function includes(searchString /*, position = 0 */){
 	    return !!~context(this, searchString, INCLUDES)
@@ -5058,7 +5064,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.P, 'String', {
 	  // 21.1.3.13 String.prototype.repeat(count)
 	  repeat: __webpack_require__(131)
@@ -5075,7 +5081,7 @@
 	  , context     = __webpack_require__(172)
 	  , STARTS_WITH = 'startsWith'
 	  , $startsWith = ''[STARTS_WITH];
-
+	
 	$export($export.P + $export.F * __webpack_require__(174)(STARTS_WITH), 'String', {
 	  startsWith: function startsWith(searchString /*, position = 0 */){
 	    var that   = context(this, searchString, STARTS_WITH)
@@ -5292,7 +5298,7 @@
 	  , fails    = __webpack_require__(12)
 	  , defined  = __webpack_require__(24)
 	  , wks      = __webpack_require__(46);
-
+	
 	module.exports = function(KEY, length, exec){
 	  var SYMBOL   = wks(KEY)
 	    , fns      = exec(defined, SYMBOL, ''[KEY])
@@ -5439,7 +5445,7 @@
 
 	// 20.3.3.1 / 15.9.4.4 Date.now()
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Date', {now: function(){ return new Date().getTime(); }});
 
 /***/ },
@@ -5450,7 +5456,7 @@
 	var $export     = __webpack_require__(51)
 	  , toObject    = __webpack_require__(55)
 	  , toPrimitive = __webpack_require__(15);
-
+	
 	$export($export.P + $export.F * __webpack_require__(12)(function(){
 	  return new Date(NaN).toJSON() !== null || Date.prototype.toJSON.call({toISOString: function(){ return 1; }}) !== 1;
 	}), 'Date', {
@@ -5470,11 +5476,11 @@
 	var $export = __webpack_require__(51)
 	  , fails   = __webpack_require__(12)
 	  , getTime = Date.prototype.getTime;
-
+	
 	var lz = function(num){
 	  return num > 9 ? num : '0' + num;
 	};
-
+	
 	// PhantomJS / old WebKit has a broken implementations
 	$export($export.P + $export.F * (fails(function(){
 	  return new Date(-5e13 - 1).toISOString() != '0385-07-25T07:06:39.999Z';
@@ -5516,7 +5522,7 @@
 
 	var TO_PRIMITIVE = __webpack_require__(46)('toPrimitive')
 	  , proto        = Date.prototype;
-
+	
 	if(!(TO_PRIMITIVE in proto))__webpack_require__(36)(proto, TO_PRIMITIVE, __webpack_require__(203));
 
 /***/ },
@@ -5527,7 +5533,7 @@
 	var anObject    = __webpack_require__(8)
 	  , toPrimitive = __webpack_require__(15)
 	  , NUMBER      = 'number';
-
+	
 	module.exports = function(hint){
 	  if(hint !== 'string' && hint !== NUMBER && hint !== 'default')throw TypeError('Incorrect hint');
 	  return toPrimitive(anObject(this), hint != NUMBER);
@@ -5567,7 +5573,7 @@
 
 	// 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Array', {isArray: __webpack_require__(69)});
 
 /***/ },
@@ -5583,7 +5589,7 @@
 	  , toLength       = __webpack_require__(26)
 	  , createProperty = __webpack_require__(207)
 	  , getIterFn      = __webpack_require__(47);
-
+	
 	$export($export.S + $export.F * !__webpack_require__(60)(function(iter){ Array.from(iter); }), 'Array', {
 	  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
 	  from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
@@ -5620,7 +5626,7 @@
 	'use strict';
 	var $defineProperty = __webpack_require__(7)
 	  , createDesc      = __webpack_require__(37);
-
+	
 	module.exports = function(object, index, value){
 	  if(index in object)$defineProperty.f(object, index, createDesc(0, value));
 	  else object[index] = value;
@@ -5633,7 +5639,7 @@
 	'use strict';
 	var $export        = __webpack_require__(51)
 	  , createProperty = __webpack_require__(207);
-
+	
 	// WebKit Array.of isn't generic
 	$export($export.S + $export.F * __webpack_require__(12)(function(){
 	  function F(){}
@@ -5659,7 +5665,7 @@
 	var $export   = __webpack_require__(51)
 	  , toIObject = __webpack_require__(21)
 	  , arrayJoin = [].join;
-
+	
 	// fallback for not array-like strings
 	$export($export.P + $export.F * (__webpack_require__(22) != Object || !__webpack_require__(210)(arrayJoin)), 'Array', {
 	  join: function join(separator){
@@ -5672,7 +5678,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var fails = __webpack_require__(12);
-
+	
 	module.exports = function(method, arg){
 	  return !!method && fails(function(){
 	    arg ? method.call(null, function(){}, 1) : method.call(null);
@@ -5690,7 +5696,7 @@
 	  , toIndex    = __webpack_require__(28)
 	  , toLength   = __webpack_require__(26)
 	  , arraySlice = [].slice;
-
+	
 	// fallback for not array-like ES3 strings and DOM objects
 	$export($export.P + $export.F * __webpack_require__(12)(function(){
 	  if(html)arraySlice.call(html);
@@ -5723,7 +5729,7 @@
 	  , fails     = __webpack_require__(12)
 	  , $sort     = [].sort
 	  , test      = [1, 2, 3];
-
+	
 	$export($export.P + $export.F * (fails(function(){
 	  // IE8-
 	  test.sort(undefined);
@@ -5748,7 +5754,7 @@
 	var $export  = __webpack_require__(51)
 	  , $forEach = __webpack_require__(66)(0)
 	  , STRICT   = __webpack_require__(210)([].forEach, true);
-
+	
 	$export($export.P + $export.F * !STRICT, 'Array', {
 	  // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
 	  forEach: function forEach(callbackfn /* , thisArg */){
@@ -5763,7 +5769,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $map    = __webpack_require__(66)(1);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].map, true), 'Array', {
 	  // 22.1.3.15 / 15.4.4.19 Array.prototype.map(callbackfn [, thisArg])
 	  map: function map(callbackfn /* , thisArg */){
@@ -5778,7 +5784,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $filter = __webpack_require__(66)(2);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].filter, true), 'Array', {
 	  // 22.1.3.7 / 15.4.4.20 Array.prototype.filter(callbackfn [, thisArg])
 	  filter: function filter(callbackfn /* , thisArg */){
@@ -5793,7 +5799,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $some   = __webpack_require__(66)(3);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].some, true), 'Array', {
 	  // 22.1.3.23 / 15.4.4.17 Array.prototype.some(callbackfn [, thisArg])
 	  some: function some(callbackfn /* , thisArg */){
@@ -5808,7 +5814,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $every  = __webpack_require__(66)(4);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].every, true), 'Array', {
 	  // 22.1.3.5 / 15.4.4.16 Array.prototype.every(callbackfn [, thisArg])
 	  every: function every(callbackfn /* , thisArg */){
@@ -5823,7 +5829,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $reduce = __webpack_require__(219);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].reduce, true), 'Array', {
 	  // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
 	  reduce: function reduce(callbackfn /* , initialValue */){
@@ -5839,7 +5845,7 @@
 	  , toObject  = __webpack_require__(55)
 	  , IObject   = __webpack_require__(22)
 	  , toLength  = __webpack_require__(26);
-
+	
 	module.exports = function(that, callbackfn, aLen, memo, isRight){
 	  aFunction(callbackfn);
 	  var O      = toObject(that)
@@ -5871,7 +5877,7 @@
 	'use strict';
 	var $export = __webpack_require__(51)
 	  , $reduce = __webpack_require__(219);
-
+	
 	$export($export.P + $export.F * !__webpack_require__(210)([].reduceRight, true), 'Array', {
 	  // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
 	  reduceRight: function reduceRight(callbackfn /* , initialValue */){
@@ -5888,7 +5894,7 @@
 	  , $indexOf      = __webpack_require__(25)(false)
 	  , $native       = [].indexOf
 	  , NEGATIVE_ZERO = !!$native && 1 / [1].indexOf(1, -0) < 0;
-
+	
 	$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(210)($native)), 'Array', {
 	  // 22.1.3.11 / 15.4.4.14 Array.prototype.indexOf(searchElement [, fromIndex])
 	  indexOf: function indexOf(searchElement /*, fromIndex = 0 */){
@@ -5910,7 +5916,7 @@
 	  , toLength      = __webpack_require__(26)
 	  , $native       = [].lastIndexOf
 	  , NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
-
+	
 	$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(210)($native)), 'Array', {
 	  // 22.1.3.14 / 15.4.4.15 Array.prototype.lastIndexOf(searchElement [, fromIndex])
 	  lastIndexOf: function lastIndexOf(searchElement /*, fromIndex = @[*-1] */){
@@ -5932,9 +5938,9 @@
 
 	// 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.P, 'Array', {copyWithin: __webpack_require__(224)});
-
+	
 	__webpack_require__(225)('copyWithin');
 
 /***/ },
@@ -5946,7 +5952,7 @@
 	var toObject = __webpack_require__(55)
 	  , toIndex  = __webpack_require__(28)
 	  , toLength = __webpack_require__(26);
-
+	
 	module.exports = [].copyWithin || function copyWithin(target/*= 0*/, start/*= 0, end = @length*/){
 	  var O     = toObject(this)
 	    , len   = toLength(O.length)
@@ -5986,9 +5992,9 @@
 
 	// 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.P, 'Array', {fill: __webpack_require__(227)});
-
+	
 	__webpack_require__(225)('fill');
 
 /***/ },
@@ -6064,7 +6070,7 @@
 	  , step             = __webpack_require__(56)
 	  , Iterators        = __webpack_require__(45)
 	  , toIObject        = __webpack_require__(21);
-
+	
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
@@ -6086,10 +6092,10 @@
 	  if(kind == 'values')return step(0, O[index]);
 	  return step(0, [index, O[index]]);
 	}, 'values');
-
+	
 	// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
 	Iterators.Arguments = Iterators.Array;
-
+	
 	addToUnscopables('keys');
 	addToUnscopables('values');
 	addToUnscopables('entries');
@@ -6124,7 +6130,7 @@
 	  , re2               = /a/g
 	  // "new" creates a new object, old webkit buggy here
 	  , CORRECT_NEW       = new $RegExp(re1) !== re1;
-
+	
 	if(__webpack_require__(11) && (!CORRECT_NEW || __webpack_require__(12)(function(){
 	  re2[__webpack_require__(46)('match')] = false;
 	  // RegExp constructor can alter flags and IsRegExp works correct with @@match
@@ -6152,7 +6158,7 @@
 	  $RegExp.prototype = proto;
 	  __webpack_require__(35)(global, 'RegExp', $RegExp);
 	}
-
+	
 	__webpack_require__(57)('RegExp');
 
 /***/ },
@@ -6184,11 +6190,11 @@
 	  , DESCRIPTORS = __webpack_require__(11)
 	  , TO_STRING   = 'toString'
 	  , $toString   = /./[TO_STRING];
-
+	
 	var define = function(fn){
 	  __webpack_require__(35)(RegExp.prototype, TO_STRING, fn, true);
 	};
-
+	
 	// 21.2.5.14 RegExp.prototype.toString()
 	if(__webpack_require__(12)(function(){ return $toString.call({source: 'a', flags: 'b'}) != '/a/b'; })){
 	  define(function toString(){
@@ -6236,7 +6242,7 @@
 	  , ITERATOR      = wks('iterator')
 	  , TO_STRING_TAG = wks('toStringTag')
 	  , ArrayValues   = Iterators.Array;
-
+	
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
 	  var NAME       = collections[i]
 	    , Collection = global[NAME]
@@ -6284,7 +6290,7 @@
 
 	'use strict';
 	var weak = __webpack_require__(72);
-
+	
 	// 23.4 WeakSet Objects
 	__webpack_require__(59)('WeakSet', function(get){
 	  return function WeakSet(){ return get(this, arguments.length > 0 ? arguments[0] : undefined); };
@@ -6333,16 +6339,16 @@
 	  , $slice       = $ArrayBuffer.prototype.slice
 	  , VIEW         = $typed.VIEW
 	  , ARRAY_BUFFER = 'ArrayBuffer';
-
+	
 	$export($export.G + $export.W + $export.F * (ArrayBuffer !== $ArrayBuffer), {ArrayBuffer: $ArrayBuffer});
-
+	
 	$export($export.S + $export.F * !$typed.CONSTR, ARRAY_BUFFER, {
 	  // 24.1.3.1 ArrayBuffer.isView(arg)
 	  isView: function isView(it){
 	    return $isView && $isView(it) || isObject(it) && VIEW in it;
 	  }
 	});
-
+	
 	$export($export.P + $export.U + $export.F * __webpack_require__(12)(function(){
 	  return !new $ArrayBuffer(2).slice(1, undefined).byteLength;
 	}), ARRAY_BUFFER, {
@@ -6361,7 +6367,7 @@
 	    } return result;
 	  }
 	});
-
+	
 	__webpack_require__(57)(ARRAY_BUFFER);
 
 /***/ },
@@ -6376,18 +6382,18 @@
 	  , ABV    = !!(global.ArrayBuffer && global.DataView)
 	  , CONSTR = ABV
 	  , i = 0, l = 9, Typed;
-
+	
 	var TypedArrayConstructors = (
 	  'Int8Array,Uint8Array,Uint8ClampedArray,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array'
 	).split(',');
-
+	
 	while(i < l){
 	  if(Typed = global[TypedArrayConstructors[i++]]){
 	    hide(Typed.prototype, TYPED, true);
 	    hide(Typed.prototype, VIEW, true);
 	  } else CONSTR = false;
 	}
-
+	
 	module.exports = {
 	  ABV:    ABV,
 	  CONSTR: CONSTR,
@@ -6436,7 +6442,7 @@
 	  , $BUFFER        = DESCRIPTORS ? '_b' : BUFFER
 	  , $LENGTH        = DESCRIPTORS ? '_l' : BYTE_LENGTH
 	  , $OFFSET        = DESCRIPTORS ? '_o' : BYTE_OFFSET;
-
+	
 	// IEEE754 conversions based on https://github.com/feross/ieee754
 	var packIEEE754 = function(value, mLen, nBytes){
 	  var buffer = Array(nBytes)
@@ -6508,7 +6514,7 @@
 	    e = e - eBias;
 	  } return (s ? -1 : 1) * m * pow(2, e - mLen);
 	};
-
+	
 	var unpackI32 = function(bytes){
 	  return bytes[3] << 24 | bytes[2] << 16 | bytes[1] << 8 | bytes[0];
 	};
@@ -6527,11 +6533,11 @@
 	var packF32 = function(it){
 	  return packIEEE754(it, 23, 4);
 	};
-
+	
 	var addGetter = function(C, key, internal){
 	  dP(C[PROTOTYPE], key, {get: function(){ return this[internal]; }});
 	};
-
+	
 	var get = function(view, bytes, index, isLittleEndian){
 	  var numIndex = +index
 	    , intIndex = toInteger(numIndex);
@@ -6550,7 +6556,7 @@
 	    , pack  = conversion(+value);
 	  for(var i = 0; i < bytes; i++)store[start + i] = pack[isLittleEndian ? i : bytes - i - 1];
 	};
-
+	
 	var validateArrayBufferArguments = function(that, length){
 	  anInstance(that, $ArrayBuffer, ARRAY_BUFFER);
 	  var numberLength = +length
@@ -6558,14 +6564,14 @@
 	  if(numberLength != byteLength)throw RangeError(WRONG_LENGTH);
 	  return byteLength;
 	};
-
+	
 	if(!$typed.ABV){
 	  $ArrayBuffer = function ArrayBuffer(length){
 	    var byteLength = validateArrayBufferArguments(this, length);
 	    this._b       = arrayFill.call(Array(byteLength), 0);
 	    this[$LENGTH] = byteLength;
 	  };
-
+	
 	  $DataView = function DataView(buffer, byteOffset, byteLength){
 	    anInstance(this, $DataView, DATA_VIEW);
 	    anInstance(buffer, $ArrayBuffer, DATA_VIEW);
@@ -6578,14 +6584,14 @@
 	    this[$OFFSET] = offset;
 	    this[$LENGTH] = byteLength;
 	  };
-
+	
 	  if(DESCRIPTORS){
 	    addGetter($ArrayBuffer, BYTE_LENGTH, '_l');
 	    addGetter($DataView, BUFFER, '_b');
 	    addGetter($DataView, BYTE_LENGTH, '_l');
 	    addGetter($DataView, BYTE_OFFSET, '_o');
 	  }
-
+	
 	  redefineAll($DataView[PROTOTYPE], {
 	    getInt8: function getInt8(byteOffset){
 	      return get(this, 1, byteOffset)[0] << 24 >> 24;
@@ -6788,19 +6794,19 @@
 	    , TYPED_ARRAY         = $typed.TYPED
 	    , VIEW                = $typed.VIEW
 	    , WRONG_LENGTH        = 'Wrong length!';
-
+	
 	  var $map = createArrayMethod(1, function(O, length){
 	    return allocate(speciesConstructor(O, O[DEF_CONSTRUCTOR]), length);
 	  });
-
+	
 	  var LITTLE_ENDIAN = fails(function(){
 	    return new Uint8Array(new Uint16Array([1]).buffer)[0] === 1;
 	  });
-
+	
 	  var FORCED_SET = !!Uint8Array && !!Uint8Array[PROTOTYPE].set && fails(function(){
 	    new Uint8Array(1).set({});
 	  });
-
+	
 	  var strictToLength = function(it, SAME){
 	    if(it === undefined)throw TypeError(WRONG_LENGTH);
 	    var number = +it
@@ -6808,28 +6814,28 @@
 	    if(SAME && !same(number, length))throw RangeError(WRONG_LENGTH);
 	    return length;
 	  };
-
+	
 	  var toOffset = function(it, BYTES){
 	    var offset = toInteger(it);
 	    if(offset < 0 || offset % BYTES)throw RangeError('Wrong offset!');
 	    return offset;
 	  };
-
+	
 	  var validate = function(it){
 	    if(isObject(it) && TYPED_ARRAY in it)return it;
 	    throw TypeError(it + ' is not a typed array!');
 	  };
-
+	
 	  var allocate = function(C, length){
 	    if(!(isObject(C) && TYPED_CONSTRUCTOR in C)){
 	      throw TypeError('It is not a typed array constructor!');
 	    } return new C(length);
 	  };
-
+	
 	  var speciesFromList = function(O, list){
 	    return fromList(speciesConstructor(O, O[DEF_CONSTRUCTOR]), list);
 	  };
-
+	
 	  var fromList = function(C, list){
 	    var index  = 0
 	      , length = list.length
@@ -6837,11 +6843,11 @@
 	    while(length > index)result[index] = list[index++];
 	    return result;
 	  };
-
+	
 	  var addGetter = function(it, key, internal){
 	    dP(it, key, {get: function(){ return this._d[internal]; }});
 	  };
-
+	
 	  var $from = function from(source /*, mapfn, thisArg */){
 	    var O       = toObject(source)
 	      , aLen    = arguments.length
@@ -6860,7 +6866,7 @@
 	    }
 	    return result;
 	  };
-
+	
 	  var $of = function of(/*...items*/){
 	    var index  = 0
 	      , length = arguments.length
@@ -6868,14 +6874,14 @@
 	    while(length > index)result[index] = arguments[index++];
 	    return result;
 	  };
-
+	
 	  // iOS Safari 6.x fails here
 	  var TO_LOCALE_BUG = !!Uint8Array && fails(function(){ arrayToLocaleString.call(new Uint8Array(1)); });
-
+	
 	  var $toLocaleString = function toLocaleString(){
 	    return arrayToLocaleString.apply(TO_LOCALE_BUG ? arraySlice.call(validate(this)) : validate(this), arguments);
 	  };
-
+	
 	  var proto = {
 	    copyWithin: function copyWithin(target, start /*, end */){
 	      return arrayCopyWithin.call(validate(this), target, start, arguments.length > 2 ? arguments[2] : undefined);
@@ -6949,11 +6955,11 @@
 	      );
 	    }
 	  };
-
+	
 	  var $slice = function slice(start, end){
 	    return speciesFromList(this, arraySlice.call(validate(this), start, end));
 	  };
-
+	
 	  var $set = function set(arrayLike /*, offset */){
 	    validate(this);
 	    var offset = toOffset(arguments[1], 1)
@@ -6964,7 +6970,7 @@
 	    if(len + offset > length)throw RangeError(WRONG_LENGTH);
 	    while(index < len)this[offset + index] = src[index++];
 	  };
-
+	
 	  var $iterators = {
 	    entries: function entries(){
 	      return arrayEntries.call(validate(this));
@@ -6976,7 +6982,7 @@
 	      return arrayValues.call(validate(this));
 	    }
 	  };
-
+	
 	  var isTAIndex = function(target, key){
 	    return isObject(target)
 	      && target[TYPED_ARRAY]
@@ -7004,23 +7010,23 @@
 	      return target;
 	    } else return dP(target, key, desc);
 	  };
-
+	
 	  if(!ALL_CONSTRUCTORS){
 	    $GOPD.f = $getDesc;
 	    $DP.f   = $setDesc;
 	  }
-
+	
 	  $export($export.S + $export.F * !ALL_CONSTRUCTORS, 'Object', {
 	    getOwnPropertyDescriptor: $getDesc,
 	    defineProperty:           $setDesc
 	  });
-
+	
 	  if(fails(function(){ arrayToString.call({}); })){
 	    arrayToString = arrayToLocaleString = function toString(){
 	      return arrayJoin.call(this);
 	    }
 	  }
-
+	
 	  var $TypedArrayPrototype$ = redefineAll({}, proto);
 	  redefineAll($TypedArrayPrototype$, $iterators);
 	  hide($TypedArrayPrototype$, ITERATOR, $iterators.values);
@@ -7038,7 +7044,7 @@
 	  dP($TypedArrayPrototype$, TAG, {
 	    get: function(){ return this[TYPED_ARRAY]; }
 	  });
-
+	
 	  module.exports = function(KEY, BYTES, wrapper, CLAMPED){
 	    CLAMPED = !!CLAMPED;
 	    var NAME       = KEY + (CLAMPED ? 'Clamped' : '') + 'Array'
@@ -7145,45 +7151,45 @@
 	    hide(TypedArrayPrototype, TYPED_ARRAY, NAME);
 	    hide(TypedArrayPrototype, VIEW, true);
 	    hide(TypedArrayPrototype, DEF_CONSTRUCTOR, TypedArray);
-
+	
 	    if(CLAMPED ? new TypedArray(1)[TAG] != NAME : !(TAG in TypedArrayPrototype)){
 	      dP(TypedArrayPrototype, TAG, {
 	        get: function(){ return NAME; }
 	      });
 	    }
-
+	
 	    O[NAME] = TypedArray;
-
+	
 	    $export($export.G + $export.W + $export.F * (TypedArray != Base), O);
-
+	
 	    $export($export.S, NAME, {
 	      BYTES_PER_ELEMENT: BYTES,
 	      from: $from,
 	      of: $of
 	    });
-
+	
 	    if(!(BYTES_PER_ELEMENT in TypedArrayPrototype))hide(TypedArrayPrototype, BYTES_PER_ELEMENT, BYTES);
-
+	
 	    $export($export.P, NAME, proto);
-
+	
 	    setSpecies(NAME);
-
+	
 	    $export($export.P + $export.F * FORCED_SET, NAME, {set: $set});
-
+	
 	    $export($export.P + $export.F * !CORRECT_ITER_NAME, NAME, $iterators);
-
+	
 	    $export($export.P + $export.F * (TypedArrayPrototype.toString != arrayToString), NAME, {toString: arrayToString});
-
+	
 	    $export($export.P + $export.F * fails(function(){
 	      new TypedArray(1).slice();
 	    }), NAME, {slice: $slice});
-
+	
 	    $export($export.P + $export.F * (fails(function(){
 	      return [1, 2].toLocaleString() != new TypedArray([1, 2]).toLocaleString()
 	    }) || !fails(function(){
 	      TypedArrayPrototype.toLocaleString.call([1, 2]);
 	    })), NAME, {toLocaleString: $toLocaleString});
-
+	
 	    Iterators[NAME] = CORRECT_ITER_NAME ? $nativeIterator : $iterator;
 	    if(!LIBRARY && !CORRECT_ITER_NAME)hide(TypedArrayPrototype, ITERATOR, $iterator);
 	  };
@@ -7323,7 +7329,7 @@
 	  , fails      = __webpack_require__(12)
 	  , bind       = __webpack_require__(115)
 	  , rConstruct = (__webpack_require__(14).Reflect || {}).construct;
-
+	
 	// MS Edge supports only 2 arguments and argumentsList argument is optional
 	// FF Nightly sets third argument as `new.target`, but does not create `this` from it
 	var NEW_TARGET_BUG = fails(function(){
@@ -7333,7 +7339,7 @@
 	var ARGS_BUG = !fails(function(){
 	  rConstruct(function(){});
 	});
-
+	
 	$export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
 	  construct: function construct(Target, args /*, newTarget*/){
 	    aFunction(Target);
@@ -7371,7 +7377,7 @@
 	  , $export     = __webpack_require__(51)
 	  , anObject    = __webpack_require__(8)
 	  , toPrimitive = __webpack_require__(15);
-
+	
 	// MS Edge has broken Reflect.defineProperty - throwing instead of returning false
 	$export($export.S + $export.F * __webpack_require__(12)(function(){
 	  Reflect.defineProperty(dP.f({}, 1, {value: 1}), 1, {value: 2});
@@ -7397,7 +7403,7 @@
 	var $export  = __webpack_require__(51)
 	  , gOPD     = __webpack_require__(63).f
 	  , anObject = __webpack_require__(8);
-
+	
 	$export($export.S, 'Reflect', {
 	  deleteProperty: function deleteProperty(target, propertyKey){
 	    var desc = gOPD(anObject(target), propertyKey);
@@ -7429,7 +7435,7 @@
 	  } while(!((key = keys[that._i++]) in that._t));
 	  return {value: key, done: false};
 	});
-
+	
 	$export($export.S, 'Reflect', {
 	  enumerate: function enumerate(target){
 	    return new Enumerate(target);
@@ -7447,7 +7453,7 @@
 	  , $export        = __webpack_require__(51)
 	  , isObject       = __webpack_require__(9)
 	  , anObject       = __webpack_require__(8);
-
+	
 	function get(target, propertyKey/*, receiver*/){
 	  var receiver = arguments.length < 3 ? target : arguments[2]
 	    , desc, proto;
@@ -7459,7 +7465,7 @@
 	      : undefined;
 	  if(isObject(proto = getPrototypeOf(target)))return get(proto, propertyKey, receiver);
 	}
-
+	
 	$export($export.S, 'Reflect', {get: get});
 
 /***/ },
@@ -7470,7 +7476,7 @@
 	var gOPD     = __webpack_require__(63)
 	  , $export  = __webpack_require__(51)
 	  , anObject = __webpack_require__(8);
-
+	
 	$export($export.S, 'Reflect', {
 	  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(target, propertyKey){
 	    return gOPD.f(anObject(target), propertyKey);
@@ -7485,7 +7491,7 @@
 	var $export  = __webpack_require__(51)
 	  , getProto = __webpack_require__(54)
 	  , anObject = __webpack_require__(8);
-
+	
 	$export($export.S, 'Reflect', {
 	  getPrototypeOf: function getPrototypeOf(target){
 	    return getProto(anObject(target));
@@ -7498,7 +7504,7 @@
 
 	// 26.1.9 Reflect.has(target, propertyKey)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Reflect', {
 	  has: function has(target, propertyKey){
 	    return propertyKey in target;
@@ -7513,7 +7519,7 @@
 	var $export       = __webpack_require__(51)
 	  , anObject      = __webpack_require__(8)
 	  , $isExtensible = Object.isExtensible;
-
+	
 	$export($export.S, 'Reflect', {
 	  isExtensible: function isExtensible(target){
 	    anObject(target);
@@ -7527,7 +7533,7 @@
 
 	// 26.1.11 Reflect.ownKeys(target)
 	var $export = __webpack_require__(51);
-
+	
 	$export($export.S, 'Reflect', {ownKeys: __webpack_require__(271)});
 
 /***/ },
@@ -7553,7 +7559,7 @@
 	var $export            = __webpack_require__(51)
 	  , anObject           = __webpack_require__(8)
 	  , $preventExtensions = Object.preventExtensions;
-
+	
 	$export($export.S, 'Reflect', {
 	  preventExtensions: function preventExtensions(target){
 	    anObject(target);
@@ -7579,7 +7585,7 @@
 	  , createDesc     = __webpack_require__(37)
 	  , anObject       = __webpack_require__(8)
 	  , isObject       = __webpack_require__(9);
-
+	
 	function set(target, propertyKey, V/*, receiver*/){
 	  var receiver = arguments.length < 4 ? target : arguments[3]
 	    , ownDesc  = gOPD.f(anObject(target), propertyKey)
@@ -7599,7 +7605,7 @@
 	  }
 	  return ownDesc.set === undefined ? false : (ownDesc.set.call(receiver, V), true);
 	}
-
+	
 	$export($export.S, 'Reflect', {set: set});
 
 /***/ },
@@ -7609,7 +7615,7 @@
 	// 26.1.14 Reflect.setPrototypeOf(target, proto)
 	var $export  = __webpack_require__(51)
 	  , setProto = __webpack_require__(62);
-
+	
 	if(setProto)$export($export.S, 'Reflect', {
 	  setPrototypeOf: function setPrototypeOf(target, proto){
 	    setProto.check(target, proto);
@@ -14141,7 +14147,7 @@
 	 * }
 	 *
 	 * var injector = Injector.resolveAndCreate([A]);
-
+	
 	 * try {
 	 *   injector.get(A);
 	 * } catch (e) {
@@ -17053,25 +17059,25 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
+	
 	var _ponyfill = __webpack_require__(328);
-
+	
 	var _ponyfill2 = _interopRequireDefault(_ponyfill);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	
 	var root = undefined; /* global window */
-
+	
 	if (typeof global !== 'undefined') {
 		root = global;
 	} else if (typeof window !== 'undefined') {
 		root = window;
 	}
-
+	
 	var result = (0, _ponyfill2.default)(root);
 	exports.default = result;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
@@ -17081,7 +17087,7 @@
 /***/ function(module, exports) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
@@ -17089,7 +17095,7 @@
 	function symbolObservablePonyfill(root) {
 		var result;
 		var _Symbol = root.Symbol;
-
+	
 		if (typeof _Symbol === 'function') {
 			if (_Symbol.observable) {
 				result = _Symbol.observable;
@@ -17100,7 +17106,7 @@
 		} else {
 			result = '@@observable';
 		}
-
+	
 		return result;
 	};
 
@@ -43802,103 +43808,103 @@
 	/*
 	  This is a limited shim for ShadowDOM css styling.
 	  https://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/shadow/index.html#styles
-
+	
 	  The intention here is to support only the styling features which can be
 	  relatively simply implemented. The goal is to allow users to avoid the
 	  most obvious pitfalls and do so without compromising performance significantly.
 	  For ShadowDOM styling that's not covered here, a set of best practices
 	  can be provided that should allow users to accomplish more complex styling.
-
+	
 	  The following is a list of specific ShadowDOM styling features and a brief
 	  discussion of the approach used to shim.
-
+	
 	  Shimmed features:
-
+	
 	  * :host, :host-context: ShadowDOM allows styling of the shadowRoot's host
 	  element using the :host rule. To shim this feature, the :host styles are
 	  reformatted and prefixed with a given scope name and promoted to a
 	  document level stylesheet.
 	  For example, given a scope name of .foo, a rule like this:
-
+	
 	    :host {
 	        background: red;
 	      }
 	    }
-
+	
 	  becomes:
-
+	
 	    .foo {
 	      background: red;
 	    }
-
+	
 	  * encapsultion: Styles defined within ShadowDOM, apply only to
 	  dom inside the ShadowDOM. Polymer uses one of two techniques to implement
 	  this feature.
-
+	
 	  By default, rules are prefixed with the host element tag name
 	  as a descendant selector. This ensures styling does not leak out of the 'top'
 	  of the element's ShadowDOM. For example,
-
+	
 	  div {
 	      font-weight: bold;
 	    }
-
+	
 	  becomes:
-
+	
 	  x-foo div {
 	      font-weight: bold;
 	    }
-
+	
 	  becomes:
-
-
+	
+	
 	  Alternatively, if WebComponents.ShadowCSS.strictStyling is set to true then
 	  selectors are scoped by adding an attribute selector suffix to each
 	  simple selector that contains the host element tag name. Each element
 	  in the element's ShadowDOM template is also given the scope attribute.
 	  Thus, these rules match only elements that have the scope attribute.
 	  For example, given a scope name of x-foo, a rule like this:
-
+	
 	    div {
 	      font-weight: bold;
 	    }
-
+	
 	  becomes:
-
+	
 	    div[x-foo] {
 	      font-weight: bold;
 	    }
-
+	
 	  Note that elements that are dynamically added to a scope must have the scope
 	  selector added to them manually.
-
+	
 	  * upper/lower bound encapsulation: Styles which are defined outside a
 	  shadowRoot should not cross the ShadowDOM boundary and should not apply
 	  inside a shadowRoot.
-
+	
 	  This styling behavior is not emulated. Some possible ways to do this that
 	  were rejected due to complexity and/or performance concerns include: (1) reset
 	  every possible property for every possible selector for a given scope name;
 	  (2) re-implement css in javascript.
-
+	
 	  As an alternative, users should make sure to use selectors
 	  specific to the scope in which they are working.
-
+	
 	  * ::distributed: This behavior is not emulated. It's often not necessary
 	  to style the contents of a specific insertion point and instead, descendants
 	  of the host element can be styled selectively. Users can also create an
 	  extra node around an insertion point and style that node's contents
 	  via descendent selectors. For example, with a shadowRoot like this:
-
+	
 	    <style>
 	      ::content(div) {
 	        background: red;
 	      }
 	    </style>
 	    <content></content>
-
+	
 	  could become:
-
+	
 	    <style>
 	      / *@polyfill .content-container div * /
 	      ::content(div) {
@@ -43908,7 +43914,7 @@
 	    <div class="content-container">
 	      <content></content>
 	    </div>
-
+	
 	  Note the use of @polyfill in the comment above a ShadowDOM specific style
 	  declaration. This is a directive to the styling shim to use the selector
 	  in comments in lieu of the next selector when running under polyfill.
@@ -57128,7 +57134,7 @@
 	 *     });
 	 *   }
 	 * });
-
+	
 	 * jsonp.get('people.json').observer({
 	 *   next: res => {
 	 *     // Response came from mock backend
@@ -59922,21 +59928,21 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(279);
-	var business_component_1 = __webpack_require__(625);
+	var router_1 = __webpack_require__(955);
+	var business_list_component_1 = __webpack_require__(950);
 	var business_search_component_1 = __webpack_require__(629);
-	var business_list_component_1 = __webpack_require__(949);
 	var AppComponent = (function () {
 	    function AppComponent() {
 	    }
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'app',
-	            template: "\n    <business-search></business-search>\n    <business-list></business-list>\n  ",
+	            template: "\n  <div class=\"navigation\">\n    <ul class=\"nav nav-pills\">\n      <li><a [routerLink]=\"['']\">Home</a></li>\n      <li><a [routerLink]=\"['/search']\">Search</a></li>    \n    </ul>\n  </div>\n  <router-outlet></router-outlet>\n  \n  ",
+	            styles: ["\n    .navigation{\n      background: rgba(9,9,9,0.75);\n      color: white;\n      border-radius: 0px;\n      border-color: rgba(0,0,0,0.5);\n      border-bottom: 1px;\n      font-size: 100%;\n    }\n    .nav{\n      display:inline-block;\n      position:relative;\n      left:45%;\n    }\n    .nav-pills > li > a {\n      border-radius: 0px;\n    }\n  "],
 	            directives: [
-	                business_component_1.BusinessComponent,
-	                business_search_component_1.BusinessSearchComponent,
-	                business_list_component_1.BusinessListComponent
-	            ]
+	                business_list_component_1.BusinessListComponent,
+	                business_search_component_1.BusinessSearchComponent
+	            ].concat(router_1.ROUTER_DIRECTIVES)
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AppComponent);
@@ -59960,8 +59966,8 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(279);
-	var Business_1 = __webpack_require__(627);
-	var business_mock_1 = __webpack_require__(626);
+	var Business_1 = __webpack_require__(626);
+	var business_mock_1 = __webpack_require__(627);
 	var BusinessComponent = (function () {
 	    function BusinessComponent() {
 	        this.businessData = business_mock_1.businessMock;
@@ -59975,6 +59981,7 @@
 	    };
 	    BusinessComponent.prototype.phoneNum = function (phoneNumber) {
 	        if (phoneNumber) {
+	            //phone number regex
 	            var PN_REGEX = /^(\d{3})(\d{3})(\d{4})$/;
 	            return phoneNumber.replace(PN_REGEX, '($1) $2-$3');
 	        }
@@ -59990,7 +59997,7 @@
 	        core_1.Component({
 	            selector: 'business',
 	            template: "\n  <div class='panel panel-default'>\n    <div class='panel panel-heading'>\n    <h2 class='panel-title'>{{businessData.name}}</h2>\n    </div>\n    <div class='panel-body'>\n    <div class='address'>\n    <div>{{getAddress()}}</div>\n    <div>{{businessData.location.city}},\n    {{businessData.location.state_code}}\n    {{businessData.location.postal_code}}</div>\n    {{phoneNum(businessData.phone)}}\n    <a [href]=\"businessData.url\" target=\"_blank\">Yelp! link</a>\n    </div>\n    <img [src]=\"businessData.image_url ? businessData.image_url : 'images/no-image.png'\" height=\"100\" width=\"100\">\n    <div *ngIf=\"businessData.rating\" class=\"ratings-reviews\">\n    <span class='ratings'>\n    Rating: <span class=\"badge\">{{businessData.rating}}</span>\n    </span>\n      <br>\n     <i class=\"reviews\">\n      *Based on {{businessData.review_count}} reviews\n      </i>\n      <br>\n      <br>\n      <div class=\"example-review\">\n      Example Review: <i>\"{{businessData.snippet_text}}\"</i> &#8212; Yelp User\n      </div>\n      </div>           \n    </div>\n  </div>\n  ",
-	            styles: ["\n    div.panel.panel-default{\n      width:370px;\n    }\n    .address{\n      display:inline-block;\n      width: 160px;\n    }\n    img{\n      position:relative;\n      display:inline-block;\n      width: 100px;\n      height: 100px;\n      margin-left:60px;\n    }   \n    .panel{\n      color: white;\n      border-radius: 0px;\n      border-color:rgba(0,0,0,0.5);\n      border-bottom: 1px;\n      font-size: 100%;\n     \n    }\n    .panel-default{\n      background: rgba(9,9,9,0.75);\n    }\n    .panel-heading{\n      background: #333435;\n      border: 1px;\n      border-color:rgba(0,0,0,0.5);\n      margin-bottom:0px;\n    }\n    .panel-body{    \n      background: rgba(9,9,9,0.75);\n    }\n    .ratings{\n      display: inline-block;\n      font-size: 100%;\n      margin-left:30px;\n    }\n    .reviews{\n      display: inline-block;\n      position:relative;\n      width: 100px;\n      left:110px;\n      font-size: 80%;\n    }\n    .ratings-reviews{\n      font-size: 100%;\n    }\n  "]
+	            styles: ["\n    div.panel.panel-default{\n      width:370px;\n    }\n    .address{\n      display:inline-block;\n      width: 160px;\n    }\n    img{\n      position:relative;\n      display:inline-block;\n      width: 100px;\n      height: 100px;\n      margin-left:60px;\n    }   \n    .panel{\n      color: white;\n      border-radius: 0px;\n      border-color:rgba(0,0,0,0.5);\n      border-bottom: 1px;\n      font-size: 100%;     \n    }\n    .panel-default{\n      background: rgba(9,9,9,0.75);\n    }\n    .panel-heading{\n      background: #333435;\n      border: 1px;\n      border-color:rgba(0,0,0,0.5);\n      margin-bottom:0px;\n    }\n    .panel-body{    \n      background: rgba(9,9,9,0.75);\n    }\n    .ratings{\n      display: inline-block;\n      font-size: 100%;\n      margin-left:30px;\n    }\n    .reviews{\n      display: inline-block;\n      position:relative;\n      width: 100px;\n      left:110px;\n      font-size: 80%;\n    }\n    .ratings-reviews{\n      font-size: 100%;\n    }\n  "]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], BusinessComponent);
@@ -60001,20 +60008,6 @@
 
 /***/ },
 /* 626 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var Business_1 = __webpack_require__(627);
-	var Address_1 = __webpack_require__(628);
-	exports.businessMock = new Business_1.Business('Giorgio\'s Pizza', 'http://www.giorgiospizza.com/', '415-668-1266', 'https://s3-media3.fl.yelpcdn.com/bphoto/aHGOnOo21VrX9k-Z0vUR_A/ms.jpg', new Address_1.Address('Sanfrancisco', [
-	    '151 Clement St.'
-	], '94118', 'USA', [
-	    '151 Clement St.'
-	], 'CA'), 'Bring me... THE BAT!', 3.5, 787);
-
-
-/***/ },
-/* 627 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -60040,6 +60033,20 @@
 	exports.Business = Business;
 	var toBusiness = function (datum) { return new Business(datum.name, datum.url, datum.phone, datum.image_url, datum.location, datum.snippet_text, datum.rating, datum.review_count); };
 	exports.toBusiness = toBusiness;
+
+
+/***/ },
+/* 627 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var Business_1 = __webpack_require__(626);
+	var Address_1 = __webpack_require__(628);
+	exports.businessMock = new Business_1.Business('Giorgio\'s Pizza', 'http://www.giorgiospizza.com/', '415-668-1266', 'https://s3-media3.fl.yelpcdn.com/bphoto/aHGOnOo21VrX9k-Z0vUR_A/ms.jpg', new Address_1.Address('Sanfrancisco', [
+	    '151 Clement St.'
+	], '94118', 'USA', [
+	    '151 Clement St.'
+	], 'CA'), 'Bring me... THE BAT!', 3.5, 787);
 
 
 /***/ },
@@ -60083,7 +60090,7 @@
 	};
 	var core_1 = __webpack_require__(279);
 	var business_service_1 = __webpack_require__(630);
-	var Business_1 = __webpack_require__(627);
+	var Business_1 = __webpack_require__(626);
 	var BusinessSearchComponent = (function () {
 	    function BusinessSearchComponent(_businessService) {
 	        this._businessService = _businessService;
@@ -60091,7 +60098,6 @@
 	    BusinessSearchComponent.prototype.executeSearch = function () {
 	        var _this = this;
 	        this._businessService.getBusinesses(this.searchTerm).subscribe(function (data) {
-	            console.log(data.businesses.map(Business_1.toBusiness));
 	            _this._businessService.businesses = data.businesses.map(Business_1.toBusiness);
 	            _this._businessService.emitListChange();
 	        }, function (error) { return console.log(error); });
@@ -60127,7 +60133,7 @@
 	var http_1 = __webpack_require__(603);
 	__webpack_require__(631);
 	var Observable_1 = __webpack_require__(312);
-	var business_list_mock_1 = __webpack_require__(950);
+	var business_list_mock_1 = __webpack_require__(949);
 	var BusinessService = (function () {
 	    function BusinessService(_http) {
 	        this._http = _http;
@@ -73298,9 +73304,9 @@
 	var slice = Array.prototype.slice;
 	var immediateIds = {};
 	var nextImmediateId = 0;
-
+	
 	// DOM APIs, for completeness
-
+	
 	exports.setTimeout = function() {
 	  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
 	};
@@ -73309,7 +73315,7 @@
 	};
 	exports.clearTimeout =
 	exports.clearInterval = function(timeout) { timeout.close(); };
-
+	
 	function Timeout(id, clearFn) {
 	  this._id = id;
 	  this._clearFn = clearFn;
@@ -73318,21 +73324,21 @@
 	Timeout.prototype.close = function() {
 	  this._clearFn.call(window, this._id);
 	};
-
+	
 	// Does not start the time, just sets up the members needed.
 	exports.enroll = function(item, msecs) {
 	  clearTimeout(item._idleTimeoutId);
 	  item._idleTimeout = msecs;
 	};
-
+	
 	exports.unenroll = function(item) {
 	  clearTimeout(item._idleTimeoutId);
 	  item._idleTimeout = -1;
 	};
-
+	
 	exports._unrefActive = exports.active = function(item) {
 	  clearTimeout(item._idleTimeoutId);
-
+	
 	  var msecs = item._idleTimeout;
 	  if (msecs >= 0) {
 	    item._idleTimeoutId = setTimeout(function onTimeout() {
@@ -73341,14 +73347,14 @@
 	    }, msecs);
 	  }
 	};
-
+	
 	// That's not how node.js implements it but the exposed api is the same.
 	exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
 	  var id = nextImmediateId++;
 	  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-
+	
 	  immediateIds[id] = true;
-
+	
 	  nextTick(function onNextTick() {
 	    if (immediateIds[id]) {
 	      // fn.call() is faster so we optimize for the common use-case
@@ -73362,10 +73368,10 @@
 	      exports.clearImmediate(id);
 	    }
 	  });
-
+	
 	  return id;
 	};
-
+	
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
@@ -76544,53 +76550,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(279);
-	var business_component_ts_1 = __webpack_require__(625);
-	var business_service_1 = __webpack_require__(630);
-	var BusinessListComponent = (function () {
-	    function BusinessListComponent(_businessService) {
-	        this._businessService = _businessService;
-	        this.businesses = [];
-	    }
-	    BusinessListComponent.prototype.ngOnInit = function () {
-	        var _this = this;
-	        this._listchange = this._businessService.getListChangeEvent();
-	        this._listchange.subscribe(function (employeeList) { return _this.businesses = employeeList; });
-	    };
-	    BusinessListComponent.prototype.ngOnDestroy = function () {
-	        this._listchange.unsubscribe();
-	    };
-	    BusinessListComponent = __decorate([
-	        core_1.Component({
-	            selector: 'business-list',
-	            template: "\n  <h3>Results</h3>\n  <business *ngFor=\"let businessData of businesses\" [business-data]=businessData > \n  </business>\n  ",
-	            styles: ["\n  "],
-	            directives: [business_component_ts_1.BusinessComponent]
-	        }), 
-	        __metadata('design:paramtypes', [business_service_1.BusinessService])
-	    ], BusinessListComponent);
-	    return BusinessListComponent;
-	}());
-	exports.BusinessListComponent = BusinessListComponent;
-
-
-/***/ },
-/* 950 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var Business_1 = __webpack_require__(627);
+	var Business_1 = __webpack_require__(626);
 	var Address_1 = __webpack_require__(628);
-	var business_mock_1 = __webpack_require__(626);
+	var business_mock_1 = __webpack_require__(627);
 	var bobsPizza = new Business_1.Business('Bob\'s Pizza', 'https://www.yelp.com/biz/bobs-pizza-norwalk', '415555555', 'https://s3-media3.fl.yelpcdn.com/bphoto/wQfykQq69YZ2Zx7UARVfNg/ms.jpg', new Address_1.Address('Norwalk', [
 	    "14505 Pioneer Blvd",
 	    "Norwalk, CA 90650"
@@ -76607,5 +76569,3277 @@
 	];
 
 
+/***/ },
+/* 950 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var business_component_1 = __webpack_require__(625);
+	var business_search_component_1 = __webpack_require__(629);
+	var business_service_1 = __webpack_require__(630);
+	var favorites_service_1 = __webpack_require__(951);
+	var favorites_component_1 = __webpack_require__(952);
+	var BusinessListComponent = (function () {
+	    function BusinessListComponent(_businessService, _favoritesService) {
+	        this._businessService = _businessService;
+	        this._favoritesService = _favoritesService;
+	        this.businesses = [];
+	        this.selectedBusinesses = [];
+	    }
+	    BusinessListComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.businesses = this._businessService.businesses;
+	        this._listchange = this._businessService.getListChangeEvent();
+	        this._listchange.subscribe(function (businesses) { return _this.businesses = businesses; });
+	    };
+	    BusinessListComponent.prototype.ngOnDestroy = function () {
+	        //this._listchange.unsubscribe();
+	    };
+	    BusinessListComponent.prototype.selectBusiness = function (selected) {
+	        var indexOfSelected = this.selectedBusinesses.indexOf(selected);
+	        if (indexOfSelected === -1) {
+	            this.selectedBusinesses.push(selected);
+	        }
+	        else {
+	            this.selectedBusinesses.splice(indexOfSelected, 1);
+	        }
+	    };
+	    BusinessListComponent.prototype.addToFavorites = function (business) {
+	        this._favoritesService.addBusiness(business);
+	    };
+	    BusinessListComponent.prototype.removeFromFavorites = function (business) {
+	        this._favoritesService.removeBusiness(business);
+	    };
+	    BusinessListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'business-list',
+	            template: "\n  <business-search></business-search>\n  <h3 *ngIf=\"businesses.length\">Results</h3>\n  <div *ngFor=\"let businessData of businesses\">\n    <business  [business-data]=businessData ></business>\n    <button class=\"btn btn-primary favorites-add\" (click)=\"addToFavorites(businessData)\">\n      Add to Favorites</button>\n  </div>\n  <div class=\"favorites-panel\">\n    <favorites></favorites>\n  </div>\n  ",
+	            styles: ["\n    .input{\n      display:inline-block;\n    }\n    .favorites-panel{\n      position:fixed;\n      right:100px;\n      top:100px;\n      height: 500px;\n      width: 350px;\n    }\n    .favorites-add{\n      position: relative;\n      left: 200px;\n      bottom: 17px;\n    }\n  "],
+	            directives: [business_search_component_1.BusinessSearchComponent, business_component_1.BusinessComponent, favorites_component_1.FavoritesComponent]
+	        }), 
+	        __metadata('design:paramtypes', [business_service_1.BusinessService, favorites_service_1.FavoritesService])
+	    ], BusinessListComponent);
+	    return BusinessListComponent;
+	}());
+	exports.BusinessListComponent = BusinessListComponent;
+
+
+/***/ },
+/* 951 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var FavoritesService = (function () {
+	    function FavoritesService() {
+	        this.favorites = [];
+	        this.possibleFavorites = [];
+	        this.favoritesChange = new core_1.EventEmitter();
+	    }
+	    FavoritesService.prototype.emitListChange = function () {
+	        this.favoritesChange.emit(this.favorites);
+	    };
+	    FavoritesService.prototype.getListChangeEvent = function () {
+	        return this.favoritesChange;
+	    };
+	    FavoritesService.prototype.addPossibleFavorite = function (businesses) {
+	        var _this = this;
+	        businesses.forEach(function (biz) {
+	            if (_this.possibleFavorites.indexOf(biz) === -1 && biz) {
+	                _this.possibleFavorites.push(biz);
+	            }
+	        });
+	    };
+	    FavoritesService.prototype.saveAllToFavorites = function () {
+	        this.addBusinesses(this.possibleFavorites);
+	    };
+	    FavoritesService.prototype.addBusiness = function (biz) {
+	        if (this.favorites.indexOf(biz) === -1 && biz) {
+	            this.favorites.push(biz);
+	            this.emitListChange();
+	        }
+	    };
+	    FavoritesService.prototype.removeBusiness = function (biz) {
+	        if (this.favorites.indexOf(biz) !== -1) {
+	            this.favorites.splice(this.favorites.indexOf(biz), 1);
+	            this.emitListChange();
+	        }
+	    };
+	    /**
+	     * addBusinesses
+	     *
+	     * adds each Businesses in an array of Businesses
+	     * (this.businesses)
+	     * if that business is not already contained within
+	     * the current this.businesses array.
+	     */
+	    FavoritesService.prototype.addBusinesses = function (theBusinesses) {
+	        var _this = this;
+	        //thank arrow functions for dat lexical binding
+	        theBusinesses.forEach(function (business) {
+	            if (_this.favorites.indexOf(business) === -1 && business) {
+	                _this.favorites.push(business);
+	            }
+	        });
+	        this.emitListChange();
+	    };
+	    FavoritesService.prototype.isFavorited = function (business) {
+	        return this.favorites.indexOf(business) !== -1;
+	    };
+	    FavoritesService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], FavoritesService);
+	    return FavoritesService;
+	}());
+	exports.FavoritesService = FavoritesService;
+
+
+/***/ },
+/* 952 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var mini_business_component_1 = __webpack_require__(953);
+	var favorites_service_1 = __webpack_require__(951);
+	var FavoritesComponent = (function () {
+	    function FavoritesComponent(_favoritesService) {
+	        this._favoritesService = _favoritesService;
+	        this.readOnlyMode = false;
+	        this.businesses = [];
+	    }
+	    FavoritesComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.businesses = this._favoritesService.favorites;
+	        this._listChange = this._favoritesService.getListChangeEvent();
+	        this._listChange.subscribe(function (businessList) { return _this.businesses = businessList; }, function (error) { return console.log(error); });
+	    };
+	    FavoritesComponent.prototype.ngOnDestroy = function () {
+	        //this._listChange.unsubscribe();
+	    };
+	    FavoritesComponent.prototype.removeBusiness = function (business) {
+	        this._favoritesService.removeBusiness(business);
+	    };
+	    /**
+	     * saveFavorites
+	     * TODO: triggers an ajax call to the server to save the favorites to the user profile
+	     */
+	    FavoritesComponent.prototype.saveFavorites = function () {
+	        if (this.readOnlyMode) {
+	            return;
+	        }
+	        //save favorites to server
+	    };
+	    __decorate([
+	        core_1.Input('read-only'), 
+	        __metadata('design:type', Boolean)
+	    ], FavoritesComponent.prototype, "readOnlyMode", void 0);
+	    FavoritesComponent = __decorate([
+	        core_1.Component({
+	            selector: 'favorites',
+	            template: "\n  <div *ngIf=\"businesses.length\">\n    <h3>Favorites</h3>\n     <div class=\"favorites\">\n        <div *ngFor=\"let business of businesses\" class='mini-business'>\n          <button class=\"remove-button\" (click)=\"removeBusiness(business)\">x</button>\n            <mini-business [business-data]=\"business\"></mini-business>\n        </div>\n      </div>\n    <button (click)=\"saveFavorites()\" class=\"btn btn-primary\">Save Favorites</button>\n  </div>\n  ",
+	            styles: ["\n    .remove-button{\n      display:inline-block;\n      position:relative;\n      bottom:-30px;\n      left:-24px;\n      width:25px;\n      height:25px;\n      background-color: darkred;\n      border: 1px solid black;\n      transition: background-color 0.3s;\n    }\n    .remove-button:hover{\n      background-color:red;\n      color:black;\n    }\n    mini-business{\n      display:inline-block;\n    }\n    .mini-business{\n      width: 300px;\n    }\n    .favorites{\n      \n    }\n  "],
+	            directives: [mini_business_component_1.MiniBusinessComponent]
+	        }), 
+	        __metadata('design:paramtypes', [favorites_service_1.FavoritesService])
+	    ], FavoritesComponent);
+	    return FavoritesComponent;
+	}());
+	exports.FavoritesComponent = FavoritesComponent;
+
+
+/***/ },
+/* 953 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var Business_1 = __webpack_require__(626);
+	var MiniBusinessComponent = (function () {
+	    function MiniBusinessComponent() {
+	    }
+	    MiniBusinessComponent.prototype.getAddress = function () {
+	        if (!this.businessData.location.address) {
+	            return "";
+	        }
+	        ;
+	        return this.businessData.location.address.join('\n');
+	    };
+	    MiniBusinessComponent.prototype.phoneNum = function (phoneNumber) {
+	        if (phoneNumber) {
+	            var PN_REGEX = /^(\d{3})(\d{3})(\d{4})$/;
+	            return phoneNumber.replace(PN_REGEX, '($1) $2-$3');
+	        }
+	        else {
+	            return '';
+	        }
+	    };
+	    __decorate([
+	        core_1.Input('business-data'), 
+	        __metadata('design:type', Business_1.Business)
+	    ], MiniBusinessComponent.prototype, "businessData", void 0);
+	    MiniBusinessComponent = __decorate([
+	        core_1.Component({
+	            selector: 'mini-business',
+	            template: "\n  <div class='panel panel-default'>\n    <div class='panel panel-heading'>\n    <h2 class='panel-title'>{{businessData.name}}</h2>\n    </div>\n    <div class='panel-body'>\n    <div class='address'>\n    <div>{{getAddress()}}</div>\n    <div>{{businessData.location.city}},\n    {{businessData.location.state_code}}\n    {{businessData.location.postal_code}}</div>\n    {{phoneNum(businessData.phone)}}\n    <a [href]=\"businessData.url\" target=\"_blank\">Yelp! link</a>\n    </div>\n    <img [src]=\"businessData.image_url ? businessData.image_url : 'images/no-image.png'\" height=\"100\" width=\"100\">\n  </div>\n  ",
+	            styles: ["\n    div.panel.panel-default{\n      width:290px;\n      margin-top: 5px;\n    }\n    .address{\n      display:inline-block;\n      width: 160px;\n    }\n    img{\n      position:relative;\n      display:inline-block;\n      width: 75px;\n      height: 75px;\n      margin-left:10px;\n      vertical-align:top;\n    }   \n    .panel{\n      color: white;\n      border-radius: 0px;\n      border-color:rgba(0,0,0,0.5);\n      border-bottom: 1px;\n      font-size: 100%;     \n    }\n    .panel-default{\n      background: rgba(9,9,9,0.75);\n    }\n    .panel-heading{\n      background: #333435;\n      border: 1px;\n      border-color:rgba(0,0,0,0.5);\n      margin-bottom:0px;\n      font-size:90%;\n    }\n    .panel-body{    \n      background: rgba(9,9,9,0.75);\n    }\n  "]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], MiniBusinessComponent);
+	    return MiniBusinessComponent;
+	}());
+	exports.MiniBusinessComponent = MiniBusinessComponent;
+
+
+/***/ },
+/* 954 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var router_1 = __webpack_require__(955);
+	var business_list_component_1 = __webpack_require__(950);
+	var routes = [
+	    { path: 'search', component: business_list_component_1.BusinessListComponent },
+	    { path: '', component: business_list_component_1.BusinessListComponent }
+	];
+	exports.appRouterProviders = [
+	    router_1.provideRouter(routes)
+	];
+
+
+/***/ },
+/* 955 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var router_link_1 = __webpack_require__(956);
+	var router_link_active_1 = __webpack_require__(970);
+	var router_outlet_1 = __webpack_require__(971);
+	var router_link_2 = __webpack_require__(956);
+	exports.RouterLink = router_link_2.RouterLink;
+	exports.RouterLinkWithHref = router_link_2.RouterLinkWithHref;
+	var router_link_active_2 = __webpack_require__(970);
+	exports.RouterLinkActive = router_link_active_2.RouterLinkActive;
+	var router_outlet_2 = __webpack_require__(971);
+	exports.RouterOutlet = router_outlet_2.RouterOutlet;
+	var router_1 = __webpack_require__(957);
+	exports.NavigationCancel = router_1.NavigationCancel;
+	exports.NavigationEnd = router_1.NavigationEnd;
+	exports.NavigationError = router_1.NavigationError;
+	exports.NavigationStart = router_1.NavigationStart;
+	exports.Router = router_1.Router;
+	exports.RoutesRecognized = router_1.RoutesRecognized;
+	var router_outlet_map_1 = __webpack_require__(969);
+	exports.RouterOutletMap = router_outlet_map_1.RouterOutletMap;
+	var router_providers_1 = __webpack_require__(972);
+	exports.provideRouter = router_providers_1.provideRouter;
+	var router_state_1 = __webpack_require__(964);
+	exports.ActivatedRoute = router_state_1.ActivatedRoute;
+	exports.ActivatedRouteSnapshot = router_state_1.ActivatedRouteSnapshot;
+	exports.RouterState = router_state_1.RouterState;
+	exports.RouterStateSnapshot = router_state_1.RouterStateSnapshot;
+	var shared_1 = __webpack_require__(959);
+	exports.PRIMARY_OUTLET = shared_1.PRIMARY_OUTLET;
+	var url_tree_1 = __webpack_require__(960);
+	exports.DefaultUrlSerializer = url_tree_1.DefaultUrlSerializer;
+	exports.UrlPathWithParams = url_tree_1.UrlPathWithParams;
+	exports.UrlSerializer = url_tree_1.UrlSerializer;
+	exports.UrlTree = url_tree_1.UrlTree;
+	/**
+	 * @stable
+	 */
+	exports.ROUTER_DIRECTIVES = [router_outlet_1.RouterOutlet, router_link_1.RouterLink, router_link_1.RouterLinkWithHref, router_link_active_1.RouterLinkActive];
+	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 956 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var common_1 = __webpack_require__(276);
+	var core_1 = __webpack_require__(279);
+	var router_1 = __webpack_require__(957);
+	var router_state_1 = __webpack_require__(964);
+	var RouterLink = (function () {
+	    function RouterLink(router, route, locationStrategy) {
+	        this.router = router;
+	        this.route = route;
+	        this.locationStrategy = locationStrategy;
+	        this.commands = [];
+	    }
+	    Object.defineProperty(RouterLink.prototype, "routerLink", {
+	        set: function (data) {
+	            if (Array.isArray(data)) {
+	                this.commands = data;
+	            }
+	            else {
+	                this.commands = [data];
+	            }
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RouterLink.prototype.onClick = function (button, ctrlKey, metaKey) {
+	        if (button !== 0 || ctrlKey || metaKey) {
+	            return true;
+	        }
+	        this.router.navigate(this.commands, { relativeTo: this.route, queryParams: this.queryParams, fragment: this.fragment });
+	        return false;
+	    };
+	    /** @nocollapse */
+	    RouterLink.decorators = [
+	        { type: core_1.Directive, args: [{ selector: ':not(a)[routerLink]' },] },
+	    ];
+	    /** @nocollapse */
+	    RouterLink.ctorParameters = [
+	        { type: router_1.Router, },
+	        { type: router_state_1.ActivatedRoute, },
+	        { type: common_1.LocationStrategy, },
+	    ];
+	    /** @nocollapse */
+	    RouterLink.propDecorators = {
+	        'queryParams': [{ type: core_1.Input },],
+	        'fragment': [{ type: core_1.Input },],
+	        'routerLink': [{ type: core_1.Input },],
+	        'onClick': [{ type: core_1.HostListener, args: ['click', ['$event.button', '$event.ctrlKey', '$event.metaKey'],] },],
+	    };
+	    return RouterLink;
+	}());
+	exports.RouterLink = RouterLink;
+	var RouterLinkWithHref = (function () {
+	    /**
+	     * @internal
+	     */
+	    function RouterLinkWithHref(router, route, locationStrategy) {
+	        this.router = router;
+	        this.route = route;
+	        this.locationStrategy = locationStrategy;
+	        this.commands = [];
+	    }
+	    Object.defineProperty(RouterLinkWithHref.prototype, "routerLink", {
+	        set: function (data) {
+	            if (Array.isArray(data)) {
+	                this.commands = data;
+	            }
+	            else {
+	                this.commands = [data];
+	            }
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RouterLinkWithHref.prototype.ngOnChanges = function (changes) { this.updateTargetUrlAndHref(); };
+	    RouterLinkWithHref.prototype.onClick = function (button, ctrlKey, metaKey) {
+	        if (button !== 0 || ctrlKey || metaKey) {
+	            return true;
+	        }
+	        if (typeof this.target === 'string' && this.target != '_self') {
+	            return true;
+	        }
+	        this.router.navigateByUrl(this.urlTree);
+	        return false;
+	    };
+	    RouterLinkWithHref.prototype.updateTargetUrlAndHref = function () {
+	        this.urlTree = this.router.createUrlTree(this.commands, { relativeTo: this.route, queryParams: this.queryParams, fragment: this.fragment });
+	        if (this.urlTree) {
+	            this.href = this.locationStrategy.prepareExternalUrl(this.router.serializeUrl(this.urlTree));
+	        }
+	    };
+	    /** @nocollapse */
+	    RouterLinkWithHref.decorators = [
+	        { type: core_1.Directive, args: [{ selector: 'a[routerLink]' },] },
+	    ];
+	    /** @nocollapse */
+	    RouterLinkWithHref.ctorParameters = [
+	        { type: router_1.Router, },
+	        { type: router_state_1.ActivatedRoute, },
+	        { type: common_1.LocationStrategy, },
+	    ];
+	    /** @nocollapse */
+	    RouterLinkWithHref.propDecorators = {
+	        'target': [{ type: core_1.Input },],
+	        'queryParams': [{ type: core_1.Input },],
+	        'fragment': [{ type: core_1.Input },],
+	        'href': [{ type: core_1.HostBinding },],
+	        'routerLink': [{ type: core_1.Input },],
+	        'onClick': [{ type: core_1.HostListener, args: ['click', ['$event.button', '$event.ctrlKey', '$event.metaKey'],] },],
+	    };
+	    return RouterLinkWithHref;
+	}());
+	exports.RouterLinkWithHref = RouterLinkWithHref;
+	//# sourceMappingURL=router_link.js.map
+
+/***/ },
+/* 957 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	__webpack_require__(819);
+	__webpack_require__(830);
+	__webpack_require__(829);
+	__webpack_require__(860);
+	__webpack_require__(817);
+	__webpack_require__(663);
+	__webpack_require__(660);
+	var core_1 = __webpack_require__(279);
+	var Observable_1 = __webpack_require__(312);
+	var Subject_1 = __webpack_require__(311);
+	var of_1 = __webpack_require__(702);
+	var apply_redirects_1 = __webpack_require__(958);
+	var config_1 = __webpack_require__(962);
+	var create_router_state_1 = __webpack_require__(963);
+	var create_url_tree_1 = __webpack_require__(966);
+	var recognize_1 = __webpack_require__(967);
+	var resolve_1 = __webpack_require__(968);
+	var router_outlet_map_1 = __webpack_require__(969);
+	var router_state_1 = __webpack_require__(964);
+	var shared_1 = __webpack_require__(959);
+	var url_tree_1 = __webpack_require__(960);
+	var collection_1 = __webpack_require__(961);
+	/**
+	 * An event triggered when a navigation starts
+	 *
+	 * @stable
+	 */
+	var NavigationStart = (function () {
+	    function NavigationStart(id, url) {
+	        this.id = id;
+	        this.url = url;
+	    }
+	    NavigationStart.prototype.toString = function () { return "NavigationStart(id: " + this.id + ", url: '" + this.url + "')"; };
+	    return NavigationStart;
+	}());
+	exports.NavigationStart = NavigationStart;
+	/**
+	 * An event triggered when a navigation ends successfully
+	 *
+	 * @stable
+	 */
+	var NavigationEnd = (function () {
+	    function NavigationEnd(id, url, urlAfterRedirects) {
+	        this.id = id;
+	        this.url = url;
+	        this.urlAfterRedirects = urlAfterRedirects;
+	    }
+	    NavigationEnd.prototype.toString = function () {
+	        return "NavigationEnd(id: " + this.id + ", url: '" + this.url + "', urlAfterRedirects: '" + this.urlAfterRedirects + "')";
+	    };
+	    return NavigationEnd;
+	}());
+	exports.NavigationEnd = NavigationEnd;
+	/**
+	 * An event triggered when a navigation is canceled
+	 *
+	 * @stable
+	 */
+	var NavigationCancel = (function () {
+	    function NavigationCancel(id, url) {
+	        this.id = id;
+	        this.url = url;
+	    }
+	    NavigationCancel.prototype.toString = function () { return "NavigationCancel(id: " + this.id + ", url: '" + this.url + "')"; };
+	    return NavigationCancel;
+	}());
+	exports.NavigationCancel = NavigationCancel;
+	/**
+	 * An event triggered when a navigation fails due to unexpected error
+	 *
+	 * @stable
+	 */
+	var NavigationError = (function () {
+	    function NavigationError(id, url, error) {
+	        this.id = id;
+	        this.url = url;
+	        this.error = error;
+	    }
+	    NavigationError.prototype.toString = function () {
+	        return "NavigationError(id: " + this.id + ", url: '" + this.url + "', error: " + this.error + ")";
+	    };
+	    return NavigationError;
+	}());
+	exports.NavigationError = NavigationError;
+	/**
+	 * An event triggered when routes are recognized
+	 *
+	 * @stable
+	 */
+	var RoutesRecognized = (function () {
+	    function RoutesRecognized(id, url, urlAfterRedirects, state) {
+	        this.id = id;
+	        this.url = url;
+	        this.urlAfterRedirects = urlAfterRedirects;
+	        this.state = state;
+	    }
+	    RoutesRecognized.prototype.toString = function () {
+	        return "RoutesRecognized(id: " + this.id + ", url: '" + this.url + "', urlAfterRedirects: '" + this.urlAfterRedirects + "', state: " + this.state + ")";
+	    };
+	    return RoutesRecognized;
+	}());
+	exports.RoutesRecognized = RoutesRecognized;
+	/**
+	 * The `Router` is responsible for mapping URLs to components.
+	 *
+	 * See {@link RouterConfig) for more details and examples.
+	 *
+	 * @stable
+	 */
+	var Router = (function () {
+	    /**
+	     * Creates the router service.
+	     */
+	    function Router(rootComponentType, resolver, urlSerializer, outletMap, location, injector, config) {
+	        this.rootComponentType = rootComponentType;
+	        this.resolver = resolver;
+	        this.urlSerializer = urlSerializer;
+	        this.outletMap = outletMap;
+	        this.location = location;
+	        this.injector = injector;
+	        this.navigationId = 0;
+	        this.resetConfig(config);
+	        this.routerEvents = new Subject_1.Subject();
+	        this.currentUrlTree = url_tree_1.createEmptyUrlTree();
+	        this.currentRouterState = router_state_1.createEmptyState(this.currentUrlTree, this.rootComponentType);
+	    }
+	    /**
+	     * @internal
+	     */
+	    Router.prototype.initialNavigation = function () {
+	        this.setUpLocationChangeListener();
+	        this.navigateByUrl(this.location.path(true));
+	    };
+	    Object.defineProperty(Router.prototype, "routerState", {
+	        /**
+	         * Returns the current route state.
+	         */
+	        get: function () { return this.currentRouterState; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Router.prototype, "url", {
+	        /**
+	         * Returns the current url.
+	         */
+	        get: function () { return this.serializeUrl(this.currentUrlTree); },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Router.prototype, "events", {
+	        /**
+	         * Returns an observable of route events
+	         */
+	        get: function () { return this.routerEvents; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	     * Resets the configuration used for navigation and generating links.
+	     *
+	     * ### Usage
+	     *
+	     * ```
+	     * router.resetConfig([
+	     *  { path: 'team/:id', component: TeamCmp, children: [
+	     *    { path: 'simple', component: SimpleCmp },
+	     *    { path: 'user/:name', component: UserCmp }
+	     *  ] }
+	     * ]);
+	     * ```
+	     */
+	    Router.prototype.resetConfig = function (config) {
+	        config_1.validateConfig(config);
+	        this.config = config;
+	    };
+	    /**
+	     * @internal
+	     */
+	    Router.prototype.dispose = function () { this.locationSubscription.unsubscribe(); };
+	    /**
+	     * Applies an array of commands to the current url tree and creates
+	     * a new url tree.
+	     *
+	     * When given an activate route, applies the given commands starting from the route.
+	     * When not given a route, applies the given command starting from the root.
+	     *
+	     * ### Usage
+	     *
+	     * ```
+	     * // create /team/33/user/11
+	     * router.createUrlTree(['/team', 33, 'user', 11]);
+	     *
+	     * // create /team/33;expand=true/user/11
+	     * router.createUrlTree(['/team', 33, {expand: true}, 'user', 11]);
+	     *
+	     * // you can collapse static fragments like this
+	     * router.createUrlTree(['/team/33/user', userId]);
+	     *
+	     * // assuming the current url is `/team/33/user/11` and the route points to `user/11`
+	     *
+	     * // navigate to /team/33/user/11/details
+	     * router.createUrlTree(['details'], {relativeTo: route});
+	     *
+	     * // navigate to /team/33/user/22
+	     * router.createUrlTree(['../22'], {relativeTo: route});
+	     *
+	     * // navigate to /team/44/user/22
+	     * router.createUrlTree(['../../team/44/user/22'], {relativeTo: route});
+	     * ```
+	     */
+	    Router.prototype.createUrlTree = function (commands, _a) {
+	        var _b = _a === void 0 ? {} : _a, relativeTo = _b.relativeTo, queryParams = _b.queryParams, fragment = _b.fragment;
+	        var a = relativeTo ? relativeTo : this.routerState.root;
+	        return create_url_tree_1.createUrlTree(a, this.currentUrlTree, commands, queryParams, fragment);
+	    };
+	    /**
+	     * Navigate based on the provided url. This navigation is always absolute.
+	     *
+	     * Returns a promise that:
+	     * - is resolved with 'true' when navigation succeeds
+	     * - is resolved with 'false' when navigation fails
+	     * - is rejected when an error happens
+	     *
+	     * ### Usage
+	     *
+	     * ```
+	     * router.navigateByUrl("/team/33/user/11");
+	     * ```
+	     */
+	    Router.prototype.navigateByUrl = function (url) {
+	        if (url instanceof url_tree_1.UrlTree) {
+	            return this.scheduleNavigation(url, false);
+	        }
+	        else {
+	            var urlTree = this.urlSerializer.parse(url);
+	            return this.scheduleNavigation(urlTree, false);
+	        }
+	    };
+	    /**
+	     * Navigate based on the provided array of commands and a starting point.
+	     * If no starting route is provided, the navigation is absolute.
+	     *
+	     * Returns a promise that:
+	     * - is resolved with 'true' when navigation succeeds
+	     * - is resolved with 'false' when navigation fails
+	     * - is rejected when an error happens
+	     *
+	     * ### Usage
+	     *
+	     * ```
+	     * router.navigate(['team', 33, 'team', '11], {relativeTo: route});
+	     * ```
+	     */
+	    Router.prototype.navigate = function (commands, extras) {
+	        if (extras === void 0) { extras = {}; }
+	        return this.scheduleNavigation(this.createUrlTree(commands, extras), false);
+	    };
+	    /**
+	     * Serializes a {@link UrlTree} into a string.
+	     */
+	    Router.prototype.serializeUrl = function (url) { return this.urlSerializer.serialize(url); };
+	    /**
+	     * Parse a string into a {@link UrlTree}.
+	     */
+	    Router.prototype.parseUrl = function (url) { return this.urlSerializer.parse(url); };
+	    Router.prototype.scheduleNavigation = function (url, preventPushState) {
+	        var _this = this;
+	        var id = ++this.navigationId;
+	        this.routerEvents.next(new NavigationStart(id, this.serializeUrl(url)));
+	        return Promise.resolve().then(function (_) { return _this.runNavigate(url, preventPushState, id); });
+	    };
+	    Router.prototype.setUpLocationChangeListener = function () {
+	        var _this = this;
+	        this.locationSubscription = this.location.subscribe(function (change) {
+	            return _this.scheduleNavigation(_this.urlSerializer.parse(change['url']), change['pop']);
+	        });
+	    };
+	    Router.prototype.runNavigate = function (url, preventPushState, id) {
+	        var _this = this;
+	        if (id !== this.navigationId) {
+	            this.location.go(this.urlSerializer.serialize(this.currentUrlTree));
+	            this.routerEvents.next(new NavigationCancel(id, this.serializeUrl(url)));
+	            return Promise.resolve(false);
+	        }
+	        return new Promise(function (resolvePromise, rejectPromise) {
+	            var updatedUrl;
+	            var state;
+	            var navigationIsSuccessful;
+	            var preActivation;
+	            apply_redirects_1.applyRedirects(url, _this.config)
+	                .mergeMap(function (u) {
+	                updatedUrl = u;
+	                return recognize_1.recognize(_this.rootComponentType, _this.config, updatedUrl, _this.serializeUrl(updatedUrl));
+	            })
+	                .mergeMap(function (newRouterStateSnapshot) {
+	                _this.routerEvents.next(new RoutesRecognized(id, _this.serializeUrl(url), _this.serializeUrl(updatedUrl), newRouterStateSnapshot));
+	                return resolve_1.resolve(_this.resolver, newRouterStateSnapshot);
+	            })
+	                .map(function (routerStateSnapshot) {
+	                return create_router_state_1.createRouterState(routerStateSnapshot, _this.currentRouterState);
+	            })
+	                .map(function (newState) {
+	                state = newState;
+	                preActivation =
+	                    new PreActivation(state.snapshot, _this.currentRouterState.snapshot, _this.injector);
+	                preActivation.traverse(_this.outletMap);
+	            })
+	                .mergeMap(function (_) {
+	                return preActivation.checkGuards();
+	            })
+	                .mergeMap(function (shouldActivate) {
+	                if (shouldActivate) {
+	                    return preActivation.resolveData().map(function () { return shouldActivate; });
+	                }
+	                else {
+	                    return of_1.of(shouldActivate);
+	                }
+	            })
+	                .forEach(function (shouldActivate) {
+	                if (!shouldActivate || id !== _this.navigationId) {
+	                    _this.routerEvents.next(new NavigationCancel(id, _this.serializeUrl(url)));
+	                    navigationIsSuccessful = false;
+	                    return;
+	                }
+	                new ActivateRoutes(state, _this.currentRouterState).activate(_this.outletMap);
+	                _this.currentUrlTree = updatedUrl;
+	                _this.currentRouterState = state;
+	                if (!preventPushState) {
+	                    var path = _this.urlSerializer.serialize(updatedUrl);
+	                    if (_this.location.isCurrentPathEqualTo(path)) {
+	                        _this.location.replaceState(path);
+	                    }
+	                    else {
+	                        _this.location.go(path);
+	                    }
+	                }
+	                navigationIsSuccessful = true;
+	            })
+	                .then(function () {
+	                _this.routerEvents.next(new NavigationEnd(id, _this.serializeUrl(url), _this.serializeUrl(updatedUrl)));
+	                resolvePromise(navigationIsSuccessful);
+	            }, function (e) {
+	                _this.routerEvents.next(new NavigationError(id, _this.serializeUrl(url), e));
+	                rejectPromise(e);
+	            });
+	        });
+	    };
+	    return Router;
+	}());
+	exports.Router = Router;
+	/**
+	 * @experimental
+	 */
+	var CanActivate = (function () {
+	    function CanActivate(route) {
+	        this.route = route;
+	    }
+	    return CanActivate;
+	}());
+	/**
+	 * @experimental
+	 */
+	var CanDeactivate = (function () {
+	    function CanDeactivate(component, route) {
+	        this.component = component;
+	        this.route = route;
+	    }
+	    return CanDeactivate;
+	}());
+	var PreActivation = (function () {
+	    function PreActivation(future, curr, injector) {
+	        this.future = future;
+	        this.curr = curr;
+	        this.injector = injector;
+	        this.checks = [];
+	    }
+	    PreActivation.prototype.traverse = function (parentOutletMap) {
+	        var futureRoot = this.future._root;
+	        var currRoot = this.curr ? this.curr._root : null;
+	        this.traverseChildRoutes(futureRoot, currRoot, parentOutletMap);
+	    };
+	    PreActivation.prototype.checkGuards = function () {
+	        var _this = this;
+	        if (this.checks.length === 0)
+	            return of_1.of(true);
+	        return Observable_1.Observable.from(this.checks)
+	            .map(function (s) {
+	            if (s instanceof CanActivate) {
+	                return _this.runCanActivate(s.route);
+	            }
+	            else if (s instanceof CanDeactivate) {
+	                // workaround https://github.com/Microsoft/TypeScript/issues/7271
+	                var s2 = s;
+	                return _this.runCanDeactivate(s2.component, s2.route);
+	            }
+	            else {
+	                throw new Error('Cannot be reached');
+	            }
+	        })
+	            .mergeAll()
+	            .every(function (result) { return result === true; });
+	    };
+	    PreActivation.prototype.resolveData = function () {
+	        var _this = this;
+	        if (this.checks.length === 0)
+	            return of_1.of(null);
+	        return Observable_1.Observable.from(this.checks)
+	            .mergeMap(function (s) {
+	            if (s instanceof CanActivate) {
+	                return _this.runResolve(s.route);
+	            }
+	            else {
+	                return of_1.of(null);
+	            }
+	        })
+	            .reduce(function (_, __) { return _; });
+	    };
+	    PreActivation.prototype.traverseChildRoutes = function (futureNode, currNode, outletMap) {
+	        var _this = this;
+	        var prevChildren = nodeChildrenAsMap(currNode);
+	        futureNode.children.forEach(function (c) {
+	            _this.traverseRoutes(c, prevChildren[c.value.outlet], outletMap);
+	            delete prevChildren[c.value.outlet];
+	        });
+	        collection_1.forEach(prevChildren, function (v, k) { return _this.deactivateOutletAndItChildren(v, outletMap._outlets[k]); });
+	    };
+	    PreActivation.prototype.traverseRoutes = function (futureNode, currNode, parentOutletMap) {
+	        var future = futureNode.value;
+	        var curr = currNode ? currNode.value : null;
+	        var outlet = parentOutletMap ? parentOutletMap._outlets[futureNode.value.outlet] : null;
+	        // reusing the node
+	        if (curr && future._routeConfig === curr._routeConfig) {
+	            if (!collection_1.shallowEqual(future.params, curr.params)) {
+	                this.checks.push(new CanDeactivate(outlet.component, curr), new CanActivate(future));
+	            }
+	            // If we have a component, we need to go through an outlet.
+	            if (future.component) {
+	                this.traverseChildRoutes(futureNode, currNode, outlet ? outlet.outletMap : null);
+	            }
+	            else {
+	                this.traverseChildRoutes(futureNode, currNode, parentOutletMap);
+	            }
+	        }
+	        else {
+	            if (curr) {
+	                // if we had a normal route, we need to deactivate only that outlet.
+	                if (curr.component) {
+	                    this.deactivateOutletAndItChildren(curr, outlet);
+	                }
+	                else {
+	                    this.deactivateOutletMap(parentOutletMap);
+	                }
+	            }
+	            this.checks.push(new CanActivate(future));
+	            // If we have a component, we need to go through an outlet.
+	            if (future.component) {
+	                this.traverseChildRoutes(futureNode, null, outlet ? outlet.outletMap : null);
+	            }
+	            else {
+	                this.traverseChildRoutes(futureNode, null, parentOutletMap);
+	            }
+	        }
+	    };
+	    PreActivation.prototype.deactivateOutletAndItChildren = function (route, outlet) {
+	        if (outlet && outlet.isActivated) {
+	            this.deactivateOutletMap(outlet.outletMap);
+	            this.checks.push(new CanDeactivate(outlet.component, route));
+	        }
+	    };
+	    PreActivation.prototype.deactivateOutletMap = function (outletMap) {
+	        var _this = this;
+	        collection_1.forEach(outletMap._outlets, function (v) {
+	            if (v.isActivated) {
+	                _this.deactivateOutletAndItChildren(v.activatedRoute.snapshot, v);
+	            }
+	        });
+	    };
+	    PreActivation.prototype.runCanActivate = function (future) {
+	        var _this = this;
+	        var canActivate = future._routeConfig ? future._routeConfig.canActivate : null;
+	        if (!canActivate || canActivate.length === 0)
+	            return of_1.of(true);
+	        return Observable_1.Observable.from(canActivate)
+	            .map(function (c) {
+	            var guard = _this.injector.get(c);
+	            if (guard.canActivate) {
+	                return wrapIntoObservable(guard.canActivate(future, _this.future));
+	            }
+	            else {
+	                return wrapIntoObservable(guard(future, _this.future));
+	            }
+	        })
+	            .mergeAll()
+	            .every(function (result) { return result === true; });
+	    };
+	    PreActivation.prototype.runCanDeactivate = function (component, curr) {
+	        var _this = this;
+	        var canDeactivate = curr && curr._routeConfig ? curr._routeConfig.canDeactivate : null;
+	        if (!canDeactivate || canDeactivate.length === 0)
+	            return of_1.of(true);
+	        return Observable_1.Observable.from(canDeactivate)
+	            .map(function (c) {
+	            var guard = _this.injector.get(c);
+	            if (guard.canDeactivate) {
+	                return wrapIntoObservable(guard.canDeactivate(component, curr, _this.curr));
+	            }
+	            else {
+	                return wrapIntoObservable(guard(component, curr, _this.curr));
+	            }
+	        })
+	            .mergeAll()
+	            .every(function (result) { return result === true; });
+	    };
+	    PreActivation.prototype.runResolve = function (future) {
+	        var resolve = future._resolve;
+	        return this.resolveNode(resolve.current, future).map(function (resolvedData) {
+	            resolve.resolvedData = resolvedData;
+	            future.data = collection_1.merge(future.data, resolve.flattenedResolvedData);
+	            return null;
+	        });
+	    };
+	    PreActivation.prototype.resolveNode = function (resolve, future) {
+	        var _this = this;
+	        var resolvingObs = [];
+	        var resolvedData = {};
+	        collection_1.forEach(resolve, function (v, k) {
+	            var resolver = _this.injector.get(v);
+	            var obs = resolver.resolve ? wrapIntoObservable(resolver.resolve(future, _this.future)) :
+	                wrapIntoObservable(resolver(future, _this.future));
+	            resolvingObs.push(obs.map(function (_) { resolvedData[k] = _; }));
+	        });
+	        if (resolvingObs.length > 0) {
+	            return Observable_1.Observable.forkJoin(resolvingObs).map(function (r) { return resolvedData; });
+	        }
+	        else {
+	            return of_1.of(resolvedData);
+	        }
+	    };
+	    return PreActivation;
+	}());
+	function wrapIntoObservable(value) {
+	    if (value instanceof Observable_1.Observable) {
+	        return value;
+	    }
+	    else {
+	        return of_1.of(value);
+	    }
+	}
+	var ActivateRoutes = (function () {
+	    function ActivateRoutes(futureState, currState) {
+	        this.futureState = futureState;
+	        this.currState = currState;
+	    }
+	    ActivateRoutes.prototype.activate = function (parentOutletMap) {
+	        var futureRoot = this.futureState._root;
+	        var currRoot = this.currState ? this.currState._root : null;
+	        pushQueryParamsAndFragment(this.futureState);
+	        router_state_1.advanceActivatedRoute(this.futureState.root);
+	        this.activateChildRoutes(futureRoot, currRoot, parentOutletMap);
+	    };
+	    ActivateRoutes.prototype.activateChildRoutes = function (futureNode, currNode, outletMap) {
+	        var _this = this;
+	        var prevChildren = nodeChildrenAsMap(currNode);
+	        futureNode.children.forEach(function (c) {
+	            _this.activateRoutes(c, prevChildren[c.value.outlet], outletMap);
+	            delete prevChildren[c.value.outlet];
+	        });
+	        collection_1.forEach(prevChildren, function (v, k) { return _this.deactivateOutletAndItChildren(outletMap._outlets[k]); });
+	    };
+	    ActivateRoutes.prototype.activateRoutes = function (futureNode, currNode, parentOutletMap) {
+	        var future = futureNode.value;
+	        var curr = currNode ? currNode.value : null;
+	        // reusing the node
+	        if (future === curr) {
+	            // advance the route to push the parameters
+	            router_state_1.advanceActivatedRoute(future);
+	            // If we have a normal route, we need to go through an outlet.
+	            if (future.component) {
+	                var outlet = getOutlet(parentOutletMap, futureNode.value);
+	                this.activateChildRoutes(futureNode, currNode, outlet.outletMap);
+	            }
+	            else {
+	                this.activateChildRoutes(futureNode, currNode, parentOutletMap);
+	            }
+	        }
+	        else {
+	            if (curr) {
+	                // if we had a normal route, we need to deactivate only that outlet.
+	                if (curr.component) {
+	                    var outlet = getOutlet(parentOutletMap, futureNode.value);
+	                    this.deactivateOutletAndItChildren(outlet);
+	                }
+	                else {
+	                    this.deactivateOutletMap(parentOutletMap);
+	                }
+	            }
+	            // if we have a normal route, we need to advance the route
+	            // and place the component into the outlet. After that recurse.
+	            if (future.component) {
+	                router_state_1.advanceActivatedRoute(future);
+	                var outlet = getOutlet(parentOutletMap, futureNode.value);
+	                var outletMap = new router_outlet_map_1.RouterOutletMap();
+	                this.placeComponentIntoOutlet(outletMap, future, outlet);
+	                this.activateChildRoutes(futureNode, null, outletMap);
+	            }
+	            else {
+	                router_state_1.advanceActivatedRoute(future);
+	                this.activateChildRoutes(futureNode, null, parentOutletMap);
+	            }
+	        }
+	    };
+	    ActivateRoutes.prototype.placeComponentIntoOutlet = function (outletMap, future, outlet) {
+	        var resolved = core_1.ReflectiveInjector.resolve([
+	            { provide: router_state_1.ActivatedRoute, useValue: future },
+	            { provide: router_outlet_map_1.RouterOutletMap, useValue: outletMap }
+	        ]);
+	        outlet.activate(future, resolved, outletMap);
+	    };
+	    ActivateRoutes.prototype.deactivateOutletAndItChildren = function (outlet) {
+	        if (outlet && outlet.isActivated) {
+	            this.deactivateOutletMap(outlet.outletMap);
+	            outlet.deactivate();
+	        }
+	    };
+	    ActivateRoutes.prototype.deactivateOutletMap = function (outletMap) {
+	        var _this = this;
+	        collection_1.forEach(outletMap._outlets, function (v) { return _this.deactivateOutletAndItChildren(v); });
+	    };
+	    return ActivateRoutes;
+	}());
+	function pushQueryParamsAndFragment(state) {
+	    if (!collection_1.shallowEqual(state.snapshot.queryParams, state.queryParams.value)) {
+	        state.queryParams.next(state.snapshot.queryParams);
+	    }
+	    if (state.snapshot.fragment !== state.fragment.value) {
+	        state.fragment.next(state.snapshot.fragment);
+	    }
+	}
+	function nodeChildrenAsMap(node) {
+	    return node ? node.children.reduce(function (m, c) {
+	        m[c.value.outlet] = c;
+	        return m;
+	    }, {}) : {};
+	}
+	function getOutlet(outletMap, route) {
+	    var outlet = outletMap._outlets[route.outlet];
+	    if (!outlet) {
+	        var componentName = route.component.name;
+	        if (route.outlet === shared_1.PRIMARY_OUTLET) {
+	            throw new Error("Cannot find primary outlet to load '" + componentName + "'");
+	        }
+	        else {
+	            throw new Error("Cannot find the outlet " + route.outlet + " to load '" + componentName + "'");
+	        }
+	    }
+	    return outlet;
+	}
+	//# sourceMappingURL=router.js.map
+
+/***/ },
+/* 958 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var Observable_1 = __webpack_require__(312);
+	var of_1 = __webpack_require__(702);
+	var shared_1 = __webpack_require__(959);
+	var url_tree_1 = __webpack_require__(960);
+	var collection_1 = __webpack_require__(961);
+	var NoMatch = (function () {
+	    function NoMatch(segment) {
+	        if (segment === void 0) { segment = null; }
+	        this.segment = segment;
+	    }
+	    return NoMatch;
+	}());
+	var GlobalRedirect = (function () {
+	    function GlobalRedirect(paths) {
+	        this.paths = paths;
+	    }
+	    return GlobalRedirect;
+	}());
+	function applyRedirects(urlTree, config) {
+	    try {
+	        return createUrlTree(urlTree, expandSegment(config, urlTree.root, shared_1.PRIMARY_OUTLET));
+	    }
+	    catch (e) {
+	        if (e instanceof GlobalRedirect) {
+	            return createUrlTree(urlTree, new url_tree_1.UrlSegment([], (_a = {}, _a[shared_1.PRIMARY_OUTLET] = new url_tree_1.UrlSegment(e.paths, {}), _a)));
+	        }
+	        else if (e instanceof NoMatch) {
+	            return new Observable_1.Observable(function (obs) {
+	                return obs.error(new Error("Cannot match any routes: '" + e.segment + "'"));
+	            });
+	        }
+	        else {
+	            return new Observable_1.Observable(function (obs) { return obs.error(e); });
+	        }
+	    }
+	    var _a;
+	}
+	exports.applyRedirects = applyRedirects;
+	function createUrlTree(urlTree, rootCandidate) {
+	    var root = rootCandidate.pathsWithParams.length > 0 ?
+	        new url_tree_1.UrlSegment([], (_a = {}, _a[shared_1.PRIMARY_OUTLET] = rootCandidate, _a)) :
+	        rootCandidate;
+	    return of_1.of(new url_tree_1.UrlTree(root, urlTree.queryParams, urlTree.fragment));
+	    var _a;
+	}
+	function expandSegment(routes, segment, outlet) {
+	    if (segment.pathsWithParams.length === 0 && segment.hasChildren()) {
+	        return new url_tree_1.UrlSegment([], expandSegmentChildren(routes, segment));
+	    }
+	    else {
+	        return expandPathsWithParams(segment, routes, segment.pathsWithParams, outlet, true);
+	    }
+	}
+	function expandSegmentChildren(routes, segment) {
+	    return url_tree_1.mapChildren(segment, function (child, childOutlet) { return expandSegment(routes, child, childOutlet); });
+	}
+	function expandPathsWithParams(segment, routes, paths, outlet, allowRedirects) {
+	    for (var _i = 0, routes_1 = routes; _i < routes_1.length; _i++) {
+	        var r = routes_1[_i];
+	        try {
+	            return expandPathsWithParamsAgainstRoute(segment, routes, r, paths, outlet, allowRedirects);
+	        }
+	        catch (e) {
+	            if (!(e instanceof NoMatch))
+	                throw e;
+	        }
+	    }
+	    throw new NoMatch(segment);
+	}
+	function expandPathsWithParamsAgainstRoute(segment, routes, route, paths, outlet, allowRedirects) {
+	    if (getOutlet(route) !== outlet)
+	        throw new NoMatch();
+	    if (route.redirectTo !== undefined && !allowRedirects)
+	        throw new NoMatch();
+	    if (route.redirectTo !== undefined) {
+	        return expandPathsWithParamsAgainstRouteUsingRedirect(segment, routes, route, paths, outlet);
+	    }
+	    else {
+	        return matchPathsWithParamsAgainstRoute(segment, route, paths);
+	    }
+	}
+	function expandPathsWithParamsAgainstRouteUsingRedirect(segment, routes, route, paths, outlet) {
+	    if (route.path === '**') {
+	        return expandWildCardWithParamsAgainstRouteUsingRedirect(route);
+	    }
+	    else {
+	        return expandRegularPathWithParamsAgainstRouteUsingRedirect(segment, routes, route, paths, outlet);
+	    }
+	}
+	function expandWildCardWithParamsAgainstRouteUsingRedirect(route) {
+	    var newPaths = applyRedirectCommands([], route.redirectTo, {});
+	    if (route.redirectTo.startsWith('/')) {
+	        throw new GlobalRedirect(newPaths);
+	    }
+	    else {
+	        return new url_tree_1.UrlSegment(newPaths, {});
+	    }
+	}
+	function expandRegularPathWithParamsAgainstRouteUsingRedirect(segment, routes, route, paths, outlet) {
+	    var _a = match(segment, route, paths), consumedPaths = _a.consumedPaths, lastChild = _a.lastChild, positionalParamSegments = _a.positionalParamSegments;
+	    var newPaths = applyRedirectCommands(consumedPaths, route.redirectTo, positionalParamSegments);
+	    if (route.redirectTo.startsWith('/')) {
+	        throw new GlobalRedirect(newPaths);
+	    }
+	    else {
+	        return expandPathsWithParams(segment, routes, newPaths.concat(paths.slice(lastChild)), outlet, false);
+	    }
+	}
+	function matchPathsWithParamsAgainstRoute(rawSegment, route, paths) {
+	    if (route.path === '**') {
+	        return new url_tree_1.UrlSegment(paths, {});
+	    }
+	    else {
+	        var _a = match(rawSegment, route, paths), consumedPaths = _a.consumedPaths, lastChild = _a.lastChild;
+	        var childConfig = route.children ? route.children : [];
+	        var rawSlicedPath = paths.slice(lastChild);
+	        var _b = split(rawSegment, consumedPaths, rawSlicedPath, childConfig), segment = _b.segment, slicedPath = _b.slicedPath;
+	        if (slicedPath.length === 0 && segment.hasChildren()) {
+	            var children = expandSegmentChildren(childConfig, segment);
+	            return new url_tree_1.UrlSegment(consumedPaths, children);
+	        }
+	        else if (childConfig.length === 0 && slicedPath.length === 0) {
+	            return new url_tree_1.UrlSegment(consumedPaths, {});
+	        }
+	        else {
+	            var cs = expandPathsWithParams(segment, childConfig, slicedPath, shared_1.PRIMARY_OUTLET, true);
+	            return new url_tree_1.UrlSegment(consumedPaths.concat(cs.pathsWithParams), cs.children);
+	        }
+	    }
+	}
+	function match(segment, route, paths) {
+	    if (route.path === '') {
+	        if ((route.terminal || route.pathMatch === 'full') &&
+	            (segment.hasChildren() || paths.length > 0)) {
+	            throw new NoMatch();
+	        }
+	        else {
+	            return { consumedPaths: [], lastChild: 0, positionalParamSegments: {} };
+	        }
+	    }
+	    var path = route.path;
+	    var parts = path.split('/');
+	    var positionalParamSegments = {};
+	    var consumedPaths = [];
+	    var currentIndex = 0;
+	    for (var i = 0; i < parts.length; ++i) {
+	        if (currentIndex >= paths.length)
+	            throw new NoMatch();
+	        var current = paths[currentIndex];
+	        var p = parts[i];
+	        var isPosParam = p.startsWith(':');
+	        if (!isPosParam && p !== current.path)
+	            throw new NoMatch();
+	        if (isPosParam) {
+	            positionalParamSegments[p.substring(1)] = current;
+	        }
+	        consumedPaths.push(current);
+	        currentIndex++;
+	    }
+	    if (route.terminal && (segment.hasChildren() || currentIndex < paths.length)) {
+	        throw new NoMatch();
+	    }
+	    return { consumedPaths: consumedPaths, lastChild: currentIndex, positionalParamSegments: positionalParamSegments };
+	}
+	function applyRedirectCommands(paths, redirectTo, posParams) {
+	    var r = redirectTo.startsWith('/') ? redirectTo.substring(1) : redirectTo;
+	    if (r === '') {
+	        return [];
+	    }
+	    else {
+	        return createPaths(redirectTo, r.split('/'), paths, posParams);
+	    }
+	}
+	function createPaths(redirectTo, parts, segments, posParams) {
+	    return parts.map(function (p) { return p.startsWith(':') ? findPosParam(p, posParams, redirectTo) :
+	        findOrCreatePath(p, segments); });
+	}
+	function findPosParam(part, posParams, redirectTo) {
+	    var paramName = part.substring(1);
+	    var pos = posParams[paramName];
+	    if (!pos)
+	        throw new Error("Cannot redirect to '" + redirectTo + "'. Cannot find '" + part + "'.");
+	    return pos;
+	}
+	function findOrCreatePath(part, paths) {
+	    var idx = 0;
+	    for (var _i = 0, paths_1 = paths; _i < paths_1.length; _i++) {
+	        var s = paths_1[_i];
+	        if (s.path === part) {
+	            paths.splice(idx);
+	            return s;
+	        }
+	        idx++;
+	    }
+	    return new url_tree_1.UrlPathWithParams(part, {});
+	}
+	function split(segment, consumedPaths, slicedPath, config) {
+	    if (slicedPath.length > 0 &&
+	        containsEmptyPathRedirectsWithNamedOutlets(segment, slicedPath, config)) {
+	        var s = new url_tree_1.UrlSegment(consumedPaths, createChildrenForEmptyPaths(config, new url_tree_1.UrlSegment(slicedPath, segment.children)));
+	        return { segment: mergeTrivialChildren(s), slicedPath: [] };
+	    }
+	    else if (slicedPath.length === 0 && containsEmptyPathRedirects(segment, slicedPath, config)) {
+	        var s = new url_tree_1.UrlSegment(segment.pathsWithParams, addEmptyPathsToChildrenIfNeeded(segment, slicedPath, config, segment.children));
+	        return { segment: mergeTrivialChildren(s), slicedPath: slicedPath };
+	    }
+	    else {
+	        return { segment: segment, slicedPath: slicedPath };
+	    }
+	}
+	function mergeTrivialChildren(s) {
+	    if (s.numberOfChildren === 1 && s.children[shared_1.PRIMARY_OUTLET]) {
+	        var c = s.children[shared_1.PRIMARY_OUTLET];
+	        return new url_tree_1.UrlSegment(s.pathsWithParams.concat(c.pathsWithParams), c.children);
+	    }
+	    else {
+	        return s;
+	    }
+	}
+	function addEmptyPathsToChildrenIfNeeded(segment, slicedPath, routes, children) {
+	    var res = {};
+	    for (var _i = 0, routes_2 = routes; _i < routes_2.length; _i++) {
+	        var r = routes_2[_i];
+	        if (emptyPathRedirect(segment, slicedPath, r) && !children[getOutlet(r)]) {
+	            res[getOutlet(r)] = new url_tree_1.UrlSegment([], {});
+	        }
+	    }
+	    return collection_1.merge(children, res);
+	}
+	function createChildrenForEmptyPaths(routes, primarySegment) {
+	    var res = {};
+	    res[shared_1.PRIMARY_OUTLET] = primarySegment;
+	    for (var _i = 0, routes_3 = routes; _i < routes_3.length; _i++) {
+	        var r = routes_3[_i];
+	        if (r.path === '') {
+	            res[getOutlet(r)] = new url_tree_1.UrlSegment([], {});
+	        }
+	    }
+	    return res;
+	}
+	function containsEmptyPathRedirectsWithNamedOutlets(segment, slicedPath, routes) {
+	    return routes
+	        .filter(function (r) { return emptyPathRedirect(segment, slicedPath, r) && getOutlet(r) !== shared_1.PRIMARY_OUTLET; })
+	        .length > 0;
+	}
+	function containsEmptyPathRedirects(segment, slicedPath, routes) {
+	    return routes.filter(function (r) { return emptyPathRedirect(segment, slicedPath, r); }).length > 0;
+	}
+	function emptyPathRedirect(segment, slicedPath, r) {
+	    if ((segment.hasChildren() || slicedPath.length > 0) && (r.terminal || r.pathMatch === 'full'))
+	        return false;
+	    return r.path === '' && r.redirectTo !== undefined;
+	}
+	function getOutlet(route) {
+	    return route.outlet ? route.outlet : shared_1.PRIMARY_OUTLET;
+	}
+	//# sourceMappingURL=apply_redirects.js.map
+
+/***/ },
+/* 959 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	/**
+	 * Name of the primary outlet.
+	 * @type {string}
+	 *
+	 * @experimental
+	 */
+	exports.PRIMARY_OUTLET = 'PRIMARY_OUTLET';
+	//# sourceMappingURL=shared.js.map
+
+/***/ },
+/* 960 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var shared_1 = __webpack_require__(959);
+	var collection_1 = __webpack_require__(961);
+	function createEmptyUrlTree() {
+	    return new UrlTree(new UrlSegment([], {}), {}, null);
+	}
+	exports.createEmptyUrlTree = createEmptyUrlTree;
+	function containsTree(container, containee, exact) {
+	    if (exact) {
+	        return equalSegments(container.root, containee.root);
+	    }
+	    else {
+	        return containsSegment(container.root, containee.root);
+	    }
+	}
+	exports.containsTree = containsTree;
+	function equalSegments(container, containee) {
+	    if (!equalPath(container.pathsWithParams, containee.pathsWithParams))
+	        return false;
+	    if (container.numberOfChildren !== containee.numberOfChildren)
+	        return false;
+	    for (var c in containee.children) {
+	        if (!container.children[c])
+	            return false;
+	        if (!equalSegments(container.children[c], containee.children[c]))
+	            return false;
+	    }
+	    return true;
+	}
+	function containsSegment(container, containee) {
+	    return containsSegmentHelper(container, containee, containee.pathsWithParams);
+	}
+	function containsSegmentHelper(container, containee, containeePaths) {
+	    if (container.pathsWithParams.length > containeePaths.length) {
+	        var current = container.pathsWithParams.slice(0, containeePaths.length);
+	        if (!equalPath(current, containeePaths))
+	            return false;
+	        if (containee.hasChildren())
+	            return false;
+	        return true;
+	    }
+	    else if (container.pathsWithParams.length === containeePaths.length) {
+	        if (!equalPath(container.pathsWithParams, containeePaths))
+	            return false;
+	        for (var c in containee.children) {
+	            if (!container.children[c])
+	                return false;
+	            if (!containsSegment(container.children[c], containee.children[c]))
+	                return false;
+	        }
+	        return true;
+	    }
+	    else {
+	        var current = containeePaths.slice(0, container.pathsWithParams.length);
+	        var next = containeePaths.slice(container.pathsWithParams.length);
+	        if (!equalPath(container.pathsWithParams, current))
+	            return false;
+	        if (!container.children[shared_1.PRIMARY_OUTLET])
+	            return false;
+	        return containsSegmentHelper(container.children[shared_1.PRIMARY_OUTLET], containee, next);
+	    }
+	}
+	/**
+	 * A URL in the tree form.
+	 *
+	 * @stable
+	 */
+	var UrlTree = (function () {
+	    /**
+	     * @internal
+	     */
+	    function UrlTree(root, queryParams, fragment) {
+	        this.root = root;
+	        this.queryParams = queryParams;
+	        this.fragment = fragment;
+	    }
+	    UrlTree.prototype.toString = function () { return new DefaultUrlSerializer().serialize(this); };
+	    return UrlTree;
+	}());
+	exports.UrlTree = UrlTree;
+	/**
+	 * @stable
+	 */
+	var UrlSegment = (function () {
+	    function UrlSegment(pathsWithParams, children) {
+	        var _this = this;
+	        this.pathsWithParams = pathsWithParams;
+	        this.children = children;
+	        this.parent = null;
+	        collection_1.forEach(children, function (v, k) { return v.parent = _this; });
+	    }
+	    /**
+	     * Return true if the segment has child segments
+	     */
+	    UrlSegment.prototype.hasChildren = function () { return this.numberOfChildren > 0; };
+	    Object.defineProperty(UrlSegment.prototype, "numberOfChildren", {
+	        /**
+	         * Returns the number of child sements.
+	         */
+	        get: function () { return Object.keys(this.children).length; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    UrlSegment.prototype.toString = function () { return serializePaths(this); };
+	    return UrlSegment;
+	}());
+	exports.UrlSegment = UrlSegment;
+	/**
+	 * @stable
+	 */
+	var UrlPathWithParams = (function () {
+	    function UrlPathWithParams(path, parameters) {
+	        this.path = path;
+	        this.parameters = parameters;
+	    }
+	    UrlPathWithParams.prototype.toString = function () { return serializePath(this); };
+	    return UrlPathWithParams;
+	}());
+	exports.UrlPathWithParams = UrlPathWithParams;
+	function equalPathsWithParams(a, b) {
+	    if (a.length !== b.length)
+	        return false;
+	    for (var i = 0; i < a.length; ++i) {
+	        if (a[i].path !== b[i].path)
+	            return false;
+	        if (!collection_1.shallowEqual(a[i].parameters, b[i].parameters))
+	            return false;
+	    }
+	    return true;
+	}
+	exports.equalPathsWithParams = equalPathsWithParams;
+	function equalPath(a, b) {
+	    if (a.length !== b.length)
+	        return false;
+	    for (var i = 0; i < a.length; ++i) {
+	        if (a[i].path !== b[i].path)
+	            return false;
+	    }
+	    return true;
+	}
+	exports.equalPath = equalPath;
+	function mapChildren(segment, fn) {
+	    var newChildren = {};
+	    collection_1.forEach(segment.children, function (child, childOutlet) {
+	        if (childOutlet === shared_1.PRIMARY_OUTLET) {
+	            newChildren[childOutlet] = fn(child, childOutlet);
+	        }
+	    });
+	    collection_1.forEach(segment.children, function (child, childOutlet) {
+	        if (childOutlet !== shared_1.PRIMARY_OUTLET) {
+	            newChildren[childOutlet] = fn(child, childOutlet);
+	        }
+	    });
+	    return newChildren;
+	}
+	exports.mapChildren = mapChildren;
+	function mapChildrenIntoArray(segment, fn) {
+	    var res = [];
+	    collection_1.forEach(segment.children, function (child, childOutlet) {
+	        if (childOutlet === shared_1.PRIMARY_OUTLET) {
+	            res = res.concat(fn(child, childOutlet));
+	        }
+	    });
+	    collection_1.forEach(segment.children, function (child, childOutlet) {
+	        if (childOutlet !== shared_1.PRIMARY_OUTLET) {
+	            res = res.concat(fn(child, childOutlet));
+	        }
+	    });
+	    return res;
+	}
+	exports.mapChildrenIntoArray = mapChildrenIntoArray;
+	/**
+	 * Defines a way to serialize/deserialize a url tree.
+	 *
+	 * @experimental
+	 */
+	var UrlSerializer = (function () {
+	    function UrlSerializer() {
+	    }
+	    return UrlSerializer;
+	}());
+	exports.UrlSerializer = UrlSerializer;
+	/**
+	 * A default implementation of the serialization.
+	 *
+	 * @experimental
+	 */
+	var DefaultUrlSerializer = (function () {
+	    function DefaultUrlSerializer() {
+	    }
+	    DefaultUrlSerializer.prototype.parse = function (url) {
+	        var p = new UrlParser(url);
+	        return new UrlTree(p.parseRootSegment(), p.parseQueryParams(), p.parseFragment());
+	    };
+	    DefaultUrlSerializer.prototype.serialize = function (tree) {
+	        var segment = "/" + serializeSegment(tree.root, true);
+	        var query = serializeQueryParams(tree.queryParams);
+	        var fragment = tree.fragment !== null ? "#" + tree.fragment : '';
+	        return "" + segment + query + fragment;
+	    };
+	    return DefaultUrlSerializer;
+	}());
+	exports.DefaultUrlSerializer = DefaultUrlSerializer;
+	function serializePaths(segment) {
+	    return segment.pathsWithParams.map(function (p) { return serializePath(p); }).join('/');
+	}
+	exports.serializePaths = serializePaths;
+	function serializeSegment(segment, root) {
+	    if (segment.children[shared_1.PRIMARY_OUTLET] && root) {
+	        var primary = serializeSegment(segment.children[shared_1.PRIMARY_OUTLET], false);
+	        var children_1 = [];
+	        collection_1.forEach(segment.children, function (v, k) {
+	            if (k !== shared_1.PRIMARY_OUTLET) {
+	                children_1.push(k + ":" + serializeSegment(v, false));
+	            }
+	        });
+	        if (children_1.length > 0) {
+	            return primary + "(" + children_1.join('//') + ")";
+	        }
+	        else {
+	            return "" + primary;
+	        }
+	    }
+	    else if (segment.hasChildren() && !root) {
+	        var children = mapChildrenIntoArray(segment, function (v, k) {
+	            if (k === shared_1.PRIMARY_OUTLET) {
+	                return [serializeSegment(segment.children[shared_1.PRIMARY_OUTLET], false)];
+	            }
+	            else {
+	                return [(k + ":" + serializeSegment(v, false))];
+	            }
+	        });
+	        return serializePaths(segment) + "/(" + children.join('//') + ")";
+	    }
+	    else {
+	        return serializePaths(segment);
+	    }
+	}
+	function serializePath(path) {
+	    return "" + path.path + serializeParams(path.parameters);
+	}
+	exports.serializePath = serializePath;
+	function serializeParams(params) {
+	    return pairs(params).map(function (p) { return (";" + p.first + "=" + p.second); }).join('');
+	}
+	function serializeQueryParams(params) {
+	    var strs = pairs(params).map(function (p) { return (p.first + "=" + p.second); });
+	    return strs.length > 0 ? "?" + strs.join("&") : '';
+	}
+	var Pair = (function () {
+	    function Pair(first, second) {
+	        this.first = first;
+	        this.second = second;
+	    }
+	    return Pair;
+	}());
+	function pairs(obj) {
+	    var res = [];
+	    for (var prop in obj) {
+	        if (obj.hasOwnProperty(prop)) {
+	            res.push(new Pair(prop, obj[prop]));
+	        }
+	    }
+	    return res;
+	}
+	var SEGMENT_RE = /^[^\/\(\)\?;=&#]+/;
+	function matchPathWithParams(str) {
+	    SEGMENT_RE.lastIndex = 0;
+	    var match = SEGMENT_RE.exec(str);
+	    return match ? match[0] : '';
+	}
+	var QUERY_PARAM_RE = /^[^=\?&#]+/;
+	function matchQueryParams(str) {
+	    QUERY_PARAM_RE.lastIndex = 0;
+	    var match = SEGMENT_RE.exec(str);
+	    return match ? match[0] : '';
+	}
+	var QUERY_PARAM_VALUE_RE = /^[^\?&#]+/;
+	function matchUrlQueryParamValue(str) {
+	    QUERY_PARAM_VALUE_RE.lastIndex = 0;
+	    var match = QUERY_PARAM_VALUE_RE.exec(str);
+	    return match ? match[0] : '';
+	}
+	var UrlParser = (function () {
+	    function UrlParser(remaining) {
+	        this.remaining = remaining;
+	    }
+	    UrlParser.prototype.peekStartsWith = function (str) { return this.remaining.startsWith(str); };
+	    UrlParser.prototype.capture = function (str) {
+	        if (!this.remaining.startsWith(str)) {
+	            throw new Error("Expected \"" + str + "\".");
+	        }
+	        this.remaining = this.remaining.substring(str.length);
+	    };
+	    UrlParser.prototype.parseRootSegment = function () {
+	        if (this.remaining.startsWith('/')) {
+	            this.capture('/');
+	        }
+	        if (this.remaining === '' || this.remaining.startsWith('?')) {
+	            return new UrlSegment([], {});
+	        }
+	        else {
+	            return new UrlSegment([], this.parseSegmentChildren());
+	        }
+	    };
+	    UrlParser.prototype.parseSegmentChildren = function () {
+	        if (this.remaining.length == 0) {
+	            return {};
+	        }
+	        if (this.peekStartsWith('/')) {
+	            this.capture('/');
+	        }
+	        var paths = [this.parsePathWithParams()];
+	        while (this.peekStartsWith('/') && !this.peekStartsWith('//') && !this.peekStartsWith('/(')) {
+	            this.capture('/');
+	            paths.push(this.parsePathWithParams());
+	        }
+	        var children = {};
+	        if (this.peekStartsWith('/(')) {
+	            this.capture('/');
+	            children = this.parseParens(true);
+	        }
+	        var res = {};
+	        if (this.peekStartsWith('(')) {
+	            res = this.parseParens(false);
+	        }
+	        res[shared_1.PRIMARY_OUTLET] = new UrlSegment(paths, children);
+	        return res;
+	    };
+	    UrlParser.prototype.parsePathWithParams = function () {
+	        var path = matchPathWithParams(this.remaining);
+	        if (path === '' && this.peekStartsWith(';')) {
+	            throw new Error("Empty path url segment cannot have parameters: '" + this.remaining + "'.");
+	        }
+	        this.capture(path);
+	        var matrixParams = {};
+	        if (this.peekStartsWith(';')) {
+	            matrixParams = this.parseMatrixParams();
+	        }
+	        return new UrlPathWithParams(path, matrixParams);
+	    };
+	    UrlParser.prototype.parseQueryParams = function () {
+	        var params = {};
+	        if (this.peekStartsWith('?')) {
+	            this.capture('?');
+	            this.parseQueryParam(params);
+	            while (this.remaining.length > 0 && this.peekStartsWith('&')) {
+	                this.capture('&');
+	                this.parseQueryParam(params);
+	            }
+	        }
+	        return params;
+	    };
+	    UrlParser.prototype.parseFragment = function () {
+	        if (this.peekStartsWith('#')) {
+	            return this.remaining.substring(1);
+	        }
+	        else {
+	            return null;
+	        }
+	    };
+	    UrlParser.prototype.parseMatrixParams = function () {
+	        var params = {};
+	        while (this.remaining.length > 0 && this.peekStartsWith(';')) {
+	            this.capture(';');
+	            this.parseParam(params);
+	        }
+	        return params;
+	    };
+	    UrlParser.prototype.parseParam = function (params) {
+	        var key = matchPathWithParams(this.remaining);
+	        if (!key) {
+	            return;
+	        }
+	        this.capture(key);
+	        var value = 'true';
+	        if (this.peekStartsWith('=')) {
+	            this.capture('=');
+	            var valueMatch = matchPathWithParams(this.remaining);
+	            if (valueMatch) {
+	                value = valueMatch;
+	                this.capture(value);
+	            }
+	        }
+	        params[key] = value;
+	    };
+	    UrlParser.prototype.parseQueryParam = function (params) {
+	        var key = matchQueryParams(this.remaining);
+	        if (!key) {
+	            return;
+	        }
+	        this.capture(key);
+	        var value = 'true';
+	        if (this.peekStartsWith('=')) {
+	            this.capture('=');
+	            var valueMatch = matchUrlQueryParamValue(this.remaining);
+	            if (valueMatch) {
+	                value = valueMatch;
+	                this.capture(value);
+	            }
+	        }
+	        params[key] = value;
+	    };
+	    UrlParser.prototype.parseParens = function (allowPrimary) {
+	        var segments = {};
+	        this.capture('(');
+	        while (!this.peekStartsWith(')') && this.remaining.length > 0) {
+	            var path = matchPathWithParams(this.remaining);
+	            var outletName = void 0;
+	            if (path.indexOf(':') > -1) {
+	                outletName = path.substr(0, path.indexOf(':'));
+	                this.capture(outletName);
+	                this.capture(':');
+	            }
+	            else if (allowPrimary) {
+	                outletName = shared_1.PRIMARY_OUTLET;
+	            }
+	            var children = this.parseSegmentChildren();
+	            segments[outletName] = Object.keys(children).length === 1 ? children[shared_1.PRIMARY_OUTLET] :
+	                new UrlSegment([], children);
+	            if (this.peekStartsWith('//')) {
+	                this.capture('//');
+	            }
+	        }
+	        this.capture(')');
+	        return segments;
+	    };
+	    return UrlParser;
+	}());
+	//# sourceMappingURL=url_tree.js.map
+
+/***/ },
+/* 961 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	function shallowEqualArrays(a, b) {
+	    if (a.length !== b.length)
+	        return false;
+	    for (var i = 0; i < a.length; ++i) {
+	        if (!shallowEqual(a[i], b[i]))
+	            return false;
+	    }
+	    return true;
+	}
+	exports.shallowEqualArrays = shallowEqualArrays;
+	function shallowEqual(a, b) {
+	    var k1 = Object.keys(a);
+	    var k2 = Object.keys(b);
+	    if (k1.length != k2.length) {
+	        return false;
+	    }
+	    var key;
+	    for (var i = 0; i < k1.length; i++) {
+	        key = k1[i];
+	        if (a[key] !== b[key]) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+	exports.shallowEqual = shallowEqual;
+	function flatten(a) {
+	    var target = [];
+	    for (var i = 0; i < a.length; ++i) {
+	        for (var j = 0; j < a[i].length; ++j) {
+	            target.push(a[i][j]);
+	        }
+	    }
+	    return target;
+	}
+	exports.flatten = flatten;
+	function first(a) {
+	    return a.length > 0 ? a[0] : null;
+	}
+	exports.first = first;
+	function last(a) {
+	    return a.length > 0 ? a[a.length - 1] : null;
+	}
+	exports.last = last;
+	function and(bools) {
+	    return bools.reduce(function (a, b) { return a && b; }, true);
+	}
+	exports.and = and;
+	function merge(m1, m2) {
+	    var m = {};
+	    for (var attr in m1) {
+	        if (m1.hasOwnProperty(attr)) {
+	            m[attr] = m1[attr];
+	        }
+	    }
+	    for (var attr in m2) {
+	        if (m2.hasOwnProperty(attr)) {
+	            m[attr] = m2[attr];
+	        }
+	    }
+	    return m;
+	}
+	exports.merge = merge;
+	function forEach(map, callback) {
+	    for (var prop in map) {
+	        if (map.hasOwnProperty(prop)) {
+	            callback(map[prop], prop);
+	        }
+	    }
+	}
+	exports.forEach = forEach;
+	//# sourceMappingURL=collection.js.map
+
+/***/ },
+/* 962 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	function validateConfig(config) {
+	    config.forEach(validateNode);
+	}
+	exports.validateConfig = validateConfig;
+	function validateNode(route) {
+	    if (!!route.redirectTo && !!route.children) {
+	        throw new Error("Invalid configuration of route '" + route.path + "': redirectTo and children cannot be used together");
+	    }
+	    if (!!route.redirectTo && !!route.component) {
+	        throw new Error("Invalid configuration of route '" + route.path + "': redirectTo and component cannot be used together");
+	    }
+	    if (route.redirectTo === undefined && !route.component && !route.children) {
+	        throw new Error("Invalid configuration of route '" + route.path + "': component, redirectTo, children must be provided");
+	    }
+	    if (route.path === undefined) {
+	        throw new Error("Invalid route configuration: routes must have path specified");
+	    }
+	    if (route.path.startsWith('/')) {
+	        throw new Error("Invalid route configuration of route '" + route.path + "': path cannot start with a slash");
+	    }
+	    if (route.path === '' && route.redirectTo !== undefined &&
+	        (route.terminal === undefined && route.pathMatch === undefined)) {
+	        var exp = "The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.";
+	        throw new Error("Invalid route configuration of route '{path: \"" + route.path + "\", redirectTo: \"" + route.redirectTo + "\"}': please provide 'pathMatch'. " + exp);
+	    }
+	}
+	//# sourceMappingURL=config.js.map
+
+/***/ },
+/* 963 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var BehaviorSubject_1 = __webpack_require__(853);
+	var router_state_1 = __webpack_require__(964);
+	var tree_1 = __webpack_require__(965);
+	function createRouterState(curr, prevState) {
+	    var root = createNode(curr._root, prevState ? prevState._root : undefined);
+	    var queryParams = prevState ? prevState.queryParams : new BehaviorSubject_1.BehaviorSubject(curr.queryParams);
+	    var fragment = prevState ? prevState.fragment : new BehaviorSubject_1.BehaviorSubject(curr.fragment);
+	    return new router_state_1.RouterState(root, queryParams, fragment, curr);
+	}
+	exports.createRouterState = createRouterState;
+	function createNode(curr, prevState) {
+	    if (prevState && equalRouteSnapshots(prevState.value.snapshot, curr.value)) {
+	        var value = prevState.value;
+	        value._futureSnapshot = curr.value;
+	        var children = createOrReuseChildren(curr, prevState);
+	        return new tree_1.TreeNode(value, children);
+	    }
+	    else {
+	        var value = createActivatedRoute(curr.value);
+	        var children = curr.children.map(function (c) { return createNode(c); });
+	        return new tree_1.TreeNode(value, children);
+	    }
+	}
+	function createOrReuseChildren(curr, prevState) {
+	    return curr.children.map(function (child) {
+	        for (var _i = 0, _a = prevState.children; _i < _a.length; _i++) {
+	            var p = _a[_i];
+	            if (equalRouteSnapshots(p.value.snapshot, child.value)) {
+	                return createNode(child, p);
+	            }
+	        }
+	        return createNode(child);
+	    });
+	}
+	function createActivatedRoute(c) {
+	    return new router_state_1.ActivatedRoute(new BehaviorSubject_1.BehaviorSubject(c.url), new BehaviorSubject_1.BehaviorSubject(c.params), new BehaviorSubject_1.BehaviorSubject(c.data), c.outlet, c.component, c);
+	}
+	function equalRouteSnapshots(a, b) {
+	    return a._routeConfig === b._routeConfig;
+	}
+	//# sourceMappingURL=create_router_state.js.map
+
+/***/ },
+/* 964 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var BehaviorSubject_1 = __webpack_require__(853);
+	var shared_1 = __webpack_require__(959);
+	var url_tree_1 = __webpack_require__(960);
+	var collection_1 = __webpack_require__(961);
+	var tree_1 = __webpack_require__(965);
+	/**
+	 * The state of the router.
+	 *
+	 * ### Usage
+	 *
+	 * ```
+	 * class MyComponent {
+	 *   constructor(router: Router) {
+	 *     const state = router.routerState;
+	 *     const id: Observable<string> = state.firstChild(state.root).params.map(p => p.id);
+	 *     const isDebug: Observable<string> = state.queryParams.map(q => q.debug);
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @stable
+	 */
+	var RouterState = (function (_super) {
+	    __extends(RouterState, _super);
+	    /**
+	     * @internal
+	     */
+	    function RouterState(root, queryParams, fragment, snapshot) {
+	        _super.call(this, root);
+	        this.queryParams = queryParams;
+	        this.fragment = fragment;
+	        this.snapshot = snapshot;
+	    }
+	    RouterState.prototype.toString = function () { return this.snapshot.toString(); };
+	    return RouterState;
+	}(tree_1.Tree));
+	exports.RouterState = RouterState;
+	function createEmptyState(urlTree, rootComponent) {
+	    var snapshot = createEmptyStateSnapshot(urlTree, rootComponent);
+	    var emptyUrl = new BehaviorSubject_1.BehaviorSubject([new url_tree_1.UrlPathWithParams('', {})]);
+	    var emptyParams = new BehaviorSubject_1.BehaviorSubject({});
+	    var emptyData = new BehaviorSubject_1.BehaviorSubject({});
+	    var emptyQueryParams = new BehaviorSubject_1.BehaviorSubject({});
+	    var fragment = new BehaviorSubject_1.BehaviorSubject('');
+	    var activated = new ActivatedRoute(emptyUrl, emptyParams, emptyData, shared_1.PRIMARY_OUTLET, rootComponent, snapshot.root);
+	    activated.snapshot = snapshot.root;
+	    return new RouterState(new tree_1.TreeNode(activated, []), emptyQueryParams, fragment, snapshot);
+	}
+	exports.createEmptyState = createEmptyState;
+	function createEmptyStateSnapshot(urlTree, rootComponent) {
+	    var emptyParams = {};
+	    var emptyData = {};
+	    var emptyQueryParams = {};
+	    var fragment = '';
+	    var activated = new ActivatedRouteSnapshot([], emptyParams, emptyData, shared_1.PRIMARY_OUTLET, rootComponent, null, urlTree.root, -1, InheritedResolve.empty);
+	    return new RouterStateSnapshot('', new tree_1.TreeNode(activated, []), emptyQueryParams, fragment);
+	}
+	/**
+	 * Contains the information about a component loaded in an outlet. The information is provided
+	 * through the params, urlSegments, and data observables.
+	 *
+	 * ### Usage
+	 *
+	 * ```
+	 * class MyComponent {
+	 *   constructor(route: ActivatedRoute) {
+	 *     const id: Observable<string> = route.params.map(p => p.id);
+	 *     const data = route.data.map(d => d.user); //includes `data` and `resolve`
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @stable
+	 */
+	var ActivatedRoute = (function () {
+	    /**
+	     * @internal
+	     */
+	    function ActivatedRoute(url, params, data, outlet, component, futureSnapshot) {
+	        this.url = url;
+	        this.params = params;
+	        this.data = data;
+	        this.outlet = outlet;
+	        this.component = component;
+	        this._futureSnapshot = futureSnapshot;
+	    }
+	    ActivatedRoute.prototype.toString = function () {
+	        return this.snapshot ? this.snapshot.toString() : "Future(" + this._futureSnapshot + ")";
+	    };
+	    return ActivatedRoute;
+	}());
+	exports.ActivatedRoute = ActivatedRoute;
+	/**
+	 * @internal
+	 */
+	var InheritedResolve = (function () {
+	    function InheritedResolve(parent, current) {
+	        this.parent = parent;
+	        this.current = current;
+	        /**
+	         * @internal
+	         */
+	        this.resolvedData = {};
+	    }
+	    Object.defineProperty(InheritedResolve.prototype, "flattenedResolvedData", {
+	        /**
+	         * @internal
+	         */
+	        get: function () {
+	            return this.parent ? collection_1.merge(this.parent.flattenedResolvedData, this.resolvedData) :
+	                this.resolvedData;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(InheritedResolve, "empty", {
+	        get: function () { return new InheritedResolve(null, {}); },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return InheritedResolve;
+	}());
+	exports.InheritedResolve = InheritedResolve;
+	/**
+	 * Contains the information about a component loaded in an outlet at a particular moment in time.
+	 *
+	 * ### Usage
+	 *
+	 * ```
+	 * class MyComponent {
+	 *   constructor(route: ActivatedRoute) {
+	 *     const id: string = route.snapshot.params.id;
+	 *     const data = route.snapshot.data;
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @stable
+	 */
+	var ActivatedRouteSnapshot = (function () {
+	    /**
+	     * @internal
+	     */
+	    function ActivatedRouteSnapshot(url, params, data, outlet, component, routeConfig, urlSegment, lastPathIndex, resolve) {
+	        this.url = url;
+	        this.params = params;
+	        this.data = data;
+	        this.outlet = outlet;
+	        this.component = component;
+	        this._routeConfig = routeConfig;
+	        this._urlSegment = urlSegment;
+	        this._lastPathIndex = lastPathIndex;
+	        this._resolve = resolve;
+	    }
+	    ActivatedRouteSnapshot.prototype.toString = function () {
+	        var url = this.url.map(function (s) { return s.toString(); }).join('/');
+	        var matched = this._routeConfig ? this._routeConfig.path : '';
+	        return "Route(url:'" + url + "', path:'" + matched + "')";
+	    };
+	    return ActivatedRouteSnapshot;
+	}());
+	exports.ActivatedRouteSnapshot = ActivatedRouteSnapshot;
+	/**
+	 * The state of the router at a particular moment in time.
+	 *
+	 * ### Usage
+	 *
+	 * ```
+	 * class MyComponent {
+	 *   constructor(router: Router) {
+	 *     const snapshot = router.routerState.snapshot;
+	 *   }
+	 * }
+	 * ```
+	 *
+	 * @stable
+	 */
+	var RouterStateSnapshot = (function (_super) {
+	    __extends(RouterStateSnapshot, _super);
+	    /**
+	     * @internal
+	     */
+	    function RouterStateSnapshot(url, root, queryParams, fragment) {
+	        _super.call(this, root);
+	        this.url = url;
+	        this.queryParams = queryParams;
+	        this.fragment = fragment;
+	    }
+	    RouterStateSnapshot.prototype.toString = function () { return serializeNode(this._root); };
+	    return RouterStateSnapshot;
+	}(tree_1.Tree));
+	exports.RouterStateSnapshot = RouterStateSnapshot;
+	function serializeNode(node) {
+	    var c = node.children.length > 0 ? " { " + node.children.map(serializeNode).join(", ") + " } " : '';
+	    return "" + node.value + c;
+	}
+	/**
+	 * The expectation is that the activate route is created with the right set of parameters.
+	 * So we push new values into the observables only when they are not the initial values.
+	 * And we detect that by checking if the snapshot field is set.
+	 */
+	function advanceActivatedRoute(route) {
+	    if (route.snapshot) {
+	        if (!collection_1.shallowEqual(route.snapshot.params, route._futureSnapshot.params)) {
+	            route.params.next(route._futureSnapshot.params);
+	            route.data.next(route._futureSnapshot.data);
+	        }
+	        if (!collection_1.shallowEqualArrays(route.snapshot.url, route._futureSnapshot.url)) {
+	            route.url.next(route._futureSnapshot.url);
+	        }
+	        route.snapshot = route._futureSnapshot;
+	    }
+	    else {
+	        route.snapshot = route._futureSnapshot;
+	        route.data.next(route._futureSnapshot.data);
+	    }
+	}
+	exports.advanceActivatedRoute = advanceActivatedRoute;
+	//# sourceMappingURL=router_state.js.map
+
+/***/ },
+/* 965 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var Tree = (function () {
+	    function Tree(root) {
+	        this._root = root;
+	    }
+	    Object.defineProperty(Tree.prototype, "root", {
+	        get: function () { return this._root.value; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Tree.prototype.parent = function (t) {
+	        var p = this.pathFromRoot(t);
+	        return p.length > 1 ? p[p.length - 2] : null;
+	    };
+	    Tree.prototype.children = function (t) {
+	        var n = findNode(t, this._root);
+	        return n ? n.children.map(function (t) { return t.value; }) : [];
+	    };
+	    Tree.prototype.firstChild = function (t) {
+	        var n = findNode(t, this._root);
+	        return n && n.children.length > 0 ? n.children[0].value : null;
+	    };
+	    Tree.prototype.siblings = function (t) {
+	        var p = findPath(t, this._root, []);
+	        if (p.length < 2)
+	            return [];
+	        var c = p[p.length - 2].children.map(function (c) { return c.value; });
+	        return c.filter(function (cc) { return cc !== t; });
+	    };
+	    Tree.prototype.pathFromRoot = function (t) { return findPath(t, this._root, []).map(function (s) { return s.value; }); };
+	    Tree.prototype.contains = function (tree) { return contains(this._root, tree._root); };
+	    return Tree;
+	}());
+	exports.Tree = Tree;
+	function findNode(expected, c) {
+	    if (expected === c.value)
+	        return c;
+	    for (var _i = 0, _a = c.children; _i < _a.length; _i++) {
+	        var cc = _a[_i];
+	        var r = findNode(expected, cc);
+	        if (r)
+	            return r;
+	    }
+	    return null;
+	}
+	function findPath(expected, c, collected) {
+	    collected.push(c);
+	    if (expected === c.value)
+	        return collected;
+	    for (var _i = 0, _a = c.children; _i < _a.length; _i++) {
+	        var cc = _a[_i];
+	        var cloned = collected.slice(0);
+	        var r = findPath(expected, cc, cloned);
+	        if (r)
+	            return r;
+	    }
+	    return [];
+	}
+	function contains(tree, subtree) {
+	    if (tree.value !== subtree.value)
+	        return false;
+	    var _loop_1 = function(subtreeNode) {
+	        var s = tree.children.filter(function (child) { return child.value === subtreeNode.value; });
+	        if (s.length === 0)
+	            return { value: false };
+	        if (!contains(s[0], subtreeNode))
+	            return { value: false };
+	    };
+	    for (var _i = 0, _a = subtree.children; _i < _a.length; _i++) {
+	        var subtreeNode = _a[_i];
+	        var state_1 = _loop_1(subtreeNode);
+	        if (typeof state_1 === "object") return state_1.value;
+	    }
+	    return true;
+	}
+	var TreeNode = (function () {
+	    function TreeNode(value, children) {
+	        this.value = value;
+	        this.children = children;
+	    }
+	    TreeNode.prototype.toString = function () { return "TreeNode(" + this.value + ")"; };
+	    return TreeNode;
+	}());
+	exports.TreeNode = TreeNode;
+	//# sourceMappingURL=tree.js.map
+
+/***/ },
+/* 966 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var shared_1 = __webpack_require__(959);
+	var url_tree_1 = __webpack_require__(960);
+	var collection_1 = __webpack_require__(961);
+	function createUrlTree(route, urlTree, commands, queryParams, fragment) {
+	    if (commands.length === 0) {
+	        return tree(urlTree.root, urlTree.root, urlTree, queryParams, fragment);
+	    }
+	    var normalizedCommands = normalizeCommands(commands);
+	    if (navigateToRoot(normalizedCommands)) {
+	        return tree(urlTree.root, new url_tree_1.UrlSegment([], {}), urlTree, queryParams, fragment);
+	    }
+	    var startingPosition = findStartingPosition(normalizedCommands, urlTree, route);
+	    var segment = startingPosition.processChildren ?
+	        updateSegmentChildren(startingPosition.segment, startingPosition.index, normalizedCommands.commands) :
+	        updateSegment(startingPosition.segment, startingPosition.index, normalizedCommands.commands);
+	    return tree(startingPosition.segment, segment, urlTree, queryParams, fragment);
+	}
+	exports.createUrlTree = createUrlTree;
+	function tree(oldSegment, newSegment, urlTree, queryParams, fragment) {
+	    var q = queryParams ? stringify(queryParams) : urlTree.queryParams;
+	    var f = fragment ? fragment : urlTree.fragment;
+	    if (urlTree.root === oldSegment) {
+	        return new url_tree_1.UrlTree(newSegment, q, f);
+	    }
+	    else {
+	        return new url_tree_1.UrlTree(replaceSegment(urlTree.root, oldSegment, newSegment), q, f);
+	    }
+	}
+	function replaceSegment(current, oldSegment, newSegment) {
+	    var children = {};
+	    collection_1.forEach(current.children, function (c, outletName) {
+	        if (c === oldSegment) {
+	            children[outletName] = newSegment;
+	        }
+	        else {
+	            children[outletName] = replaceSegment(c, oldSegment, newSegment);
+	        }
+	    });
+	    return new url_tree_1.UrlSegment(current.pathsWithParams, children);
+	}
+	function navigateToRoot(normalizedChange) {
+	    return normalizedChange.isAbsolute && normalizedChange.commands.length === 1 &&
+	        normalizedChange.commands[0] == '/';
+	}
+	var NormalizedNavigationCommands = (function () {
+	    function NormalizedNavigationCommands(isAbsolute, numberOfDoubleDots, commands) {
+	        this.isAbsolute = isAbsolute;
+	        this.numberOfDoubleDots = numberOfDoubleDots;
+	        this.commands = commands;
+	    }
+	    return NormalizedNavigationCommands;
+	}());
+	function normalizeCommands(commands) {
+	    if ((typeof commands[0] === 'string') && commands.length === 1 && commands[0] == '/') {
+	        return new NormalizedNavigationCommands(true, 0, commands);
+	    }
+	    var numberOfDoubleDots = 0;
+	    var isAbsolute = false;
+	    var res = [];
+	    for (var i = 0; i < commands.length; ++i) {
+	        var c = commands[i];
+	        if (!(typeof c === 'string')) {
+	            res.push(c);
+	            continue;
+	        }
+	        var parts = c.split('/');
+	        for (var j = 0; j < parts.length; ++j) {
+	            var cc = parts[j];
+	            // first exp is treated in a special way
+	            if (i == 0) {
+	                if (j == 0 && cc == '.') {
+	                }
+	                else if (j == 0 && cc == '') {
+	                    isAbsolute = true;
+	                }
+	                else if (cc == '..') {
+	                    numberOfDoubleDots++;
+	                }
+	                else if (cc != '') {
+	                    res.push(cc);
+	                }
+	            }
+	            else {
+	                if (cc != '') {
+	                    res.push(cc);
+	                }
+	            }
+	        }
+	    }
+	    return new NormalizedNavigationCommands(isAbsolute, numberOfDoubleDots, res);
+	}
+	var Position = (function () {
+	    function Position(segment, processChildren, index) {
+	        this.segment = segment;
+	        this.processChildren = processChildren;
+	        this.index = index;
+	    }
+	    return Position;
+	}());
+	function findStartingPosition(normalizedChange, urlTree, route) {
+	    if (normalizedChange.isAbsolute) {
+	        return new Position(urlTree.root, true, 0);
+	    }
+	    else if (route.snapshot._lastPathIndex === -1) {
+	        return new Position(route.snapshot._urlSegment, true, 0);
+	    }
+	    else if (route.snapshot._lastPathIndex + 1 - normalizedChange.numberOfDoubleDots >= 0) {
+	        return new Position(route.snapshot._urlSegment, false, route.snapshot._lastPathIndex + 1 - normalizedChange.numberOfDoubleDots);
+	    }
+	    else {
+	        throw new Error('Invalid number of \'../\'');
+	    }
+	}
+	function getPath(command) {
+	    if (!(typeof command === 'string'))
+	        return command.toString();
+	    var parts = command.toString().split(':');
+	    return parts.length > 1 ? parts[1] : command;
+	}
+	function getOutlet(commands) {
+	    if (!(typeof commands[0] === 'string'))
+	        return shared_1.PRIMARY_OUTLET;
+	    var parts = commands[0].toString().split(':');
+	    return parts.length > 1 ? parts[0] : shared_1.PRIMARY_OUTLET;
+	}
+	function updateSegment(segment, startIndex, commands) {
+	    if (!segment) {
+	        segment = new url_tree_1.UrlSegment([], {});
+	    }
+	    if (segment.pathsWithParams.length === 0 && segment.hasChildren()) {
+	        return updateSegmentChildren(segment, startIndex, commands);
+	    }
+	    var m = prefixedWith(segment, startIndex, commands);
+	    var slicedCommands = commands.slice(m.lastIndex);
+	    if (m.match && slicedCommands.length === 0) {
+	        return new url_tree_1.UrlSegment(segment.pathsWithParams, {});
+	    }
+	    else if (m.match && !segment.hasChildren()) {
+	        return createNewSegment(segment, startIndex, commands);
+	    }
+	    else if (m.match) {
+	        return updateSegmentChildren(segment, 0, slicedCommands);
+	    }
+	    else {
+	        return createNewSegment(segment, startIndex, commands);
+	    }
+	}
+	function updateSegmentChildren(segment, startIndex, commands) {
+	    if (commands.length === 0) {
+	        return new url_tree_1.UrlSegment(segment.pathsWithParams, {});
+	    }
+	    else {
+	        var outlet_1 = getOutlet(commands);
+	        var children_1 = {};
+	        children_1[outlet_1] = updateSegment(segment.children[outlet_1], startIndex, commands);
+	        collection_1.forEach(segment.children, function (child, childOutlet) {
+	            if (childOutlet !== outlet_1) {
+	                children_1[childOutlet] = child;
+	            }
+	        });
+	        return new url_tree_1.UrlSegment(segment.pathsWithParams, children_1);
+	    }
+	}
+	function prefixedWith(segment, startIndex, commands) {
+	    var currentCommandIndex = 0;
+	    var currentPathIndex = startIndex;
+	    var noMatch = { match: false, lastIndex: 0 };
+	    while (currentPathIndex < segment.pathsWithParams.length) {
+	        if (currentCommandIndex >= commands.length)
+	            return noMatch;
+	        var path = segment.pathsWithParams[currentPathIndex];
+	        var curr = getPath(commands[currentCommandIndex]);
+	        var next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
+	        if (curr && next && (typeof next === 'object')) {
+	            if (!compare(curr, next, path))
+	                return noMatch;
+	            currentCommandIndex += 2;
+	        }
+	        else {
+	            if (!compare(curr, {}, path))
+	                return noMatch;
+	            currentCommandIndex++;
+	        }
+	        currentPathIndex++;
+	    }
+	    return { match: true, lastIndex: currentCommandIndex };
+	}
+	function createNewSegment(segment, startIndex, commands) {
+	    var paths = segment.pathsWithParams.slice(0, startIndex);
+	    var i = 0;
+	    while (i < commands.length) {
+	        // if we start with an object literal, we need to reuse the path part from the segment
+	        if (i === 0 && (typeof commands[0] === 'object')) {
+	            var p = segment.pathsWithParams[startIndex];
+	            paths.push(new url_tree_1.UrlPathWithParams(p.path, commands[0]));
+	            i++;
+	            continue;
+	        }
+	        var curr = getPath(commands[i]);
+	        var next = (i < commands.length - 1) ? commands[i + 1] : null;
+	        if (curr && next && (typeof next === 'object')) {
+	            paths.push(new url_tree_1.UrlPathWithParams(curr, stringify(next)));
+	            i += 2;
+	        }
+	        else {
+	            paths.push(new url_tree_1.UrlPathWithParams(curr, {}));
+	            i++;
+	        }
+	    }
+	    return new url_tree_1.UrlSegment(paths, {});
+	}
+	function stringify(params) {
+	    var res = {};
+	    collection_1.forEach(params, function (v, k) { return res[k] = "" + v; });
+	    return res;
+	}
+	function compare(path, params, pathWithParams) {
+	    return path == pathWithParams.path && collection_1.shallowEqual(params, pathWithParams.parameters);
+	}
+	//# sourceMappingURL=create_url_tree.js.map
+
+/***/ },
+/* 967 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var Observable_1 = __webpack_require__(312);
+	var of_1 = __webpack_require__(702);
+	var router_state_1 = __webpack_require__(964);
+	var shared_1 = __webpack_require__(959);
+	var url_tree_1 = __webpack_require__(960);
+	var collection_1 = __webpack_require__(961);
+	var tree_1 = __webpack_require__(965);
+	var NoMatch = (function () {
+	    function NoMatch(segment) {
+	        if (segment === void 0) { segment = null; }
+	        this.segment = segment;
+	    }
+	    return NoMatch;
+	}());
+	var InheritedFromParent = (function () {
+	    function InheritedFromParent(parent, params, data, resolve) {
+	        this.parent = parent;
+	        this.params = params;
+	        this.data = data;
+	        this.resolve = resolve;
+	    }
+	    Object.defineProperty(InheritedFromParent.prototype, "allParams", {
+	        get: function () {
+	            return this.parent ? collection_1.merge(this.parent.allParams, this.params) : this.params;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(InheritedFromParent.prototype, "allData", {
+	        get: function () { return this.parent ? collection_1.merge(this.parent.allData, this.data) : this.data; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(InheritedFromParent, "empty", {
+	        get: function () {
+	            return new InheritedFromParent(null, {}, {}, new router_state_1.InheritedResolve(null, {}));
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return InheritedFromParent;
+	}());
+	function recognize(rootComponentType, config, urlTree, url) {
+	    try {
+	        var children = processSegment(config, urlTree.root, InheritedFromParent.empty, shared_1.PRIMARY_OUTLET);
+	        var root = new router_state_1.ActivatedRouteSnapshot([], {}, {}, shared_1.PRIMARY_OUTLET, rootComponentType, null, urlTree.root, -1, router_state_1.InheritedResolve.empty);
+	        var rootNode = new tree_1.TreeNode(root, children);
+	        return of_1.of(new router_state_1.RouterStateSnapshot(url, rootNode, urlTree.queryParams, urlTree.fragment));
+	    }
+	    catch (e) {
+	        if (e instanceof NoMatch) {
+	            return new Observable_1.Observable(function (obs) {
+	                return obs.error(new Error("Cannot match any routes: '" + e.segment + "'"));
+	            });
+	        }
+	        else {
+	            return new Observable_1.Observable(function (obs) { return obs.error(e); });
+	        }
+	    }
+	}
+	exports.recognize = recognize;
+	function processSegment(config, segment, inherited, outlet) {
+	    if (segment.pathsWithParams.length === 0 && segment.hasChildren()) {
+	        return processSegmentChildren(config, segment, inherited);
+	    }
+	    else {
+	        return processPathsWithParams(config, segment, 0, segment.pathsWithParams, inherited, outlet);
+	    }
+	}
+	function processSegmentChildren(config, segment, inherited) {
+	    var children = url_tree_1.mapChildrenIntoArray(segment, function (child, childOutlet) { return processSegment(config, child, inherited, childOutlet); });
+	    checkOutletNameUniqueness(children);
+	    sortActivatedRouteSnapshots(children);
+	    return children;
+	}
+	function sortActivatedRouteSnapshots(nodes) {
+	    nodes.sort(function (a, b) {
+	        if (a.value.outlet === shared_1.PRIMARY_OUTLET)
+	            return -1;
+	        if (b.value.outlet === shared_1.PRIMARY_OUTLET)
+	            return 1;
+	        return a.value.outlet.localeCompare(b.value.outlet);
+	    });
+	}
+	function processPathsWithParams(config, segment, pathIndex, paths, inherited, outlet) {
+	    for (var _i = 0, config_1 = config; _i < config_1.length; _i++) {
+	        var r = config_1[_i];
+	        try {
+	            return processPathsWithParamsAgainstRoute(r, segment, pathIndex, paths, inherited, outlet);
+	        }
+	        catch (e) {
+	            if (!(e instanceof NoMatch))
+	                throw e;
+	        }
+	    }
+	    throw new NoMatch(segment);
+	}
+	function processPathsWithParamsAgainstRoute(route, rawSegment, pathIndex, paths, inherited, outlet) {
+	    if (route.redirectTo)
+	        throw new NoMatch();
+	    if ((route.outlet ? route.outlet : shared_1.PRIMARY_OUTLET) !== outlet)
+	        throw new NoMatch();
+	    var newInheritedResolve = new router_state_1.InheritedResolve(inherited.resolve, getResolve(route));
+	    if (route.path === '**') {
+	        var params = paths.length > 0 ? collection_1.last(paths).parameters : {};
+	        var snapshot_1 = new router_state_1.ActivatedRouteSnapshot(paths, collection_1.merge(inherited.allParams, params), collection_1.merge(inherited.allData, getData(route)), outlet, route.component, route, getSourceSegment(rawSegment), getPathIndexShift(rawSegment) - 1, newInheritedResolve);
+	        return [new tree_1.TreeNode(snapshot_1, [])];
+	    }
+	    var _a = match(rawSegment, route, paths), consumedPaths = _a.consumedPaths, parameters = _a.parameters, lastChild = _a.lastChild;
+	    var rawSlicedPath = paths.slice(lastChild);
+	    var childConfig = route.children ? route.children : [];
+	    var newInherited = route.component ?
+	        InheritedFromParent.empty :
+	        new InheritedFromParent(inherited, parameters, getData(route), newInheritedResolve);
+	    var _b = split(rawSegment, consumedPaths, rawSlicedPath, childConfig), segment = _b.segment, slicedPath = _b.slicedPath;
+	    var snapshot = new router_state_1.ActivatedRouteSnapshot(consumedPaths, collection_1.merge(inherited.allParams, parameters), collection_1.merge(inherited.allData, getData(route)), outlet, route.component, route, getSourceSegment(rawSegment), getPathIndexShift(rawSegment) + pathIndex + lastChild - 1, newInheritedResolve);
+	    if (slicedPath.length === 0 && segment.hasChildren()) {
+	        var children = processSegmentChildren(childConfig, segment, newInherited);
+	        return [new tree_1.TreeNode(snapshot, children)];
+	    }
+	    else if (childConfig.length === 0 && slicedPath.length === 0) {
+	        return [new tree_1.TreeNode(snapshot, [])];
+	    }
+	    else {
+	        var children = processPathsWithParams(childConfig, segment, pathIndex + lastChild, slicedPath, newInherited, shared_1.PRIMARY_OUTLET);
+	        return [new tree_1.TreeNode(snapshot, children)];
+	    }
+	}
+	function match(segment, route, paths) {
+	    if (route.path === '') {
+	        if ((route.terminal || route.pathMatch === 'full') &&
+	            (segment.hasChildren() || paths.length > 0)) {
+	            throw new NoMatch();
+	        }
+	        else {
+	            return { consumedPaths: [], lastChild: 0, parameters: {} };
+	        }
+	    }
+	    var path = route.path;
+	    var parts = path.split('/');
+	    var posParameters = {};
+	    var consumedPaths = [];
+	    var currentIndex = 0;
+	    for (var i = 0; i < parts.length; ++i) {
+	        if (currentIndex >= paths.length)
+	            throw new NoMatch();
+	        var current = paths[currentIndex];
+	        var p = parts[i];
+	        var isPosParam = p.startsWith(':');
+	        if (!isPosParam && p !== current.path)
+	            throw new NoMatch();
+	        if (isPosParam) {
+	            posParameters[p.substring(1)] = current.path;
+	        }
+	        consumedPaths.push(current);
+	        currentIndex++;
+	    }
+	    if ((route.terminal || route.pathMatch === 'full') &&
+	        (segment.hasChildren() || currentIndex < paths.length)) {
+	        throw new NoMatch();
+	    }
+	    var parameters = collection_1.merge(posParameters, consumedPaths[consumedPaths.length - 1].parameters);
+	    return { consumedPaths: consumedPaths, lastChild: currentIndex, parameters: parameters };
+	}
+	function checkOutletNameUniqueness(nodes) {
+	    var names = {};
+	    nodes.forEach(function (n) {
+	        var routeWithSameOutletName = names[n.value.outlet];
+	        if (routeWithSameOutletName) {
+	            var p = routeWithSameOutletName.url.map(function (s) { return s.toString(); }).join('/');
+	            var c = n.value.url.map(function (s) { return s.toString(); }).join('/');
+	            throw new Error("Two segments cannot have the same outlet name: '" + p + "' and '" + c + "'.");
+	        }
+	        names[n.value.outlet] = n.value;
+	    });
+	}
+	function getSourceSegment(segment) {
+	    var s = segment;
+	    while (s._sourceSegment) {
+	        s = s._sourceSegment;
+	    }
+	    return s;
+	}
+	function getPathIndexShift(segment) {
+	    var s = segment;
+	    var res = 0;
+	    while (s._sourceSegment) {
+	        s = s._sourceSegment;
+	        res += segment._pathIndexShift;
+	    }
+	    return res;
+	}
+	function split(segment, consumedPaths, slicedPath, config) {
+	    if (slicedPath.length > 0 &&
+	        containsEmptyPathMatchesWithNamedOutlets(segment, slicedPath, config)) {
+	        var s = new url_tree_1.UrlSegment(consumedPaths, createChildrenForEmptyPaths(segment, consumedPaths, config, new url_tree_1.UrlSegment(slicedPath, segment.children)));
+	        s._sourceSegment = segment;
+	        s._pathIndexShift = 0;
+	        return { segment: s, slicedPath: [] };
+	    }
+	    else if (slicedPath.length === 0 && containsEmptyPathMatches(segment, slicedPath, config)) {
+	        var s = new url_tree_1.UrlSegment(segment.pathsWithParams, addEmptyPathsToChildrenIfNeeded(segment, slicedPath, config, segment.children));
+	        s._sourceSegment = segment;
+	        s._pathIndexShift = 0;
+	        return { segment: s, slicedPath: slicedPath };
+	    }
+	    else {
+	        return { segment: segment, slicedPath: slicedPath };
+	    }
+	}
+	function addEmptyPathsToChildrenIfNeeded(segment, slicedPath, routes, children) {
+	    var res = {};
+	    for (var _i = 0, routes_1 = routes; _i < routes_1.length; _i++) {
+	        var r = routes_1[_i];
+	        if (emptyPathMatch(segment, slicedPath, r) && !children[getOutlet(r)]) {
+	            var s = new url_tree_1.UrlSegment([], {});
+	            s._sourceSegment = segment;
+	            s._pathIndexShift = segment.pathsWithParams.length;
+	            res[getOutlet(r)] = s;
+	        }
+	    }
+	    return collection_1.merge(children, res);
+	}
+	function createChildrenForEmptyPaths(segment, consumedPaths, routes, primarySegment) {
+	    var res = {};
+	    res[shared_1.PRIMARY_OUTLET] = primarySegment;
+	    primarySegment._sourceSegment = segment;
+	    primarySegment._pathIndexShift = consumedPaths.length;
+	    for (var _i = 0, routes_2 = routes; _i < routes_2.length; _i++) {
+	        var r = routes_2[_i];
+	        if (r.path === '') {
+	            var s = new url_tree_1.UrlSegment([], {});
+	            s._sourceSegment = segment;
+	            s._pathIndexShift = consumedPaths.length;
+	            res[getOutlet(r)] = s;
+	        }
+	    }
+	    return res;
+	}
+	function containsEmptyPathMatchesWithNamedOutlets(segment, slicedPath, routes) {
+	    return routes
+	        .filter(function (r) { return emptyPathMatch(segment, slicedPath, r) && getOutlet(r) !== shared_1.PRIMARY_OUTLET; })
+	        .length > 0;
+	}
+	function containsEmptyPathMatches(segment, slicedPath, routes) {
+	    return routes.filter(function (r) { return emptyPathMatch(segment, slicedPath, r); }).length > 0;
+	}
+	function emptyPathMatch(segment, slicedPath, r) {
+	    if ((segment.hasChildren() || slicedPath.length > 0) && (r.terminal || r.pathMatch === 'full'))
+	        return false;
+	    return r.path === '' && r.redirectTo === undefined;
+	}
+	function getOutlet(route) {
+	    return route.outlet ? route.outlet : shared_1.PRIMARY_OUTLET;
+	}
+	function getData(route) {
+	    return route.data ? route.data : {};
+	}
+	function getResolve(route) {
+	    return route.resolve ? route.resolve : {};
+	}
+	//# sourceMappingURL=recognize.js.map
+
+/***/ },
+/* 968 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	__webpack_require__(819);
+	__webpack_require__(921);
+	var forkJoin_1 = __webpack_require__(661);
+	var fromPromise_1 = __webpack_require__(677);
+	function resolve(resolver, state) {
+	    return resolveNode(resolver, state._root).map(function (_) { return state; });
+	}
+	exports.resolve = resolve;
+	function resolveNode(resolver, node) {
+	    if (node.children.length === 0) {
+	        return fromPromise_1.fromPromise(resolveComponent(resolver, node.value).then(function (factory) {
+	            node.value._resolvedComponentFactory = factory;
+	            return node.value;
+	        }));
+	    }
+	    else {
+	        var c = node.children.map(function (c) { return resolveNode(resolver, c).toPromise(); });
+	        return forkJoin_1.forkJoin(c).map(function (_) { return resolveComponent(resolver, node.value).then(function (factory) {
+	            node.value._resolvedComponentFactory = factory;
+	            return node.value;
+	        }); });
+	    }
+	}
+	function resolveComponent(resolver, snapshot) {
+	    // TODO: vsavkin change to typeof snapshot.component === 'string' in beta2
+	    if (snapshot.component && snapshot._routeConfig) {
+	        return resolver.resolveComponent(snapshot.component);
+	    }
+	    else {
+	        return Promise.resolve(null);
+	    }
+	}
+	//# sourceMappingURL=resolve.js.map
+
+/***/ },
+/* 969 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	/**
+	 * @stable
+	 */
+	var RouterOutletMap = (function () {
+	    function RouterOutletMap() {
+	        /** @internal */
+	        this._outlets = {};
+	    }
+	    RouterOutletMap.prototype.registerOutlet = function (name, outlet) { this._outlets[name] = outlet; };
+	    return RouterOutletMap;
+	}());
+	exports.RouterOutletMap = RouterOutletMap;
+	//# sourceMappingURL=router_outlet_map.js.map
+
+/***/ },
+/* 970 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var core_1 = __webpack_require__(279);
+	var router_1 = __webpack_require__(957);
+	var url_tree_1 = __webpack_require__(960);
+	var router_link_1 = __webpack_require__(956);
+	var RouterLinkActive = (function () {
+	    function RouterLinkActive(router, element, renderer) {
+	        var _this = this;
+	        this.router = router;
+	        this.element = element;
+	        this.renderer = renderer;
+	        this.classes = [];
+	        this.routerLinkActiveOptions = { exact: false };
+	        this.subscription = router.events.subscribe(function (s) {
+	            if (s instanceof router_1.NavigationEnd) {
+	                _this.update();
+	            }
+	        });
+	    }
+	    RouterLinkActive.prototype.ngAfterContentInit = function () {
+	        var _this = this;
+	        this.links.changes.subscribe(function (s) { return _this.update(); });
+	        this.linksWithHrefs.changes.subscribe(function (s) { return _this.update(); });
+	        this.update();
+	    };
+	    Object.defineProperty(RouterLinkActive.prototype, "routerLinkActive", {
+	        set: function (data) {
+	            if (Array.isArray(data)) {
+	                this.classes = data;
+	            }
+	            else {
+	                this.classes = data.split(' ');
+	            }
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RouterLinkActive.prototype.ngOnChanges = function (changes) { this.update(); };
+	    RouterLinkActive.prototype.ngOnDestroy = function () { this.subscription.unsubscribe(); };
+	    RouterLinkActive.prototype.update = function () {
+	        var _this = this;
+	        if (!this.links || !this.linksWithHrefs)
+	            return;
+	        var currentUrlTree = this.router.parseUrl(this.router.url);
+	        var isActiveLinks = this.reduceList(currentUrlTree, this.links);
+	        var isActiveLinksWithHrefs = this.reduceList(currentUrlTree, this.linksWithHrefs);
+	        this.classes.forEach(function (c) { return _this.renderer.setElementClass(_this.element.nativeElement, c, isActiveLinks || isActiveLinksWithHrefs); });
+	    };
+	    RouterLinkActive.prototype.reduceList = function (currentUrlTree, q) {
+	        var _this = this;
+	        return q.reduce(function (res, link) {
+	            return res || url_tree_1.containsTree(currentUrlTree, link.urlTree, _this.routerLinkActiveOptions.exact);
+	        }, false);
+	    };
+	    /** @nocollapse */
+	    RouterLinkActive.decorators = [
+	        { type: core_1.Directive, args: [{ selector: '[routerLinkActive]' },] },
+	    ];
+	    /** @nocollapse */
+	    RouterLinkActive.ctorParameters = [
+	        { type: router_1.Router, },
+	        { type: core_1.ElementRef, },
+	        { type: core_1.Renderer, },
+	    ];
+	    /** @nocollapse */
+	    RouterLinkActive.propDecorators = {
+	        'links': [{ type: core_1.ContentChildren, args: [router_link_1.RouterLink,] },],
+	        'linksWithHrefs': [{ type: core_1.ContentChildren, args: [router_link_1.RouterLinkWithHref,] },],
+	        'routerLinkActiveOptions': [{ type: core_1.Input },],
+	        'routerLinkActive': [{ type: core_1.Input },],
+	    };
+	    return RouterLinkActive;
+	}());
+	exports.RouterLinkActive = RouterLinkActive;
+	//# sourceMappingURL=router_link_active.js.map
+
+/***/ },
+/* 971 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var core_1 = __webpack_require__(279);
+	var router_outlet_map_1 = __webpack_require__(969);
+	var shared_1 = __webpack_require__(959);
+	var RouterOutlet = (function () {
+	    /**
+	     * @internal
+	     */
+	    function RouterOutlet(parentOutletMap, location, componentFactoryResolver, name) {
+	        this.location = location;
+	        this.componentFactoryResolver = componentFactoryResolver;
+	        parentOutletMap.registerOutlet(name ? name : shared_1.PRIMARY_OUTLET, this);
+	    }
+	    Object.defineProperty(RouterOutlet.prototype, "isActivated", {
+	        get: function () { return !!this.activated; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RouterOutlet.prototype, "component", {
+	        get: function () {
+	            if (!this.activated)
+	                throw new Error('Outlet is not activated');
+	            return this.activated.instance;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RouterOutlet.prototype, "activatedRoute", {
+	        get: function () {
+	            if (!this.activated)
+	                throw new Error('Outlet is not activated');
+	            return this._activatedRoute;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RouterOutlet.prototype.deactivate = function () {
+	        if (this.activated) {
+	            this.activated.destroy();
+	            this.activated = null;
+	        }
+	    };
+	    RouterOutlet.prototype.activate = function (activatedRoute, providers, outletMap) {
+	        this.outletMap = outletMap;
+	        this._activatedRoute = activatedRoute;
+	        var snapshot = activatedRoute._futureSnapshot;
+	        var component = snapshot._routeConfig.component;
+	        var factory;
+	        try {
+	            factory = typeof component === 'string' ?
+	                snapshot._resolvedComponentFactory :
+	                this.componentFactoryResolver.resolveComponentFactory(component);
+	        }
+	        catch (e) {
+	            if (!(e instanceof core_1.NoComponentFactoryError))
+	                throw e;
+	            // TODO: vsavkin uncomment this once CompoentResolver is deprecated
+	            // const componentName = component ? component.name : null;
+	            // console.warn(
+	            //     `'${componentName}' not found in precompile array.  To ensure all components referred
+	            //     to by the RouterConfig are compiled, you must add '${componentName}' to the
+	            //     'precompile' array of your application component. This will be required in a future
+	            //     release of the router.`);
+	            factory = snapshot._resolvedComponentFactory;
+	        }
+	        var inj = core_1.ReflectiveInjector.fromResolvedProviders(providers, this.location.parentInjector);
+	        this.activated = this.location.createComponent(factory, this.location.length, inj, []);
+	    };
+	    /** @nocollapse */
+	    RouterOutlet.decorators = [
+	        { type: core_1.Directive, args: [{ selector: 'router-outlet' },] },
+	    ];
+	    /** @nocollapse */
+	    RouterOutlet.ctorParameters = [
+	        { type: router_outlet_map_1.RouterOutletMap, },
+	        { type: core_1.ViewContainerRef, },
+	        { type: core_1.ComponentFactoryResolver, },
+	        { type: undefined, decorators: [{ type: core_1.Attribute, args: ['name',] },] },
+	    ];
+	    return RouterOutlet;
+	}());
+	exports.RouterOutlet = RouterOutlet;
+	//# sourceMappingURL=router_outlet.js.map
+
+/***/ },
+/* 972 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var common_1 = __webpack_require__(276);
+	var platform_browser_1 = __webpack_require__(534);
+	var common_router_providers_1 = __webpack_require__(973);
+	/**
+	 * A list of {@link Provider}s. To use the router, you must add this to your application.
+	 *
+	 * ### Example
+	 *
+	 * ```
+	 * @Component({directives: [ROUTER_DIRECTIVES]})
+	 * class AppCmp {
+	 *   // ...
+	 * }
+	 *
+	 * const router = [
+	 *   {path: 'home', component: Home}
+	 * ];
+	 *
+	 * bootstrap(AppCmp, [provideRouter(router, {enableTracing: true})]);
+	 * ```
+	 *
+	 * @experimental
+	 */
+	function provideRouter(config, opts) {
+	    if (opts === void 0) { opts = {}; }
+	    return [
+	        { provide: common_1.PlatformLocation, useClass: platform_browser_1.BrowserPlatformLocation }
+	    ].concat(common_router_providers_1.provideRouter(config, opts));
+	}
+	exports.provideRouter = provideRouter;
+	//# sourceMappingURL=router_providers.js.map
+
+/***/ },
+/* 973 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * @license
+	 * Copyright Google Inc. All Rights Reserved.
+	 *
+	 * Use of this source code is governed by an MIT-style license that can be
+	 * found in the LICENSE file at https://angular.io/license
+	 */
+	"use strict";
+	var common_1 = __webpack_require__(276);
+	var core_1 = __webpack_require__(279);
+	var router_1 = __webpack_require__(957);
+	var router_outlet_map_1 = __webpack_require__(969);
+	var router_state_1 = __webpack_require__(964);
+	var url_tree_1 = __webpack_require__(960);
+	exports.ROUTER_CONFIG = new core_1.OpaqueToken('ROUTER_CONFIG');
+	exports.ROUTER_OPTIONS = new core_1.OpaqueToken('ROUTER_OPTIONS');
+	function setupRouter(ref, resolver, urlSerializer, outletMap, location, injector, config, opts) {
+	    if (ref.componentTypes.length == 0) {
+	        throw new Error('Bootstrap at least one component before injecting Router.');
+	    }
+	    var componentType = ref.componentTypes[0];
+	    var r = new router_1.Router(componentType, resolver, urlSerializer, outletMap, location, injector, config);
+	    ref.registerDisposeListener(function () { return r.dispose(); });
+	    if (opts.enableTracing) {
+	        r.events.subscribe(function (e) {
+	            console.group("Router Event: " + e.constructor.name);
+	            console.log(e.toString());
+	            console.log(e);
+	            console.groupEnd();
+	        });
+	    }
+	    return r;
+	}
+	exports.setupRouter = setupRouter;
+	function setupRouterInitializer(injector) {
+	    // https://github.com/angular/angular/issues/9101
+	    // Delay the router instantiation to avoid circular dependency (ApplicationRef ->
+	    // APP_INITIALIZER -> Router)
+	    setTimeout(function () {
+	        var appRef = injector.get(core_1.ApplicationRef);
+	        if (appRef.componentTypes.length == 0) {
+	            appRef.registerBootstrapListener(function () { injector.get(router_1.Router).initialNavigation(); });
+	        }
+	        else {
+	            injector.get(router_1.Router).initialNavigation();
+	        }
+	    }, 0);
+	    return function () { return null; };
+	}
+	exports.setupRouterInitializer = setupRouterInitializer;
+	/**
+	 * An array of {@link Provider}s. To use the router, you must add this to your application.
+	 *
+	 * ### Example
+	 *
+	 * ```
+	 * @Component({directives: [ROUTER_DIRECTIVES]})
+	 * class AppCmp {
+	 *   // ...
+	 * }
+	 *
+	 * const config = [
+	 *   {path: 'home', component: Home}
+	 * ];
+	 *
+	 * bootstrap(AppCmp, [provideRouter(config)]);
+	 * ```
+	 *
+	 * @stable
+	 */
+	function provideRouter(_config, _opts) {
+	    return [
+	        { provide: exports.ROUTER_CONFIG, useValue: _config }, { provide: exports.ROUTER_OPTIONS, useValue: _opts },
+	        common_1.Location, { provide: common_1.LocationStrategy, useClass: common_1.PathLocationStrategy },
+	        { provide: url_tree_1.UrlSerializer, useClass: url_tree_1.DefaultUrlSerializer },
+	        {
+	            provide: router_1.Router,
+	            useFactory: setupRouter,
+	            deps: [
+	                core_1.ApplicationRef, core_1.ComponentResolver, url_tree_1.UrlSerializer, router_outlet_map_1.RouterOutletMap, common_1.Location, core_1.Injector,
+	                exports.ROUTER_CONFIG, exports.ROUTER_OPTIONS
+	            ]
+	        },
+	        router_outlet_map_1.RouterOutletMap,
+	        { provide: router_state_1.ActivatedRoute, useFactory: function (r) { return r.routerState.root; }, deps: [router_1.Router] },
+	        // Trigger initial navigation
+	        { provide: core_1.APP_INITIALIZER, multi: true, useFactory: setupRouterInitializer, deps: [core_1.Injector] }
+	    ];
+	}
+	exports.provideRouter = provideRouter;
+	//# sourceMappingURL=common_router_providers.js.map
+
 /***/ }
 /******/ ]);
+//# sourceMappingURL=app.js.map

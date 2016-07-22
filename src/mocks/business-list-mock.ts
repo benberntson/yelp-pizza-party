@@ -50,5 +50,4 @@ export let businessListMock:Business[] = [
   businessMock,
   bobsPizza,
   fioreWoodFiredPizza
-
 ]
