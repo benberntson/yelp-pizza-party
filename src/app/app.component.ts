@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {BusinessListComponent} from './business/business-list.component';
 import {BusinessSearchComponent} from './business/business-search.component';
+import {SlimLoadingBar,SlimLoadingBarService} from 'ng2-slim-loading-bar/ng2-slim-loading-bar';
 
 
 
@@ -15,7 +16,7 @@ import {BusinessSearchComponent} from './business/business-search.component';
     </ul>
   </div>
   <router-outlet></router-outlet>
-  
+  <ng2-slim-loading-bar></ng2-slim-loading-bar>
   `,
   styles: [`
     .navigation{
@@ -36,9 +37,12 @@ import {BusinessSearchComponent} from './business/business-search.component';
     }
   `],
   directives: [
+    SlimLoadingBar,
     BusinessListComponent,
     BusinessSearchComponent,
     ...ROUTER_DIRECTIVES
     ]
 })
-export class AppComponent{ }
+export class AppComponent{ 
+  constructor(private _slimLoadingBarService:SlimLoadingBarService){}
+}

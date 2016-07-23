@@ -6,11 +6,13 @@ import {LocationStrategy,HashLocationStrategy} from "@angular/common";
 import {provide} from "@angular/core";
 
 import {AppComponent} from './app/app.component.ts';
+import {SlimLoadingBarService} from 'ng2-slim-loading-bar/ng2-slim-loading-bar';
 import {BusinessService} from './app/business/business.service';
 import {FavoritesService} from './app/favorites/favorites.service';
 
 bootstrap(AppComponent,[
-   BusinessService,
+  BusinessService,
+  SlimLoadingBarService,
   FavoritesService,
   appRouterProviders,
   {provide:LocationStrategy,useClass:HashLocationStrategy},

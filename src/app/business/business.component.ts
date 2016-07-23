@@ -92,12 +92,12 @@ import {businessMock} from '../../mocks/business-mock';
 })
 
 export class BusinessComponent {
-  @Input('business-data') businessData:Business = businessMock;
+  @Input('business-data') businessData: Business;
 
   constructor() { }
 
   getAddress() {
-    if (!this.businessData.location.address) { return "" };
+    if (typeof this.businessData.location.address === 'undefined') { return "" };
     return this.businessData.location.address.join('\n');
   }
 
