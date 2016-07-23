@@ -1,3 +1,4 @@
 node_modules
 config/yelp
-npm.debug.log
+npm-debug.log
+config/secret.js

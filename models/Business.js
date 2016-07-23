@@ -1,8 +1,5 @@
 'use strict';
-const mongoose = require('mongoose'),
-      Schema   = mongoose.Schema;
-
-const business = new Schema({
+const business = {
   name: String,
   url: String,
   phone: String,
@@ -22,6 +19,6 @@ const business = new Schema({
   snippet_text: String,
   rating: Number,
   review_count: Number
-});
+};
 
-module.exports = mongoose.model('Business',business);
+module.exports = business;

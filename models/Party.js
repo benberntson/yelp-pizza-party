@@ -1,10 +1,13 @@
 const mongoose = require('mongoose'),
-      Schema   = mongoose.Schema;
+      Schema   = mongoose.Schema,
+      business = require('./Business');
 
 let party = new Schema({
-  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  notes: [String],
+  name: String,
   date: Date,
-  businesses: [{type:Schema.Types.ObjectId, ref: 'Business'}]
+  businesses: [business]
 });
 
-module.exports = mongoose.model('Party',party);
+module.exports = mongoose.model('Party', party);
