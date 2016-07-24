@@ -1,4 +1,7 @@
 node_modules
 config/yelp
 npm-debug.log
+<<<<<<< HEAD
 config/secret.js
+=======
+>>>>>>> ab7e2293b48658539c31f20cd78c968e1433cc39

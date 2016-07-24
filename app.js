@@ -9,6 +9,8 @@ const express = require('express'),
 
 const routes = require('./routes/index'),
       users = require('./routes/users'),
+      party = require('./routes/party'),
+      favorites = require('./routes/favorites'),
       yelp = require('./routes/yelp');
 
 mongoose.connect('localhost:27017/pizza-party');
@@ -29,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/yelp',yelp);
 app.use('/users', users);
+app.use('/party',party);
+app.use('/favorites',favorites);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

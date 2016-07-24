@@ -1,5 +1,5 @@
 const express = require('express'),
-  router = require.Router(),
+  router = express.Router(),
   jwt = require('jsonwebtoken'),
   SECRET = require('../config/secret.js');
 
