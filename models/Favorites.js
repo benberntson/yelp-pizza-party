@@ -5,8 +5,15 @@ const mongoose = require('mongoose'),
 
 const favorites = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  name : String,
+  name: String,
   businesses: [business]
+});
+
+favorites.post('remove', (favs) => {
+    User.findById(favs.user,(err,usr) => {
+      user.favorites.pull(favs);
+      user.save();
+    });
 });
 
 module.exports = mongoose.model('Favorites', favorites);

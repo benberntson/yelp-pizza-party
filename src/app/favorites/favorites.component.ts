@@ -1,89 +1,47 @@
-import {Component,OnInit,OnDestroy,EventEmitter,Input} from '@angular/core';
-
-import {MiniBusinessComponent} from '../business/mini-business.component'
+import {Component, OnInit, EventEmitter} from '@angular/core';
 import {FavoritesService} from './favorites.service';
+import {FavoritesListComponent} from './favorites-list.component';
 import {Business} from '../../schemas/Business';
-import {businessListMock} from '../../mocks/business-list-mock';
 
 @Component({
-  selector:'favorites',
-  template:`
-  <div *ngIf="businesses.length">
-    <h3>Favorites</h3>
-     <div class="favorites">
-        <div *ngFor="let business of businesses" class='mini-business'>
-          <button class="remove-button" (click)="removeBusiness(business)">x</button>
-            <mini-business [business-data]="business"></mini-business>
-        </div>
-      </div>
-    <button (click)="saveFavorites()" class="btn btn-primary">Save Favorites</button>
+  selector: 'favorites',
+  template: `
+  <div class="container">
+    <div class="well well-lg">
+      <h2>Favorites</h2>
+      <favorites-list *ngFor="let favorites of listOfFavorites" 
+      [favorites]="favorites" >
+      
+      </favorites-list>
+      <button class="btn btn-default" (click)="updateListOfFavorites()">Get List of Favs</button>
+    </div>
   </div>
   `,
-  styles:[`
-    .remove-button{
-      display:inline-block;
-      position:relative;
-      bottom:-30px;
-      left:-24px;
-      width:25px;
-      height:25px;
-      background-color: darkred;
-      border: 1px solid black;
-      transition: background-color 0.3s;
-    }
-    .remove-button:hover{
-      background-color:red;
-      color:black;
-    }
-    mini-business{
-      display:inline-block;
-    }
-    .mini-business{
-      width: 300px;
-    }
-    .favorites{
-      
-    }
+  styles: [`
   `],
-  directives:[MiniBusinessComponent]
+  directives: [FavoritesListComponent]
 })
+export class FavoritesComponent implements OnInit {
+  listOfFavorites: { name: string, list: Business[] }[] = [];
+  private _newListEvent: EventEmitter<Business[][]>;
+  constructor(
+    private _favoritesService: FavoritesService
+  ) { }
 
-/**
- * FavoritesComponent
- * 
- * Displays a list of favorite pizza businesses.
- * If the 'read-only' input is set to true, 
- * the component only displays a list of pizza businesses.
- * 
- */ 
-export class FavoritesComponent implements OnInit,OnDestroy{
-  @Input('read-only')readOnlyMode:boolean = false;
-  private _listChange:EventEmitter<Business[]>;
-  businesses:Business[] = [];
-
-  constructor(private _favoritesService:FavoritesService){}
-
-  ngOnInit(){
-    this.businesses = this._favoritesService.favorites;
-    this._listChange = this._favoritesService.getListChangeEvent();
-    this._listChange.subscribe(businessList => this.businesses = businessList,error => console.log(error));
+  ngOnInit() {
+    this._newListEvent = this._favoritesService.getListOfChangeEvent();
+    this._newListEvent.subscribe(
+      listOfFavorites => {
+        this.listOfFavorites = listOfFavorites;
+        console.log(`Client side favs: ${this.listOfFavorites}`)
+      }
+      ,
+      error => console.log(error)
+    );
   }
 
-  ngOnDestroy(){
-    //this._listChange.unsubscribe();
-  }
-
-  removeBusiness(business:Business){
-    this._favoritesService.removeBusiness(business);
-  }
-  
-  /**
-   * saveFavorites
-   * TODO: triggers an ajax call to the server to save the favorites to the user profile
-   */
-  saveFavorites(){
-    if(this.readOnlyMode){ return; }
-    //save favorites to server
+  updateListOfFavorites() {
+    this._favoritesService.getFavoritesFromServer();
   }
 
 }

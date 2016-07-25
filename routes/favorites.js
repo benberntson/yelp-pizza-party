@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 router.use('/', (req, res, next) => {
   jwt.verify(req.query.token, SECRET, (err, decoded) => {
     if (err) {
-      return res.status(500).json({ error: err });
+      return res.status(403).json({ error: err });
     }
     next();
   });//end jwt.verify
@@ -39,6 +39,7 @@ router.post('/', (req, res, next) => {
       name: req.body.name,
       businesses: req.body.businesses
     });
+    console.log(`${JSON.stringify(2, null, req.body)}`);
     favorites.save((err, result) => {
       if (err) {
         return res.status(500).json({ error: err });

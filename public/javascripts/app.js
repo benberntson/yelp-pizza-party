@@ -50,11 +50,13 @@
 	var http_1 = __webpack_require__(603);
 	var app_routes_1 = __webpack_require__(624);
 	var common_1 = __webpack_require__(276);
-	var app_component_ts_1 = __webpack_require__(990);
+	var app_component_ts_1 = __webpack_require__(997);
 	var ng2_slim_loading_bar_1 = __webpack_require__(682);
 	var business_service_1 = __webpack_require__(699);
 	var favorites_service_1 = __webpack_require__(987);
+	var login_service_1 = __webpack_require__(993);
 	platform_browser_dynamic_1.bootstrap(app_component_ts_1.AppComponent, [
+	    login_service_1.LoginService,
 	    business_service_1.BusinessService,
 	    ng2_slim_loading_bar_1.SlimLoadingBarService,
 	    favorites_service_1.FavoritesService,
@@ -59922,9 +59924,16 @@
 	"use strict";
 	var router_1 = __webpack_require__(625);
 	var business_list_component_1 = __webpack_require__(678);
+	var home_component_1 = __webpack_require__(990);
+	var signup_component_1 = __webpack_require__(991);
+	var signin_component_1 = __webpack_require__(994);
+	var favorites_component_1 = __webpack_require__(995);
 	var routes = [
 	    { path: 'search', component: business_list_component_1.BusinessListComponent },
-	    { path: '', component: business_list_component_1.BusinessListComponent }
+	    { path: '', component: home_component_1.HomeComponent },
+	    { path: 'signup', component: signup_component_1.SignupComponent },
+	    { path: 'signin', component: signin_component_1.SigninComponent },
+	    { path: 'favorites', component: favorites_component_1.FavoritesComponent }
 	];
 	exports.appRouterProviders = [
 	    router_1.provideRouter(routes)
@@ -64913,7 +64922,7 @@
 	var business_search_component_1 = __webpack_require__(681);
 	var business_service_1 = __webpack_require__(699);
 	var favorites_service_1 = __webpack_require__(987);
-	var favorites_component_1 = __webpack_require__(988);
+	var favorites_panel_component_1 = __webpack_require__(988);
 	var BusinessListComponent = (function () {
 	    function BusinessListComponent(_businessService, _favoritesService) {
 	        this._businessService = _businessService;
@@ -64948,9 +64957,9 @@
 	    BusinessListComponent = __decorate([
 	        core_1.Component({
 	            selector: 'business-list',
-	            template: "\n  <business-search></business-search>\n  <h3 *ngIf=\"businesses.length\">Results</h3>\n  <div *ngFor=\"let businessData of businesses\">\n    <business  [business-data]=businessData ></business>\n    <button class=\"btn btn-primary favorites-add\" (click)=\"addToFavorites(businessData)\">\n      Add to Favorites</button>\n  </div>\n  <div class=\"favorites-panel\">\n    <favorites></favorites>\n  </div>\n  ",
+	            template: "\n  <business-search></business-search>\n  <h3 *ngIf=\"businesses.length\">Results</h3>\n  <div *ngFor=\"let businessData of businesses\">\n    <business  [business-data]=businessData ></business>\n    <button class=\"btn btn-primary favorites-add\" (click)=\"addToFavorites(businessData)\">\n      Add to Favorites</button>\n  </div>\n  <div class=\"favorites-panel\">\n    <favorites-panel></favorites-panel>\n  </div>\n  ",
 	            styles: ["\n    .input{\n      display:inline-block;\n    }\n    .favorites-panel{\n      position:fixed;\n      right:100px;\n      top:100px;\n      height: 500px;\n      width: 350px;\n    }\n    .favorites-add{\n      position: relative;\n      left: 200px;\n      bottom: 17px;\n    }\n  "],
-	            directives: [business_search_component_1.BusinessSearchComponent, business_component_1.BusinessComponent, favorites_component_1.FavoritesComponent]
+	            directives: [business_search_component_1.BusinessSearchComponent, business_component_1.BusinessComponent, favorites_panel_component_1.FavoritesPanelComponent]
 	        }), 
 	        __metadata('design:paramtypes', [business_service_1.BusinessService, favorites_service_1.FavoritesService])
 	    ], BusinessListComponent);
@@ -80640,10 +80649,15 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(279);
+	var http_1 = __webpack_require__(603);
+	var Observable_1 = __webpack_require__(312);
 	var FavoritesService = (function () {
-	    function FavoritesService() {
+	    function FavoritesService(_http) {
+	        this._http = _http;
+	        this.listOfFavorites = [];
 	        this.favorites = [];
 	        this.possibleFavorites = [];
+	        this.listOfFavoritesChange = new core_1.EventEmitter();
 	        this.favoritesChange = new core_1.EventEmitter();
 	    }
 	    FavoritesService.prototype.emitListChange = function () {
@@ -80651,6 +80665,12 @@
 	    };
 	    FavoritesService.prototype.getListChangeEvent = function () {
 	        return this.favoritesChange;
+	    };
+	    FavoritesService.prototype.emitListOfChange = function () {
+	        this.listOfFavoritesChange.emit(this.listOfFavorites);
+	    };
+	    FavoritesService.prototype.getListOfChangeEvent = function () {
+	        return this.listOfFavoritesChange;
 	    };
 	    FavoritesService.prototype.addPossibleFavorite = function (businesses) {
 	        var _this = this;
@@ -80662,6 +80682,39 @@
 	    };
 	    FavoritesService.prototype.saveAllToFavorites = function () {
 	        this.addBusinesses(this.possibleFavorites);
+	        this.saveToServer();
+	    };
+	    FavoritesService.prototype.saveToServer = function (name) {
+	        var _this = this;
+	        if (this.favorites.length === 0) {
+	            return;
+	        }
+	        name = name || this.favorites[0].name + " list";
+	        var headers = new http_1.Headers({
+	            'Content-Type': 'application/json'
+	        });
+	        var body = {
+	            name: name,
+	            businesses: this.favorites
+	        };
+	        return this._http.post("/favorites/?token=" + (localStorage.getItem('token') ?
+	            localStorage.getItem('token') : ''), body, headers)
+	            .map(function (response) { return response.json(); })
+	            .catch(function (error) { return Observable_1.Observable.throw(error.json()); })
+	            .subscribe(function (data) {
+	            console.log(data);
+	            _this.emitListChange();
+	        }, function (error) { return console.log(error); });
+	    };
+	    FavoritesService.prototype.getFavoritesFromServer = function () {
+	        var _this = this;
+	        return this._http.get("/favorites")
+	            .map(function (data) { return data.json(); })
+	            .catch(function (error) { return Observable_1.Observable.throw(error); })
+	            .subscribe(function (data) {
+	            _this.listOfFavorites = data.map(function (datum) { return datum.businesses; });
+	            _this.emitListOfChange();
+	        }, function (err) { return console.log(err); });
 	    };
 	    FavoritesService.prototype.addBusiness = function (biz) {
 	        if (this.favorites.indexOf(biz) === -1 && biz) {
@@ -80685,20 +80738,20 @@
 	     */
 	    FavoritesService.prototype.addBusinesses = function (theBusinesses) {
 	        var _this = this;
-	        //thank arrow functions for dat lexical binding
-	        theBusinesses.forEach(function (business) {
-	            if (_this.favorites.indexOf(business) === -1 && business) {
-	                _this.favorites.push(business);
-	            }
-	        });
+	        theBusinesses.forEach(function (business) { return _this.addBusiness(business); });
 	        this.emitListChange();
 	    };
+	    /**
+	     * isFavorited
+	     *
+	     *
+	     */
 	    FavoritesService.prototype.isFavorited = function (business) {
 	        return this.favorites.indexOf(business) !== -1;
 	    };
 	    FavoritesService = __decorate([
 	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [http_1.Http])
 	    ], FavoritesService);
 	    return FavoritesService;
 	}());
@@ -80722,50 +80775,51 @@
 	var core_1 = __webpack_require__(279);
 	var mini_business_component_1 = __webpack_require__(989);
 	var favorites_service_1 = __webpack_require__(987);
-	var FavoritesComponent = (function () {
-	    function FavoritesComponent(_favoritesService) {
+	var FavoritesPanelComponent = (function () {
+	    function FavoritesPanelComponent(_favoritesService) {
 	        this._favoritesService = _favoritesService;
 	        this.readOnlyMode = false;
+	        this.favoritesName = '';
 	        this.businesses = [];
 	    }
-	    FavoritesComponent.prototype.ngOnInit = function () {
+	    FavoritesPanelComponent.prototype.ngOnInit = function () {
 	        var _this = this;
 	        this.businesses = this._favoritesService.favorites;
 	        this._listChange = this._favoritesService.getListChangeEvent();
 	        this._listChange.subscribe(function (businessList) { return _this.businesses = businessList; }, function (error) { return console.log(error); });
 	    };
-	    FavoritesComponent.prototype.ngOnDestroy = function () {
+	    FavoritesPanelComponent.prototype.ngOnDestroy = function () {
 	        //this._listChange.unsubscribe();
 	    };
-	    FavoritesComponent.prototype.removeBusiness = function (business) {
+	    FavoritesPanelComponent.prototype.removeBusiness = function (business) {
 	        this._favoritesService.removeBusiness(business);
 	    };
 	    /**
 	     * saveFavorites
 	     * TODO: triggers an ajax call to the server to save the favorites to the user profile
 	     */
-	    FavoritesComponent.prototype.saveFavorites = function () {
+	    FavoritesPanelComponent.prototype.saveFavorites = function () {
 	        if (this.readOnlyMode) {
 	            return;
 	        }
-	        //save favorites to server
+	        this._favoritesService.saveToServer();
 	    };
 	    __decorate([
 	        core_1.Input('read-only'), 
 	        __metadata('design:type', Boolean)
-	    ], FavoritesComponent.prototype, "readOnlyMode", void 0);
-	    FavoritesComponent = __decorate([
+	    ], FavoritesPanelComponent.prototype, "readOnlyMode", void 0);
+	    FavoritesPanelComponent = __decorate([
 	        core_1.Component({
-	            selector: 'favorites',
-	            template: "\n  <div *ngIf=\"businesses.length\">\n    <h3>Favorites</h3>\n     <div class=\"favorites\">\n        <div *ngFor=\"let business of businesses\" class='mini-business'>\n          <button class=\"remove-button\" (click)=\"removeBusiness(business)\">x</button>\n            <mini-business [business-data]=\"business\"></mini-business>\n        </div>\n      </div>\n    <button (click)=\"saveFavorites()\" class=\"btn btn-primary\">Save Favorites</button>\n  </div>\n  ",
+	            selector: 'favorites-panel',
+	            template: "\n  <div *ngIf=\"businesses.length\">\n    <h3>Favorites</h3>\n    <h4>{{favoritesName}}</h4>\n     <div class=\"favorites\">\n        <div *ngFor=\"let business of businesses\" class='mini-business'>\n          <button class=\"remove-button\" (click)=\"removeBusiness(business)\">x</button>\n            <mini-business [business-data]=\"business\"></mini-business>\n        </div>\n        <input type=\"text\" [(ngModel)]=\"favoritesName\" value=\"name your favorites\">\n      </div>\n    <button (click)=\"saveFavorites()\" class=\"btn btn-primary\">Save Favorites</button>\n  </div>\n  ",
 	            styles: ["\n    .remove-button{\n      display:inline-block;\n      position:relative;\n      bottom:-30px;\n      left:-24px;\n      width:25px;\n      height:25px;\n      background-color: darkred;\n      border: 1px solid black;\n      transition: background-color 0.3s;\n    }\n    .remove-button:hover{\n      background-color:red;\n      color:black;\n    }\n    mini-business{\n      display:inline-block;\n    }\n    .mini-business{\n      width: 300px;\n    }\n    .favorites{\n      \n    }\n  "],
 	            directives: [mini_business_component_1.MiniBusinessComponent]
 	        }), 
 	        __metadata('design:paramtypes', [favorites_service_1.FavoritesService])
-	    ], FavoritesComponent);
-	    return FavoritesComponent;
+	    ], FavoritesPanelComponent);
+	    return FavoritesPanelComponent;
 	}());
-	exports.FavoritesComponent = FavoritesComponent;
+	exports.FavoritesPanelComponent = FavoritesPanelComponent;
 
 
 /***/ },
@@ -80835,18 +80889,334 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(279);
+	var HomeComponent = (function () {
+	    function HomeComponent() {
+	    }
+	    HomeComponent = __decorate([
+	        core_1.Component({
+	            selector: 'home',
+	            template: "\n  <div class=\"container\">\n    <div class=\"well well-lg\">\n      <h1>PIZZA PARTY!</h1>\n      <p>Connect with <a href=\"http://www.yelp.com/\">Yelp!</a> to find the best pizza joints in your area...</p>\n      <p>Thus making one <i>heck-of-a</i>...</p>\n      <h1>PIZZA PARTY!!!!!</h1>\n      <p>Seriously... I just made this to learn ng2, Express, and MongoDB</p>\n      <p>View the source code <a href=\"https://github.com/benberntson/yelp-pizza-party/\">here</a></p>\n      <h1>TO USE APP</h1>\n      <ol>\n        <li>Sign up</li>\n        <li>Sign in</li>\n        <li>Search Yelp! with a location of your choice</li>\n        <li>Add your location to an array of favorates</li>\n        <li>Turn your favorites into a <span class=\"party\">PARTY</span></li>\n      </ol>\n    </div>\n  </div>\n  ",
+	            styles: ["\n    span.party{\n      font-family:\"Bangers\";\n      font-size:120%;\n    }\n  "]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], HomeComponent);
+	    return HomeComponent;
+	}());
+	exports.HomeComponent = HomeComponent;
+
+
+/***/ },
+/* 991 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var common_1 = __webpack_require__(276);
+	var user_1 = __webpack_require__(992);
+	var login_service_1 = __webpack_require__(993);
+	var SignupComponent = (function () {
+	    function SignupComponent(_formBuilder, _loginService) {
+	        this._formBuilder = _formBuilder;
+	        this._loginService = _loginService;
+	    }
+	    SignupComponent.prototype.ngOnInit = function () {
+	        this.signupForm = this._formBuilder.group({
+	            firstName: ['', common_1.Validators.required],
+	            lastName: ['', common_1.Validators.required],
+	            email: ['', common_1.Validators.compose([
+	                    common_1.Validators.required,
+	                    this.isEmail
+	                ])],
+	            password: ['', common_1.Validators.required]
+	        });
+	    };
+	    SignupComponent.prototype.isEmail = function (control) {
+	        var EMAIL_REGEX = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+	        if (!control.value.match(EMAIL_REGEX)) {
+	            return { invalidMail: true };
+	        }
+	    };
+	    SignupComponent.prototype.onSubmit = function () {
+	        var user = new user_1.User(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.firstName, this.signupForm.value.lastName);
+	        console.log(user);
+	        this._loginService.signup(user)
+	            .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+	    };
+	    SignupComponent = __decorate([
+	        core_1.Component({
+	            selector: 'signup',
+	            template: "\n  <section class=\"col-md-8 col-md-offset-2\">\n    <form [ngFormModel]=\"signupForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"form-group\">\n        <label for=\"firstName\">First Name</label>\n        <input [ngFormControl]=\"signupForm.find('firstName')\" name=\"firstName\" type=\"text\" id=\"firstName\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"lastName\">Last Name</label>\n        <input [ngFormControl]=\"signupForm.find('lastName')\" name=\"lastName\" type=\"text\" id=\"lastName\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"email\">E-Mail</label>\n        <input [ngFormControl]=\"signupForm.find('email')\" name=\"email\" type=\"email\" id=\"email\" class=\"form-control\"> \n      </div>\n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input [ngFormControl]=\"signupForm.find('password')\" name=\"password\" type=\"password\" id=\"password\" class=\"form-control\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\" [disabled]=\"!signupForm.valid\">Sign Up</button>\n    </form>\n  </section>\n  "
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder, login_service_1.LoginService])
+	    ], SignupComponent);
+	    return SignupComponent;
+	}());
+	exports.SignupComponent = SignupComponent;
+
+
+/***/ },
+/* 992 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var User = (function () {
+	    function User(email, password, firstName, lastName) {
+	        this.email = email;
+	        this.password = password;
+	        this.firstName = firstName;
+	        this.lastName = lastName;
+	    }
+	    return User;
+	}());
+	exports.User = User;
+
+
+/***/ },
+/* 993 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var http_1 = __webpack_require__(603);
+	var Observable_1 = __webpack_require__(312);
+	__webpack_require__(700);
+	var LoginService = (function () {
+	    function LoginService(_http) {
+	        this._http = _http;
+	    }
+	    LoginService.prototype.signup = function (user) {
+	        var body = JSON.stringify(user);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        return this._http.post('/users', body, { headers: headers })
+	            .map(function (response) { return response.json(); })
+	            .catch(function (error) { return Observable_1.Observable.throw(error.json()); });
+	    };
+	    LoginService.prototype.signin = function (user) {
+	        var body = JSON.stringify(user);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        return this._http.post('/users/signin', body, { headers: headers })
+	            .map(function (response) { return response.json(); })
+	            .catch(function (error) { return Observable_1.Observable.throw(error.json()); });
+	    };
+	    LoginService.prototype.logout = function () {
+	        localStorage.clear();
+	    };
+	    LoginService.prototype.isLoggedIn = function () {
+	        return localStorage.getItem('token') !== null;
+	    };
+	    LoginService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [http_1.Http])
+	    ], LoginService);
+	    return LoginService;
+	}());
+	exports.LoginService = LoginService;
+
+
+/***/ },
+/* 994 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var common_1 = __webpack_require__(276);
+	var router_1 = __webpack_require__(625);
+	var login_service_1 = __webpack_require__(993);
+	var SigninComponent = (function () {
+	    function SigninComponent(_formBuilder, _loginService, _router) {
+	        this._formBuilder = _formBuilder;
+	        this._loginService = _loginService;
+	        this._router = _router;
+	    }
+	    SigninComponent.prototype.ngOnInit = function () {
+	        this.userForm = this._formBuilder.group({
+	            email: ['', common_1.Validators.compose([common_1.Validators.required, this.isEmail])],
+	            password: ['', common_1.Validators.required]
+	        });
+	    };
+	    SigninComponent.prototype.onSubmit = function () {
+	        var _this = this;
+	        var email = this.userForm.value.email;
+	        var password = this.userForm.value.password;
+	        var signinUser = { email: email, password: password, firstName: '', lastName: '' };
+	        this._loginService.signin(signinUser)
+	            .subscribe(function (data) {
+	            localStorage.setItem('token', data.token);
+	            localStorage.setItem('userId', data.userId);
+	            _this._router.navigateByUrl('/');
+	        }, function (error) { return console.log(error); });
+	    };
+	    SigninComponent.prototype.isEmail = function (control) {
+	        var EMAIL_REGEX = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+	        if (!control.value.match(EMAIL_REGEX)) {
+	            return { invalidMail: true };
+	        }
+	    };
+	    SigninComponent = __decorate([
+	        core_1.Component({
+	            selector: 'signin',
+	            template: "\n  <section class=\"col-md-8 col-md-offset-2\">\n     <form [ngFormModel]=\"userForm\" (ngSubmit)=\"onSubmit()\">\n      <div class=\"form-group\">\n        <label for=\"email\">Mail</label>\n        <input [ngFormControl]=\"userForm.find('email')\" name=\"email\" type=\"email\" id=\"email\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input [ngFormControl]=\"userForm.find('password')\" name=\"password\" type=\"password\" id=\"password\" class=\"form-control\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!userForm.valid\">Sign Up</button>\n     </form>\n  </section>\n  "
+	        }), 
+	        __metadata('design:paramtypes', [common_1.FormBuilder, login_service_1.LoginService, router_1.Router])
+	    ], SigninComponent);
+	    return SigninComponent;
+	}());
+	exports.SigninComponent = SigninComponent;
+
+
+/***/ },
+/* 995 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var favorites_service_1 = __webpack_require__(987);
+	var favorites_list_component_1 = __webpack_require__(996);
+	var FavoritesComponent = (function () {
+	    function FavoritesComponent(_favoritesService) {
+	        this._favoritesService = _favoritesService;
+	        this.listOfFavorites = [];
+	    }
+	    FavoritesComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this._newListEvent = this._favoritesService.getListOfChangeEvent();
+	        this._newListEvent.subscribe(function (listOfFavorites) {
+	            _this.listOfFavorites = listOfFavorites;
+	            console.log("Client side favs: " + _this.listOfFavorites);
+	        }, function (error) { return console.log(error); });
+	    };
+	    FavoritesComponent.prototype.updateListOfFavorites = function () {
+	        this._favoritesService.getFavoritesFromServer();
+	    };
+	    FavoritesComponent = __decorate([
+	        core_1.Component({
+	            selector: 'favorites',
+	            template: "\n  <div class=\"container\">\n    <div class=\"well well-lg\">\n      <h2>Favorites</h2>\n      <favorites-list *ngFor=\"let favorites of listOfFavorites\" \n      [favorites]=\"favorites\" >\n      \n      </favorites-list>\n      <button class=\"btn btn-default\" (click)=\"updateListOfFavorites()\">Get List of Favs</button>\n    </div>\n  </div>\n  ",
+	            styles: ["\n  "],
+	            directives: [favorites_list_component_1.FavoritesListComponent]
+	        }), 
+	        __metadata('design:paramtypes', [favorites_service_1.FavoritesService])
+	    ], FavoritesComponent);
+	    return FavoritesComponent;
+	}());
+	exports.FavoritesComponent = FavoritesComponent;
+
+
+/***/ },
+/* 996 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
+	var mini_business_component_1 = __webpack_require__(989);
+	var FavoritesListComponent = (function () {
+	    function FavoritesListComponent() {
+	    }
+	    FavoritesListComponent.prototype.logFavs = function () {
+	        console.log(this.favorites);
+	    };
+	    __decorate([
+	        core_1.Input('name'), 
+	        __metadata('design:type', String)
+	    ], FavoritesListComponent.prototype, "name", void 0);
+	    __decorate([
+	        core_1.Input('favorites'), 
+	        __metadata('design:type', Array)
+	    ], FavoritesListComponent.prototype, "favorites", void 0);
+	    FavoritesListComponent = __decorate([
+	        core_1.Component({
+	            selector: 'favorites-list',
+	            template: "\n  <h4>{{name}}</h4>\n  <mini-business *ngFor=\"let biz of favorites\" [business-data]=\"biz\"></mini-business>\n  <button (click)=\"logFavs()\">log</button>\n  ",
+	            styles: ["\n    \n  "],
+	            directives: [mini_business_component_1.MiniBusinessComponent]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], FavoritesListComponent);
+	    return FavoritesListComponent;
+	}());
+	exports.FavoritesListComponent = FavoritesListComponent;
+
+
+/***/ },
+/* 997 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(279);
 	var router_1 = __webpack_require__(625);
 	var business_list_component_1 = __webpack_require__(678);
 	var business_search_component_1 = __webpack_require__(681);
 	var ng2_slim_loading_bar_1 = __webpack_require__(682);
+	var login_service_ts_1 = __webpack_require__(993);
 	var AppComponent = (function () {
-	    function AppComponent(_slimLoadingBarService) {
+	    function AppComponent(_slimLoadingBarService, _loginService) {
 	        this._slimLoadingBarService = _slimLoadingBarService;
+	        this._loginService = _loginService;
 	    }
+	    AppComponent.prototype.isLoggedIn = function () {
+	        return this._loginService.isLoggedIn();
+	    };
+	    AppComponent.prototype.logOut = function () {
+	        localStorage.clear();
+	    };
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'app',
-	            template: "\n  <div class=\"navigation\">\n    <ul class=\"nav nav-pills\">\n      <li><a [routerLink]=\"['']\">Home</a></li>\n      <li><a [routerLink]=\"['/search']\">Search</a></li>    \n    </ul>\n  </div>\n  <router-outlet></router-outlet>\n  <ng2-slim-loading-bar></ng2-slim-loading-bar>\n  ",
+	            template: "\n  <div class=\"navigation\">\n    <ul class=\"nav nav-pills\">\n      <li><a [routerLink]=\"['/']\">Home</a></li>\n      <li *ngIf=\"isLoggedIn()\"><a [routerLink]=\"['/search']\">Search</a></li> \n      <li *ngIf=\"isLoggedIn()\"><a [routerLink]=\"['/favorites']\">Favorites</a></li>  \n      <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/signup']\">Signup</a></li>    \n      <li *ngIf=\"!isLoggedIn()\"><a [routerLink]=\"['/signin']\">Signin</a></li> \n      <li *ngIf=\"isLoggedIn()\"><a (click)=\"logOut()\">Log Out</a></li>   \n    </ul>\n  </div>\n  <router-outlet></router-outlet>\n  ",
 	            styles: ["\n    .navigation{\n      background: rgba(9,9,9,0.75);\n      color: white;\n      border-radius: 0px;\n      border-color: rgba(0,0,0,0.5);\n      border-bottom: 1px;\n      font-size: 100%;\n    }\n    .nav{\n      display:inline-block;\n      position:relative;\n      left:45%;\n    }\n    .nav-pills > li > a {\n      border-radius: 0px;\n    }\n  "],
 	            directives: [
 	                ng2_slim_loading_bar_1.SlimLoadingBar,
@@ -80854,7 +81224,7 @@
 	                business_search_component_1.BusinessSearchComponent
 	            ].concat(router_1.ROUTER_DIRECTIVES)
 	        }), 
-	        __metadata('design:paramtypes', [ng2_slim_loading_bar_1.SlimLoadingBarService])
+	        __metadata('design:paramtypes', [ng2_slim_loading_bar_1.SlimLoadingBarService, login_service_ts_1.LoginService])
 	    ], AppComponent);
 	    return AppComponent;
 	}());

@@ -5,7 +5,7 @@ import {BusinessSearchComponent} from './business-search.component';
 import {BusinessService} from './business.service';
 import {FavoritesService} from '../favorites/favorites.service';
 import {Business} from '../../schemas/Business';
-import {FavoritesComponent} from '../favorites/favorites.component';
+import {FavoritesPanelComponent} from '../favorites/favorites-panel.component';
 import {businessListMock} from '../../mocks/business-list-mock.ts';
 
 @Component({
@@ -19,7 +19,7 @@ import {businessListMock} from '../../mocks/business-list-mock.ts';
       Add to Favorites</button>
   </div>
   <div class="favorites-panel">
-    <favorites></favorites>
+    <favorites-panel></favorites-panel>
   </div>
   `,
   styles:[`
@@ -39,7 +39,7 @@ import {businessListMock} from '../../mocks/business-list-mock.ts';
       bottom: 17px;
     }
   `],
-  directives:[BusinessSearchComponent,BusinessComponent,FavoritesComponent]
+  directives:[BusinessSearchComponent,BusinessComponent,FavoritesPanelComponent]
 })
 
 export class BusinessListComponent implements OnInit,OnDestroy{

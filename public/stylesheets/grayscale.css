@@ -322,7 +322,10 @@ body {
 }
 /* BEGIN BEN's (my) CUSTOM CSS */
 .well {
-  background-color:#212b31;
+  background-color:#333435;
+  border-radius: 0px;
+  border-width: 1px;
+  border-color: black;
 }
 .register-body {
   background-color: 'gray';

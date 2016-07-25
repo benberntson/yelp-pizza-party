@@ -2,21 +2,23 @@ import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {BusinessListComponent} from './business/business-list.component';
 import {BusinessSearchComponent} from './business/business-search.component';
-import {SlimLoadingBar,SlimLoadingBarService} from 'ng2-slim-loading-bar/ng2-slim-loading-bar';
-
-
+import {SlimLoadingBar, SlimLoadingBarService} from 'ng2-slim-loading-bar/ng2-slim-loading-bar';
+import {LoginService} from './user/login.service.ts';
 
 @Component({
   selector: 'app',
   template: `
   <div class="navigation">
     <ul class="nav nav-pills">
-      <li><a [routerLink]="['']">Home</a></li>
-      <li><a [routerLink]="['/search']">Search</a></li>    
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li *ngIf="isLoggedIn()"><a [routerLink]="['/search']">Search</a></li> 
+      <li *ngIf="isLoggedIn()"><a [routerLink]="['/favorites']">Favorites</a></li>  
+      <li *ngIf="!isLoggedIn()"><a [routerLink]="['/signup']">Signup</a></li>    
+      <li *ngIf="!isLoggedIn()"><a [routerLink]="['/signin']">Signin</a></li> 
+      <li *ngIf="isLoggedIn()"><a (click)="logOut()">Log Out</a></li>   
     </ul>
   </div>
   <router-outlet></router-outlet>
-  <ng2-slim-loading-bar></ng2-slim-loading-bar>
   `,
   styles: [`
     .navigation{
@@ -41,8 +43,17 @@ import {SlimLoadingBar,SlimLoadingBarService} from 'ng2-slim-loading-bar/ng2-sli
     BusinessListComponent,
     BusinessSearchComponent,
     ...ROUTER_DIRECTIVES
-    ]
+  ]
 })
-export class AppComponent{ 
-  constructor(private _slimLoadingBarService:SlimLoadingBarService){}
+export class AppComponent {
+  constructor(
+    private _slimLoadingBarService: SlimLoadingBarService,
+    private _loginService: LoginService
+  ) { }
+  isLoggedIn() {
+    return this._loginService.isLoggedIn();
+  }
+  logOut() {
+    localStorage.clear();
+  }
 }
